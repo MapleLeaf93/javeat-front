@@ -29,10 +29,10 @@ export default function Login()
         axios.post("/login", login)
         .then((response)=>
             {
-                    console.log(response.data);
+                   
                 setData(response.data);
                 navigate("/allrestaurants");
-                    console.log(response.headers);
+                    
             }
             )
             .catch((error) => {
