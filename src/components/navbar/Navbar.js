@@ -8,15 +8,15 @@ export default function Navbar()
                 <div className="container-fluid">
                     <img
                         className="p-0 rounded-4 m-1"
-                        // style={{ width: "75px", height: "60px" }}
-                        src=""
+                        style={{ width: "60px"}}
+                        src="https://pngimg.com/d/burger_king_PNG11.png"
                         alt="Logo"
                         onClick=""
                     />
 
                     <div className="navbar-nav">
-                        <Link className="btn btn-outline-light text-light me-2" to="/login"><h3>Login</h3></Link>
-                        <Link className="btn btn-outline-light text-light" to="/register"><h3>Register</h3></Link>
+                        <Link className="btn btn-outline-light me-2" to="/login">Login</Link>
+                        <Link className="btn btn-outline-light" to="/register">Register</Link>
                     </div>
                 </div>
             </nav>

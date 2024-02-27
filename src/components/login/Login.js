@@ -72,7 +72,7 @@ export default function Login()
 
     return (
         <>
-            <div className="container form-container">
+            <div className="container form-container p-4">
                 <form>
                     <div className="mb-3">
                         <label className="form-label">Email</label>
