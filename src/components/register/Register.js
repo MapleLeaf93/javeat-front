@@ -8,6 +8,13 @@ export default function Register() {
 
     const passwordRegex = /^(?=.[a-z])(?=.[A-Z])(?=.\d)(?=.[@#$%^&+=!]).{8,}$/;
 
+    function synchronize(e)
+    {
+        let clone = {...register};
+        clone[e.target.name] =e.target.value;
+        setRegister(clone);
+    }
+
     function sendRegistration(e) 
     {
         if (!passwordRegex.test(e.target.name === "password")) 

@@ -4,7 +4,8 @@ import { atom, useAtom } from 'jotai';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Navbar from './components/navbar/Navbar';
 import AllRestaurants from './components/restaurant/AllRestaurants';
-import Register from './components/register/Register';
+import Register from './components/register/register';
+
 
 export const client=atom({});
 
