@@ -28,12 +28,12 @@ export default function Register() {
 
         if (!passwordRegex.test(pass)) 
         {
-            alert('La password deve contenere almeno 8 caratteri, una maiuscola, una minuscola, un carattere speciale e un numero.');
+            alert('The password must contain at least 8 characters, one uppercase letter, one lowercase letter, one special character, and one number.');
             return;
         }
 
         if (pass !== passRep) {
-            alert("Le password non corrispondono!");
+            alert("Passwords do not match!");
             return;
         }
 
@@ -41,13 +41,13 @@ export default function Register() {
         axios.post("/register", register)
             .then(response => {
                 if (response.data && response.status === 200) {
-                    alert("Registrazione completata con Successo")
+                    alert("Registration completed successfully.")
                     navigate("/");
                 }
             })
             .catch(error => {
-                console.error('Errore durante la registrazione!', error);
-                alert('Errore durante la registrazione. Riprova.');
+                console.error('Error during registration!', error);
+                alert('Error during registration. Please try again.');
             });
     }
 
