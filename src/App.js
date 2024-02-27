@@ -6,7 +6,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Navbar from './components/navbar/Navbar';
 import AllRestaurants from './components/restaurant/AllRestaurants';
 
-
+export const client=atom({});
 
 function App() {
   return (
