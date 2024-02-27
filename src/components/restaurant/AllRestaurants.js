@@ -6,9 +6,9 @@ import SingleRestaurant from "./SingleRestaurant";
 
 export default function AllRestaurants() {
     //filtro in base a tipologia di cibo e DISTANZA
-    
-    
-    
+
+
+
     const [loggato, setLoggato] = useAtom(client);
     const [restaurants, setRestaurants] = useState([]);
 
@@ -17,8 +17,8 @@ export default function AllRestaurants() {
     }
 
     useEffect(() => {
-                                //id utente loggato nel contesto globale
-        axios.get("/restaurants/"+loggato.id).then(
+        //id utente loggato nel contesto globale
+        axios.get("/restaurants/" + loggato.id).then(
             response => {
                 setRestaurants(response.data);
             }
@@ -27,10 +27,12 @@ export default function AllRestaurants() {
     }, []);
 
     return (
-        <>
-            <div>
-            {restaurants && restaurants.map((r)=><SingleRestaurant key={r.id} r={r} index={r.id}/>)}
+
+        <div className="col col-8 px-4">
+            <div className="row">
+                {restaurants && restaurants.map((r) => <SingleRestaurant key={r.id} r={r} index={r.id} />)}
             </div>
-        </>
+        </div>
+
     );
 }
