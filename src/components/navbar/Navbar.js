@@ -15,8 +15,8 @@ export default function Navbar()
                     />
 
                     <div className="navbar-nav">
-                        <Link className="text-white btn btn-outline-light me-2 " to="/"><h4>Login</h4></Link>
-                        <Link className="text-white btn btn-outline-light  " to="/"><h4>Register</h4></Link>
+                        <Link className="btn btn-outline-light text-light me-2" to="/login"><h3>Login</h3></Link>
+                        <Link className="btn btn-outline-light text-light" to="/register"><h3>Register</h3></Link>
                     </div>
                 </div>
             </nav>

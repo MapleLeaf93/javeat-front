@@ -1,10 +1,10 @@
-import logo from './logo.svg';
 import './App.css';
 import "bootstrap/dist/css/bootstrap.css";
 import { atom, useAtom } from 'jotai';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Navbar from './components/navbar/Navbar';
 import AllRestaurants from './components/restaurant/AllRestaurants';
+import Register from './components/register/Register';
 
 export const client=atom({});
 
@@ -13,7 +13,8 @@ function App() {
     <BrowserRouter>
       <Navbar/>
       <Routes>
-      <Route path='' element={<AllRestaurants/>}></Route>
+      <Route index element={<AllRestaurants/>}></Route>
+      <Route path='/register' element={<Register/>}></Route>
       </Routes>
     </BrowserRouter>
   );
