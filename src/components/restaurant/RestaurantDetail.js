@@ -7,42 +7,69 @@
     //Permettere in tale colonna l'aggiunta e la rimozione rapida di un piatto inserito
     //e aggiungere pulsante "buy" --> porta a deliveryCreation
 
-    import { useState, useEffect } from "react";
-    import { useParams, Link } from "react-router-dom";
-    import axios from "axios";
-    
-    export default function RestaurantDetail() {
-        const { id } = useParams();
-        const [restaurant, setRestaurant] = useState({});
-        const [updating, setUpdating] = useState(false);
-    
-        useEffect(() => {
-            axios.get(`/restaurants/${id}`).then((resp) => {
-                setRestaurant(resp.data);
-            }).catch(error => {
-                console.error('Errore durante il recupero dei dettagli del ristorante:', error);
-            });
-        }, [id]);
-    
-    
-        // Implementa la logica per mostrare il menu diviso per categorie dei piatti e gestire l'aggiunta/rimozione di piatti
-    
-        return (
-            <div className="container d-flex justify-content-center text-center">
-                <div className="card">
-                    <div className="card-body">
-                        <div className="mb-auto">
-                            <h3 className="card-title"><b>Name:</b> {restaurant.name}</h3>
-                            <img className="card-img-top" src={restaurant.phone}/>
-                            <h3 className="">Phone: {restaurant.phone}</h3>
-                            <h3 className="">Open at: {restaurant.openingHour} - Close at: {restaurant.closingHour}</h3>
-                        </div>
-                        <div className="mt-auto">
-                            {/* Aggiungi la logica per mostrare il menu del ristorante */}
-                            {/* Esempio: <MenuComponent menu={restaurant.menu} /> */}
-                        </div>
+import { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
+import axios from "axios";
+import { useAtom } from "jotai";
+
+export default function RestaurantDetail() {
+    const { resId } = useParams();
+    const [restaurant, setRestaurant] = useState(null); // Cambiato in null per gestire meglio il caricamento
+    const [utente, setUtente] = useAtom(client);
+
+    useEffect(() => {
+        axios.get(`/restaurant/full/${utente.id} /${resId}`)
+        .then((resp) => {
+            setRestaurant(resp.data);
+        }).catch(error => {
+            console.error('Errore durante il recupero dei dettagli del ristorante:', error);
+        });
+    }, [utente.id, resId]);
+
+    // Funzione per raggruppare e visualizzare i piatti per categoria
+    const renderDishesByCategory = (menu) => {
+        if (!menu) return <p>Caricamento menu...</p>;
+
+        const groupedDishes = menu.reduce((acc, dish) => {
+            const category = dish.category || 'Altro';
+            acc[category] = [...(acc[category] || []), dish];
+            return acc;
+        }, {});
+
+        return Object.entries(groupedDishes).map(([category, dishes]) => (
+            <div key={category}>
+                <h4>{category}</h4>
+                {dishes.map(dish => (
+                    <div key={dish.id}>
+                        <span>{dish.name} - Prezzo: {dish.price}€</span>
+                        {/* Qui potresti aggiungere i pulsanti per aggiungere/rimuovere i piatti */}
                     </div>
+                ))}
+            </div>
+        ));
+    };
+
+    return (
+        <div className="container d-flex justify-content-center text-center">
+            <div className="card">
+                <div className="card-body">
+                    {restaurant ? (
+                        <>
+                            <div className="mb-auto">
+                                <h2 className="card-title"><b>Name:</b> {restaurant.name}</h2>
+                                <img className="card-img-top" src={restaurant.imgUrl} alt="Restaurant" style={{ maxWidth: '100%', height: 'auto' }}/>
+                                <p>Phone: {restaurant.phone}</p>
+                                <p>Open at: {restaurant.openingHour} - Close at: {restaurant.closingHour}</p>
+                            </div>
+                            <div className="mt-auto">
+                                {renderDishesByCategory(restaurant.menu)}
+                            </div>
+                        </>
+                    ) : (
+                        <p>Caricamento dettagli del ristorante...</p>
+                    )}
                 </div>
             </div>
-        );
-    }
+        </div>
+    );
+}
