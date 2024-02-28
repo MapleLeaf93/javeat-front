@@ -12,7 +12,6 @@ export default function AllRestaurants() {
     const [loggato, setLoggato] = useAtom(client);
     const [restaurants, setRestaurants] = useState([]);
     const [maxDistance,setMaxDistance] = useState(500);
-    const distancemax =useRef(null);
     const [checkboxes, setCheckboxes] = useState({
         italian: false,
         mexican: false,
@@ -73,7 +72,7 @@ export default function AllRestaurants() {
                         <div className=" card px-3 mx-4 py-3 bg-warning" >
                             <div className="p-2 px-4" >
                                 <label htmlFor="customRange1" className="form-label" style={{ color: "white" }}>distance <br/>{maxDistance}</label>
-                                <input type="range" min={0} max={1000} onChange={(e)=>setMaxDistance(e.target.value)} ref={distancemax} className="form-range" id="customRange1" />
+                                <input type="range" min={0} max={1000} onChange={(e)=>setMaxDistance(e.target.value)} value={maxDistance} className="form-range" id="customRange1" />
                             </div>
                             <div className="p-2 px-4" >
                                 <div className="text-left">
@@ -152,7 +151,7 @@ export default function AllRestaurants() {
 
             <div className="col col-8 px-4">
                 <div className="row">
-                    {restaurantToShow && restaurantToShow.filter(r=>isShowable(r,distancemax.current.value)).map((r) => <SingleRestaurant key={r.id} r={r} index={r.id} />)}
+                    {restaurantToShow && restaurantToShow.filter(r=>isShowable(r,maxDistance)).map((r) => <SingleRestaurant key={r.id} r={r} index={r.id} />)}
                 </div>
             </div>
         </>
