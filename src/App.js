@@ -36,7 +36,7 @@ function App() {
         <Route path='/allrestaurants' element={<AllRestaurants />}></Route>
         <Route path='/register' element={<Register />}></Route>
         <Route path='/login' element={<Login />}></Route>
-        <Route path='/restaurants/:id' element={<SingleRestaurant />}></Route>
+        <Route path='/restaurants/:user_id/:r_id' element={<SingleRestaurant />}></Route>
       </Routes>
     </BrowserRouter>
   );
