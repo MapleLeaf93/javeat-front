@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import axios from "axios";
 import { useAtom } from "jotai";
 import { client } from "../../App";
+import '../../styles.css';
 
 export default function RestaurantDetail() {
     const { r_id } = useParams();

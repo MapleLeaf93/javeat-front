@@ -3,6 +3,10 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { client } from "../../App";
 import { useAtom } from 'jotai';
+import '../../styles.css';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faXmark } from '@fortawesome/free-solid-svg-icons'
+
 
 export default function Login()
 {
@@ -53,16 +57,14 @@ export default function Login()
     function ErrorPopup({ message, onClose }) {
         return (
             <div className="modal" tabIndex="-1" role="dialog" style={{ display: "block", backgroundColor: "rgba(0, 0, 0, 0.5)" }}>
-                <div className="modal-dialog" role="document">
+                <div className="modal-dialog mt-10" role="document">
                     <div className="modal-content">
-                        <div className="modal-header">
+                        <div className="modal-header d-flex justify-content-between">
                             <h5 className="modal-title">Error</h5>
+                            <FontAwesomeIcon className="btn btn-outline-secondary" icon={faXmark} onClick={onClose}/>
                         </div>
                         <div className="modal-body">
                             {message}
-                        </div>
-                        <div className="modal-footer">
-                            <button type="button" className="btn btn-secondary" onClick={onClose}>Close</button>
                         </div>
                     </div>
                 </div>
@@ -73,7 +75,7 @@ export default function Login()
 
     return (
         <>
-            <div className="container form-container p-4">
+            <div className="container form-container p-4 mt-4">
                 <form>
                     <div className="mb-3">
                         <label className="form-label">Email</label>
@@ -86,8 +88,10 @@ export default function Login()
                     </div>
 
                     {showErrorPopup && <ErrorPopup message={errorMessage} onClose={() => setShowErrorPopup(false)} />}
-
-                    <input className="btn btn-primary" type="button" onClick={sendForm} value="Login" />
+                    <div className="text-center">
+                        <input className="btn btn-success" type="button" onClick={sendForm} value="Login" />
+                    </div>
+                    
                 </form>
             </div>
 
