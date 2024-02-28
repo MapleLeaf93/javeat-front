@@ -10,30 +10,25 @@ import { useEffect } from 'react';
 import SingleRestaurant from './components/restaurant/SingleRestaurant';
 
 
-export const client = atom({});
+const clientInMemory = atom(localStorage.getItem('clientState') ? JSON.parse(localStorage.getItem('clientState')) : null);
+
+
+export const client = atom(
+  (get) => get(clientInMemory),
+  (get,set,newClient) =>{
+    set(clientInMemory,newClient);
+    localStorage.setItem('clientState',JSON.stringify(newClient));
+  }
+
+
+);
 
 function App() {
 
   const [clientState, setClientState] = useAtom(client);
 
-  useEffect(() => {
-    const storedClientState = localStorage.getItem('clientState');
-    if (storedClientState) {
-      setClientState(JSON.parse(storedClientState));
-    }
-  },
-    [setClientState]
-  );
-
-  useEffect(()=>{
-    if(Object.keys(clientState).length >0)
-    {
-      localStorage.setItem('ClientState', JSON.stringify(clientState));
-    }
-  },[clientState]);
-
-
-  return (
+  
+   return (
     <BrowserRouter>
       <Navbar />
       <Routes>

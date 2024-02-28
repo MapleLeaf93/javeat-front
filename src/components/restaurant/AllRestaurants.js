@@ -12,9 +12,7 @@ export default function AllRestaurants() {
     const [loggato, setLoggato] = useAtom(client);
     const [restaurants, setRestaurants] = useState([]);
 
-    if (Object.keys(loggato).length == 0) {
-        setLoggato(JSON.parse(localStorage.getItem.apply('clientState')));
-    }
+    
 
     useEffect(() => {
         //id utente loggato nel contesto globale

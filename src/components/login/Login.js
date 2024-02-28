@@ -29,7 +29,7 @@ export default function Login()
         axios.post("/login", login)
         .then((response)=>
             {
-                   
+                
                 setData(response.data);
                 navigate("/allrestaurants");
                     
