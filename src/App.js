@@ -8,6 +8,7 @@ import Login from './components/login/Login';
 import Register from './components/register/Register';
 import { useEffect } from 'react';
 import SingleRestaurant from './components/restaurant/SingleRestaurant';
+import RestaurantDetail from './components/restaurant/RestaurantDetail';
 
 
 const clientInMemory = atom(localStorage.getItem('clientState') ? JSON.parse(localStorage.getItem('clientState')) : null);
@@ -37,6 +38,7 @@ function App() {
         <Route path='/register' element={<Register />}></Route>
         <Route path='/login' element={<Login />}></Route>
         <Route path='/restaurants/:user_id/:r_id' element={<SingleRestaurant />}></Route>
+        <Route path='/restaurantsdetails/:r_id' element={<RestaurantDetail/>}> </Route>
       </Routes>
     </BrowserRouter>
   );

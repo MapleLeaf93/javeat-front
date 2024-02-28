@@ -11,20 +11,21 @@ import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 import { useAtom } from "jotai";
+import { client } from "../../App";
 
 export default function RestaurantDetail() {
-    const { resId } = useParams();
+    const { r_id } = useParams();
     const [restaurant, setRestaurant] = useState(null); // Cambiato in null per gestire meglio il caricamento
-    const [utente, setUtente] = useAtom(client);
+    const [user, setUser] = useAtom(client);
 
     useEffect(() => {
-        axios.get(`/restaurant/full/${utente.id} /${resId}`)
+        axios.get(`/restaurant/full/` + user.id + `/`+ r_id)
         .then((resp) => {
             setRestaurant(resp.data);
         }).catch(error => {
             console.error('Errore durante il recupero dei dettagli del ristorante:', error);
         });
-    }, [utente.id, resId]);
+    }, [user.id, r_id]);
 
     // Funzione per raggruppare e visualizzare i piatti per categoria
     const renderDishesByCategory = (menu) => {

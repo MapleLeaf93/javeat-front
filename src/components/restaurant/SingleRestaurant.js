@@ -9,7 +9,7 @@ export default function SingleRestaurant(props) {
 
     return (
         <><div className='col col-md-3'>
-            <div className="card" >
+            <div className="card p-2" >
                 <img src={props.r.imgUrl} className="card-img-top" alt="Restaurant image" style={{ width: "100%", height: "100%" }} />
                 <div className="card-body">
                     <h3 className="card-title">{props.r.name}</h3>
@@ -21,7 +21,7 @@ export default function SingleRestaurant(props) {
                     </div>
 
                     <p className="card-text">distance: {props.r.distance}</p>
-                    <Link className="btn btn-primary" to={"/restaurants/" + user.id + "/" + props.r.id} >Detail</Link>
+                    <Link className="btn btn-primary" to={"/restaurantsdetails/" + props.r.id} >Detail</Link>
                 </div>
             </div>
         </div>
