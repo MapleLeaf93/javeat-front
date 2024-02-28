@@ -9,9 +9,43 @@ export default function RestaurantDetail() {
     const [restaurant, setRestaurant] = useState(null);
     const [user, setUser] = useAtom(client);
     const [cart, setCart] = useState([]);
+    const [quantity, setQuantity] = useState({});
 
-    const addToCart = (dish) => setCart([...cart, dish]);
-    const removeFromCart = (dish) => setCart(cart.filter((item) => item.id !== dish.id));
+    // const addToCart = (dish) => setCart([...cart, dish]); 
+    const addToCart = (dish) => {
+        const existingDish = cart.find(item => item.id === dish.id);
+        if (existingDish) {
+            const updatedCart = cart.map(dishInCart => {
+                if (dishInCart.id === dish.id) {
+                    return { ...dishInCart, quantity: dishInCart.quantity + 1 };
+                }
+                return dishInCart;
+            });
+            setCart(updatedCart);
+        } else {
+            setCart([...cart, { ...dish, quantity: 1 }]);
+        }
+    };
+    
+    // const removeFromCart = (dish) => setCart(cart.filter((item) => item.id !== dish.id));
+    const removeFromCart = (dish) => {
+        const updatedCart = cart.map(dishInCart => {
+            if (dishInCart.id === dish.id) {
+                if (dishInCart.quantity > 1) {
+                    return { ...dishInCart, quantity: dishInCart.quantity - 1 };
+                } else {
+                    // Rimuovi completamente il piatto se la quantità è 1
+                    return null;
+                }
+            }
+            return dishInCart;
+        });
+        // Creazione di un nuovo array senza elementi null
+        const filteredCart = updatedCart.filter(Boolean);
+        setCart(filteredCart);
+    };
+        
+
 
     const [deliveryCost, setDeliveryCost] = useState(0);
 
@@ -64,7 +98,7 @@ export default function RestaurantDetail() {
             <h3>Your Cart</h3>
             {cart.map((dish) => (
                 <div key={dish.id}>
-                    <span>{dish.name} - Price: {dish.price}€</span>
+                    <span>{dish.name} - Price: {dish.price}€ - Quantity: {dish.quantity}</span>
                     <button onClick={() => removeFromCart(dish)}>Remove</button>
                 </div>
             ))}
