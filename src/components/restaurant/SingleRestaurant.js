@@ -12,9 +12,14 @@ export default function SingleRestaurant(props) {
             <div className="card" >
                 <img src={props.r.imgUrl} className="card-img-top" alt="Restaurant image" style={{ width: "100%", height: "100%" }} />
                 <div className="card-body">
-                    <h5 className="card-title">{props.r.name}</h5>
+                    <h3 className="card-title">{props.r.name}</h3>
                     <h4 className="card-title">{props.r.open ? "open" : "closed"}  </h4>
-                    <h3 className="card-title">{props.r.foodTypes}</h3>
+                    <div >
+                        {props.r.foodTypes.map((foodType, index) => (
+                            <span key={index} className="badge bg-primary me-2">{foodType}</span>
+                        ))}
+                    </div>
+
                     <p className="card-text">distance: {props.r.distance}</p>
                     <Link className="btn btn-primary" to={"/restaurants/" + user.id + "/" + props.r.id} >Detail</Link>
                 </div>
