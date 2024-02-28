@@ -21,7 +21,6 @@ export default function Login()
         let clone = { ...login };
         clone[e.target.name] = e.target.value;
         setLogin(clone);
-
     }
     
     function sendForm()
