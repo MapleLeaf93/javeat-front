@@ -48,8 +48,8 @@ function App() {
         <Route path='/login' element={<Login />}></Route>
         <Route path='/restaurants/:user_id/:r_id' element={<SingleRestaurant />}></Route>
         <Route path='/restaurantsdetails/:r_id' element={<RestaurantDetail/>}> </Route>
-        <Route path='/deliverycreation/:r_id' element={<DeliveryCreation/>}> </Route>
-        <Route path='/deliveryconfirmed' element={<DeliveryConfirmed/>} ></Route>
+        <Route path='/deliverycreation/:r_id/:dist' element={<DeliveryCreation/>}> </Route>
+        <Route path='/deliveryconfirmed/:dto' element={<DeliveryConfirmed/>} ></Route>
       </Routes>
     </BrowserRouter>
   );

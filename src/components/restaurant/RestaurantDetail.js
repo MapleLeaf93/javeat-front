@@ -9,7 +9,7 @@ import '../../styles.css';
 
 export default function RestaurantDetail() {
     const { r_id } = useParams();
-    const [restaurant, setRestaurant] = useState(null);
+    const [restaurant, setRestaurant] = useState("");
     const [user, setUser] = useAtom(client);
     const [cart, setCart] = useState([]);
     const [cartGlob, setCartGlob] = useAtom(cartGlobal);
@@ -71,8 +71,11 @@ export default function RestaurantDetail() {
         axios.get(`/restaurant/full/` + user.id + `/` + r_id)
             .then((resp) => {
                 setRestaurant(resp.data);
+                
+
             }).catch(error => {
                 console.error('Errore durante il recupero dei dettagli del ristorante:', error);
+
             });
     }, [user.id, r_id]);
 
@@ -120,7 +123,6 @@ export default function RestaurantDetail() {
             <div className="text-center">
                 <Link className="btn btn-outline-success" to={"/deliverycreation/" + r_id +`/`+ restaurant.distance} onClick={()=>setCartGlob(cart)}>Proceed to Order</Link>
             </div>
-
         </div>
     );
 
