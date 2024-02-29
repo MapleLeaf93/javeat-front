@@ -3,6 +3,8 @@ import { useParams } from "react-router-dom";
 import axios from "axios";
 import { useAtom } from "jotai";
 import { client } from "../../App";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPlus, faXmark} from '@fortawesome/free-solid-svg-icons'
 import '../../styles.css';
 
 export default function RestaurantDetail() {
@@ -53,7 +55,7 @@ export default function RestaurantDetail() {
                 {dishes.map(dish => (
                     <div key={dish.id}>
                         <span>{dish.name} - Price: {dish.price}€</span>
-                        <button className="btn btn-sm btn-outline-success ms-3" onClick={() => addToCart(dish)}>Add to your Order</button>
+                        <button className="btn btn-sm btn-outline-success m-2" onClick={() => addToCart(dish)}><FontAwesomeIcon icon={faPlus} /></button>
                     </div>
                 ))}
             </div>
@@ -66,18 +68,22 @@ export default function RestaurantDetail() {
             {cart.map((dish) => (
                 <div key={dish.id}>
                     <span>{dish.name} - Price: {dish.price}€</span>
-                    <button onClick={() => removeFromCart(dish)}>Remove</button>
+                    <FontAwesomeIcon className="mt-auto ms-2 dark-hover" onClick={() => removeFromCart(dish)} size="lg" icon={faXmark} style={{color: "#ff0000",}} />
                 </div>
             ))}
             <hr />
             <p>Delivery Cost: {deliveryCost}€</p>
             <p>Total Cost: {calculateTotalCost()}€</p>
+            <div className="text-center">
+                <button className="btn btn-outline-success">Proceed to Order</button>
+            </div>
+            
         </div>
     );
 
     return (
-        <div className="container d-flex justify-content-center text-center">
-            <div className="col-8">
+        <div className="container d-flex justify-content-center mt-5">
+            <div className="col-8 pe-4">
                 <div className="card-body">
                     {restaurant ? (
                         <>
@@ -96,8 +102,11 @@ export default function RestaurantDetail() {
                     )}
                 </div>
             </div>
-            <div className="col-4">
-                {renderCart()}
+            <div className="col-4 ps-5 sticky-top">
+                <div className="sticky-top">
+                    {renderCart()}
+                </div>
+                
             </div>
         </div>
     );
