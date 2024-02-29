@@ -1,95 +1,121 @@
 import axios from 'axios';
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import '../../styles.css';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faXmark } from '@fortawesome/free-solid-svg-icons'
+import { useNavigate } from 'react-router-dom';
 
 export default function Register() {
 
-    const [mail, setMail] = useState('');
-    const [pass, setPass] = useState('');
-    const [passRep, setPassRep] = useState('');
-    const [phone, setPhone] = useState('');
-    const [posx, setPosx] = useState('');
-    const [posy, setPosy] = useState('');
-    const navigate = useNavigate();
+    const [registrationData, setRegistrationData] = useState({
+        mail: '',
+        password: '',
+        passRep: '',
+        phone: '',
+        posx: '',
+        posy: '',
+    });
 
+    const [showErrorPopup, setShowErrorPopup] = useState(false);
+    const [errorMessage, setErrorMessage] = useState('');
+    const navigate = useNavigate();
     const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@#$%^&+=!]).{8,}$/;
 
+    function synchronize(e) {
+        const { name, value } = e.target;
+        setRegistrationData((prevData) => ({
+            ...prevData,
+            [name]: value,
+        }));
+    }
 
     function sendRegistration() {
 
-        const register = {
-            "mail": mail,
-            "password": pass,
-            "phone": phone,
-            "positionX": posx,
-            "positionY": posy
-        }
-
-        if (!passwordRegex.test(pass)) 
-        {
-            alert('The password must contain at least 8 characters, one uppercase letter, one lowercase letter, one special character, and one number.');
+        if (!passwordRegex.test(registrationData.password)) {
+            setErrorMessage('The password must contain at least 8 characters, one uppercase letter, one lowercase letter, one special character, and one number.');
+            setShowErrorPopup(true);
             return;
         }
 
-        if (pass !== passRep) {
-            alert("Passwords do not match!");
+        if (registrationData.password !== registrationData.passRep) {
+            setErrorMessage('Passwords do not match!');
+            setShowErrorPopup(true);
             return;
         }
 
-
-        axios.post("/register", register)
+        axios.post("/register", registrationData)
             .then(response => {
                 if (response.data && response.status === 200) {
                     alert("Registration completed successfully.")
-                    navigate("/");
+                    navigate('/')
                 }
             })
             .catch(error => {
                 console.error('Error during registration!', error);
-                alert('Error during registration. Please try again.');
+                setErrorMessage('Error during registration. Please try again.');
+                setShowErrorPopup(true);
             });
+    }
+
+    function ErrorPopup({ message, onClose }) {
+        return (
+            <div className="modal" tabIndex="-1" role="dialog" style={{ display: "block", backgroundColor: "rgba(0, 0, 0, 0.5)" }}>
+                <div className="modal-dialog mt-10" role="document">
+                    <div className="modal-content">
+                        <div className="modal-header d-flex justify-content-between">
+                            <h5 className="modal-title">Error</h5>
+                            <FontAwesomeIcon className="btn btn-outline-secondary" icon={faXmark} onClick={onClose}/>
+                        </div>
+                        <div className="modal-body">
+                            {message}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        );
     }
 
     return (
         <>
-            <div className="container  form-container">
+            <div className="container  form-container mt-4">
                 <form className="p-4">
                     <div className="mb-3">
                         <label className="form-label">Insert e-mail</label>
-                        <input name="mail" type="email" className="form-control" aria-describedby="emailHelp" onChange={(e) => setMail(e.target.value)} />
+                        <input name="mail" type="email" className="form-control" aria-describedby="emailHelp" onChange={synchronize} />
                     </div>
 
                     <div className="mb-3">
                         <label className="form-label">Insert Password</label>
-                        <input name="password" type="password" className="form-control" onChange={(e) => setPass(e.target.value)} />
+                        <input name="password" type="password" className="form-control" onChange={synchronize} />
                     </div>
 
                     <div className="mb-3">
                         <label className="form-label">Confirm Password</label>
-                        <input name="passwordConfirm" type="password" className="form-control" onChange={(e) => setPassRep(e.target.value)} />
+                        <input name="passRep" type="password" className="form-control" onChange={synchronize} />
                     </div>
 
                     <div className="mb-3">
                         <label className="form-label">Phone</label>
-                        <input name="phone" type="text" className="form-control" onChange={(e) => setPhone(e.target.value)} />
+                        <input name="phone" type="text" className="form-control" onChange={synchronize} />
                     </div>
 
                     <div className="mb-3">
                         <label className="form-label">Position X</label>
-                        <input name="positionx" type="text" className="form-control" onChange={(e) => setPosx(e.target.value)} />
+                        <input name="posx" type="text" className="form-control" onChange={synchronize} />
                     </div>
 
                     <div className="mb-3">
                         <label className="form-label">Position Y</label>
-                        <input name="positiony" type="text" className="form-control" onChange={(e) => setPosy(e.target.value)} />
+                        <input name="posy" type="text" className="form-control" onChange={synchronize} />
                     </div>
+
                     <div className="d-flex justify-content-center">
                         <input className="btn btn-dark" type="button" onClick={sendRegistration} value="Register" />
                     </div>
                 </form>
             </div>
 
+            {showErrorPopup && <ErrorPopup message={errorMessage} onClose={() => setShowErrorPopup(false)} />}
         </>
     );
 }
