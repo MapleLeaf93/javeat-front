@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import axios from "axios";
 import { useAtom } from "jotai";
-import { client } from "../../App";
+import { cartGlobal, client } from "../../App";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus, faXmark} from '@fortawesome/free-solid-svg-icons'
 import '../../styles.css';
@@ -12,9 +12,11 @@ export default function RestaurantDetail() {
     const [restaurant, setRestaurant] = useState(null);
     const [user, setUser] = useAtom(client);
     const [cart, setCart] = useState([]);
+    const [cartGlob,setCartGlob] = useAtom(cartGlobal);
     const [quantity, setQuantity] = useState({});
 
     // const addToCart = (dish) => setCart([...cart, dish]); 
+    //ritorna una lista di dishtodelivery: dish id, id delivery, quantità
     const addToCart = (dish) => {
         const existingDish = cart.find(item => item.id === dish.id);
         if (existingDish) {
@@ -89,6 +91,7 @@ export default function RestaurantDetail() {
                 {dishes.map(dish => (
                     <div key={dish.id}>
                         <span>{dish.name} - Price: {dish.price}€</span>
+                        {/* graficare ingredienti */}
                         <button className="btn btn-sm btn-outline-success m-2" onClick={() => addToCart(dish)}><FontAwesomeIcon icon={faPlus} /></button>
                     </div>
                 ))}
@@ -109,7 +112,7 @@ export default function RestaurantDetail() {
             <p>Delivery Cost: {deliveryCost}€</p>
             <p>Total Cost: {calculateTotalCost()}€</p>
             <div className="text-center">
-                <button className="btn btn-outline-success">Proceed to Order</button>
+                <Link className="btn btn-outline-success" to={"/deliverycreation/" + r_id} onClick={()=>setCartGlob(cart)}>Proceed to Order</Link>
             </div>
             
         </div>
