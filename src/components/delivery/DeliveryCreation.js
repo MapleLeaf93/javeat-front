@@ -30,9 +30,9 @@ export default function DeliveryCreation() {
             accumulator[dishtodelivery.id] = dishtodelivery.quantity;
             return accumulator;
         }, {}),
-        expected_arrival: selectedExpectedArrival,
+        expected_arrival: "",
         payment_method: "",
-        notes: note
+        notes: ""
     });
 
     useEffect(() => {
@@ -41,7 +41,7 @@ export default function DeliveryCreation() {
             const baseTime = new Date();  // Orario attuale
             const deliveryTimeOptions = [];
             // Calcolo del tempo di consegna previsto per opzioni specifiche (ogni 15 minuti)
-            for (let i = 0; i < 4; i++) {
+            for (let i = 0; i < 6; i++) {
                 const deliveryTime = new Date(baseTime);
                 const minutesToAdd = (i + 1) * 15 + distance * 2;  // Aggiungi 15 minuti più 2 minuti per unità di distanza
                 deliveryTime.setMinutes(baseTime.getMinutes() + minutesToAdd);
@@ -56,12 +56,25 @@ export default function DeliveryCreation() {
     }, []); // Dipendenza vuota per eseguire l'effetto solo al montaggio del componente
 
     // Funzione per gestire il cambiamento dell'orario di consegna selezionato
+    // Questo esempio assume che hai già un oggetto Date valido per ogni opzione
+    // e che lo converti in stringa ISO per il valore dell'opzione, qualcosa del genere:
+    // <option value={option.toISOString()}>...</option>
+
     const handleExpectedArrivalChange = (e) => {
-        setSelectedExpectedArrival(e.target.value);
+        const isoDateString = e.target.value; // La stringa ISO 8601 selezionata
+        const date = new Date(isoDateString); // Convertila in un oggetto Date
+        setSelectedExpectedArrival(date);
     };
 
-    function sendForm(paymentMethod,note,selectedExpectedArrival) {
-        const updatedDto = { ...dto, payment_method: paymentMethod, notes: note, expected_arrival: selectedExpectedArrival};
+    function sendForm(paymentMethod) {
+
+        const updatedDto = {
+            ...dto,
+            payment_method: paymentMethod,
+            notes: note,
+            expected_arrival: selectedExpectedArrival
+        };
+
         axios.post("/delivery", updatedDto)
             .then((response) => {
                 alert("Evviva tra poco potrai gustare le nostre prelibatezze!!! GNAAAM")
@@ -75,48 +88,47 @@ export default function DeliveryCreation() {
 
     }
 
-
     const formatTime = (date) => {
         const hours = date.getHours().toString().padStart(2, "0");
         const minutes = date.getMinutes().toString().padStart(2, "0");
         return `${hours}:${minutes}`;
     };
 
-    function handleConfirmed(){
+    function handleConfirmed() {
         setShowConfirm(true);
     }
 
     return (
         <>
             <div className="col ">
-                { !showConfirm && 
+                {!showConfirm &&
                     <form onSubmit={handleConfirmed}>
-                    {/* Delivery TIME*/}
-                    <div className="mb-3">
-                        <label htmlFor="inputTime" className="form-label">Choose delivery time</label>
-                        <select
-                            className="form-select"
-                            aria-label="Default select example"
-                            onChange={handleExpectedArrivalChange}
-                            value={selectedExpectedArrival}
-                        >
-                            <option value="" disabled>Select One</option>
-                            {expectedArrivalOptions.map((option, index) => (
-                                <option key={index} value={option}>{formatTime(option)}</option>
-                            ))}
-                        </select>
-                    </div>
-                    {/* NOTE*/}
-                    <div className="mb-3">
-                        <label for="exampleInputPassword1" className="form-label">Insert Notes</label>
-                        <input type="note" className="form-control" id="inputNote" onChange={setNote} placeholder="allergies, floor, intercom and similar" />
-                    </div>
+                        {/* Delivery TIME*/}
+                        <div className="mb-3">
+                            <label htmlFor="inputTime" className="form-label">Choose delivery time</label>
+                            <select
+                                className="form-select"
+                                aria-label="Default select example"
+                                onChange={handleExpectedArrivalChange}
+                                value={selectedExpectedArrival}
+                            >
+                                <option value="" disabled>Select One</option>
+                                {expectedArrivalOptions.map((option, index) => (
+                                    <option key={index} value={option}>{formatTime(option)}</option>
+                                ))}
+                            </select>
+                        </div>
+                        {/* NOTE*/}
+                        <div className="mb-3">
+                            <label for="exampleInputPassword1" className="form-label">Insert Notes</label>
+                            <input type="note" className="form-control" id="inputNote" onChange={(e) => setNote(e.target.value)} placeholder="allergies, floor, intercom and similar" />
+                        </div>
 
-                    <button type="submit" className="btn btn-primary">Confirm order</button>
+                        <button type="submit" className="btn btn-primary">Confirm order</button>
 
-                </form>}
+                    </form>}
                 {showConfirm &&
-                    <DeliveryConfirmed sendForm={sendForm}/>}
+                    <DeliveryConfirmed sendForm={sendForm} />}
             </div>
         </>
     );
