@@ -112,7 +112,7 @@ export default function RestaurantDetail() {
             <p>Delivery Cost: {deliveryCost}€</p>
             <p>Total Cost: {calculateTotalCost()}€</p>
             <div className="text-center">
-                <Link className="btn btn-outline-success" to={"/deliverycreation/" + r_id} onClick={()=>setCartGlob(cart)}>Proceed to Order</Link>
+                <Link className="btn btn-outline-success" to={"/deliverycreation/" + r_id +`/`+ restaurant.distance} onClick={()=>setCartGlob(cart)}>Proceed to Order</Link>
             </div>
             
         </div>
