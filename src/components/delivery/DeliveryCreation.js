@@ -1,6 +1,6 @@
 import { useAtom } from "jotai";
 import { cartGlobal, client, dtoDelivery } from "../../App";
-import { useState, useEffect} from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
 import { Link, Navigate, useNavigate, useParams } from "react-router-dom";
 import DeliveryConfirmed from "./DeliveryConfirmed";
@@ -15,11 +15,12 @@ export default function DeliveryCreation() {
     const navigate = useNavigate();
     const [user, setUser] = useAtom(client);
     const [cartG, setCartG] = useAtom(cartGlobal);
-    
+
     const { r_id, dist } = useParams();
     const [distance, setDistance] = useState(dist);
     const [expectedArrivalOptions, setExpectedArrivalOptions] = useState([]);
     const [selectedExpectedArrival, setSelectedExpectedArrival] = useState("");
+    const [showConfirm, setShowConfirm] = useState(false);
     const [note, setNote] = useState("");
 
     const [dto, setDto] = useState({
@@ -33,14 +34,12 @@ export default function DeliveryCreation() {
         payment_method: "",
         notes: note
     });
-    
-    useEffect(() => {
 
+    useEffect(() => {
         // Calcola l'orario di consegna previsto
         const calculateExpectedArrival = () => {
             const baseTime = new Date();  // Orario attuale
             const deliveryTimeOptions = [];
-
             // Calcolo del tempo di consegna previsto per opzioni specifiche (ogni 15 minuti)
             for (let i = 0; i < 4; i++) {
                 const deliveryTime = new Date(baseTime);
@@ -51,7 +50,6 @@ export default function DeliveryCreation() {
 
             return deliveryTimeOptions;
         };
-
         // Imposta le opzioni di orario di consegna previsto nello stato
         setExpectedArrivalOptions(calculateExpectedArrival());
 
@@ -62,6 +60,21 @@ export default function DeliveryCreation() {
         setSelectedExpectedArrival(e.target.value);
     };
 
+    function sendForm(paymentMethod,note,selectedExpectedArrival) {
+        const updatedDto = { ...dto, payment_method: paymentMethod, notes: note, expected_arrival: selectedExpectedArrival};
+        axios.post("/delivery", updatedDto)
+            .then((response) => {
+                alert("Evviva tra poco potrai gustare le nostre prelibatezze!!! GNAAAM")
+                // Effettua la navigazione o altre azioni necessarie dopo il completamento della richiesta
+                navigate("/allrestaurants");
+            })
+            .catch((error) => {
+                // Gestisci eventuali errori durante la richiesta
+                console.error("Errore durante l'invio del modulo:", error);
+            });
+
+    }
+
 
     const formatTime = (date) => {
         const hours = date.getHours().toString().padStart(2, "0");
@@ -69,10 +82,15 @@ export default function DeliveryCreation() {
         return `${hours}:${minutes}`;
     };
 
+    function handleConfirmed(){
+        setShowConfirm(true);
+    }
+
     return (
         <>
             <div className="col ">
-                <form>
+                { !showConfirm && 
+                    <form onSubmit={handleConfirmed}>
                     {/* Delivery TIME*/}
                     <div className="mb-3">
                         <label htmlFor="inputTime" className="form-label">Choose delivery time</label>
@@ -88,16 +106,17 @@ export default function DeliveryCreation() {
                             ))}
                         </select>
                     </div>
-                    
-
                     {/* NOTE*/}
                     <div className="mb-3">
                         <label for="exampleInputPassword1" className="form-label">Insert Notes</label>
                         <input type="note" className="form-control" id="inputNote" onChange={setNote} placeholder="allergies, floor, intercom and similar" />
                     </div>
 
-                    <Link type="submit" className="btn btn-primary"  to="/deliveryconfirmed">Confirm order</Link>
-                </form>
+                    <button type="submit" className="btn btn-primary">Confirm order</button>
+
+                </form>}
+                {showConfirm &&
+                    <DeliveryConfirmed sendForm={sendForm}/>}
             </div>
         </>
     );

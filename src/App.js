@@ -6,7 +6,6 @@ import Navbar from './components/navbar/Navbar';
 import AllRestaurants from './components/restaurant/AllRestaurants';
 import Login from './components/login/Login';
 import Register from './components/register/Register';
-import { useEffect } from 'react';
 import SingleRestaurant from './components/restaurant/SingleRestaurant';
 import RestaurantDetail from './components/restaurant/RestaurantDetail';
 import DeliveryCreation from './components/delivery/DeliveryCreation';
@@ -14,24 +13,7 @@ import DeliveryConfirmed from './components/delivery/DeliveryConfirmed';
 
 const CartInMemory = atom(localStorage.getItem('cartState')? JSON.parse(localStorage.getItem('cartState')) : null);
 const clientInMemory = atom(localStorage.getItem('clientState') ? JSON.parse(localStorage.getItem('clientState')) : null);
-const dtoDeliveryInMemory = atom(localStorage.getItem('dtoDelivery') ? JSON.parse(localStorage.getItem('dtoDelivery')): null);
 
-export const dtoDelivery = atom({
-  user_id: null,
-  restaurant_id: null,
-  idPiattoToQuantita: {},
-  expected_arrival: null,
-  payment_method: null,
-  notes: "",
-});
-
-// export const dtoDelivery = atom(
-//   (get)=>get(dtoDeliveryInMemory),
-//   (get,set,newDto) => {
-//     set(dtoDeliveryInMemory, newDto);
-//     localStorage.setItem.apply('dtoDelivery', JSON.stringify(newDto));
-//   }
-// );
 export const cartGlobal = atom(
   (get) => get(CartInMemory),
   (get,set,newCart) =>{
@@ -54,7 +36,6 @@ function App() {
   const [cartState, setCartState] = useAtom(cartGlobal);
   const [clientState, setClientState] = useAtom(client);
 
-  
    return (
     <BrowserRouter>
       <Navbar />
