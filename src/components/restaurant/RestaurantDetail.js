@@ -4,7 +4,7 @@ import axios from "axios";
 import { useAtom } from "jotai";
 import { cartGlobal, client } from "../../App";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPlus, faXmark} from '@fortawesome/free-solid-svg-icons'
+import { faPlus, faXmark } from '@fortawesome/free-solid-svg-icons'
 import '../../styles.css';
 
 export default function RestaurantDetail() {
@@ -12,7 +12,7 @@ export default function RestaurantDetail() {
     const [restaurant, setRestaurant] = useState(null);
     const [user, setUser] = useAtom(client);
     const [cart, setCart] = useState([]);
-    const [cartGlob,setCartGlob] = useAtom(cartGlobal);
+    const [cartGlob, setCartGlob] = useAtom(cartGlobal);
     const [quantity, setQuantity] = useState({});
 
     // const addToCart = (dish) => setCart([...cart, dish]); 
@@ -31,7 +31,7 @@ export default function RestaurantDetail() {
             setCart([...cart, { ...dish, quantity: 1 }]);
         }
     };
-    
+
     // const removeFromCart = (dish) => setCart(cart.filter((item) => item.id !== dish.id));
     const removeFromCart = (dish) => {
         const updatedCart = cart.map(dishInCart => {
@@ -49,7 +49,7 @@ export default function RestaurantDetail() {
         const filteredCart = updatedCart.filter(Boolean);
         setCart(filteredCart);
     };
-        
+
 
 
     const [deliveryCost, setDeliveryCost] = useState(0);
@@ -91,8 +91,14 @@ export default function RestaurantDetail() {
                 {dishes.map(dish => (
                     <div key={dish.id}>
                         <span>{dish.name} - Price: {dish.price}€</span>
-                        {/* graficare ingredienti */}
                         <button className="btn btn-sm btn-outline-success m-2" onClick={() => addToCart(dish)}><FontAwesomeIcon icon={faPlus} /></button>
+                        {/* graficare ingredienti */}
+                        <br />
+                        <div>
+                            {dish.ingredients.map((ingredient, index) => (
+                                <span key={index} className=" fw-lighter me-2">{ingredient} {index === dish.ingredients.length - 1 ? "" : ","}</span>
+                            ))}
+                        </div>
                     </div>
                 ))}
             </div>
@@ -105,16 +111,16 @@ export default function RestaurantDetail() {
             {cart.map((dish) => (
                 <div key={dish.id}>
                     <span>{dish.name} - Price: {dish.price}€ - Quantity: {dish.quantity}</span>
-                    <FontAwesomeIcon className="mt-auto ms-2 dark-hover" onClick={() => removeFromCart(dish)} size="lg" icon={faXmark} style={{color: "#ff0000",}} />
+                    <FontAwesomeIcon className="mt-auto ms-2 dark-hover" onClick={() => removeFromCart(dish)} size="lg" icon={faXmark} style={{ color: "#ff0000", }} />
                 </div>
             ))}
             <hr />
             <p>Delivery Cost: {deliveryCost}€</p>
             <p>Total Cost: {calculateTotalCost()}€</p>
             <div className="text-center">
-                <Link className="btn btn-outline-success" to={"/deliverycreation/" + r_id} onClick={()=>setCartGlob(cart)}>Proceed to Order</Link>
+                <Link className="btn btn-outline-success" to={"/deliverycreation/" + r_id} onClick={() => setCartGlob(cart)}>Proceed to Order</Link>
             </div>
-            
+
         </div>
     );
 
@@ -143,7 +149,7 @@ export default function RestaurantDetail() {
                 <div className="sticky-top">
                     {renderCart()}
                 </div>
-                
+
             </div>
         </div>
     );
