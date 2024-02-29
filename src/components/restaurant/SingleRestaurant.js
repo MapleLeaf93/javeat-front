@@ -1,6 +1,7 @@
 import { useAtom } from "jotai";
 import { Link } from "react-router-dom";
 import { client } from "../../App";
+import '../../styles.css';
 
 
 export default function SingleRestaurant(props) {
@@ -8,23 +9,24 @@ export default function SingleRestaurant(props) {
     //vedere tutti i ristoranti (solo nome, immagine, se APERTO, foodTypes e DISTANZA)
 
     return (
-        <><div className='col col-md-3'>
-            <div className="card p-2" >
-                <img src={props.r.imgUrl} className="card-img-top" alt="Restaurant image" style={{ width: "100%", height: "100%" }} />
-                <div className="card-body">
+        <div className='col col-4'>
+            <div className="card p-3 d-flex flex-column h-100">
+                <img src={props.r.imgUrl} className="card-img-top img-overview" alt="Restaurant image" />
+                <div className="card-body mt-auto">
                     <h3 className="card-title">{props.r.name}</h3>
-                    <h4 className="card-title">{props.r.open ? "open" : "closed"}  </h4>
-                    <div >
+                    <h4 className="card-title">{props.r.open ? "open" : "closed"}</h4>
+                    <div>
                         {props.r.foodTypes.map((foodType, index) => (
                             <span key={index} className="badge bg-primary me-2">{foodType}</span>
                         ))}
                     </div>
-
                     <p className="card-text">distance: {props.r.distance}</p>
-                    <Link className="btn btn-primary" to={"/restaurantsdetails/" + props.r.id} >Detail</Link>
+                    <Link className="btn btn-primary" to={"/restaurantsdetails/" + props.r.id}>Detail</Link>
                 </div>
             </div>
         </div>
-        </>
     );
+    
+    
+    
 }
