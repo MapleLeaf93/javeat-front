@@ -2,6 +2,8 @@ import { useAtom } from "jotai";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { client } from "../../App";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faArrowRightFromBracket } from '@fortawesome/free-solid-svg-icons'
 
 export default function Navbar()
 {
@@ -39,7 +41,7 @@ export default function Navbar()
                     />
                     <div className="">
                         {loggato ? (
-                            <button className="btn btn-outline-danger me-2" onClick={handleLogout}>Logout</button>
+                            <button className="btn btn-outline-danger me-2" onClick={handleLogout}>Logout  <FontAwesomeIcon icon={faArrowRightFromBracket} /></button>
                         ) : (
                             <>
                                 <Link className="btn btn-outline-success me-2" to="/login">Login</Link>
