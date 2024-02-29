@@ -1,30 +1,29 @@
 import axios from "axios";
+import { useAtom } from "jotai";
 import { useState } from "react";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
+import { dtoDelivery } from "../../App";
 
-export default function DeliveryConfirmed({dto}) {
+export default function DeliveryConfirmed() {
     const navigate = useNavigate();
     const [paymentMethod, setPaymentMethod] = useState("");
-    // const {dto} = useParams();
-    // // Funzione per aggiornare il DTO con il campo payment_method
-    // const updateDtoWithPaymentMethod = (paymentMethod) => {
-    // const updatedDto = { ...JSON.parse(dto), payment_method: paymentMethod };
-    // return updatedDto;
-    // };
-
-
+    const [dto,setDto] = useAtom(dtoDelivery);
+    
 
     function sendForm() {
         const updatedDto = { ...dto, payment_method: paymentMethod };
+        console.log(dto+" prima"); //undefined
         axios.post("/delivery", updatedDto)
             .then((response) => {
                 // Effettua la navigazione o altre azioni necessarie dopo il completamento della richiesta
                 navigate("/deliveryconfirmed");
+                console.log(updatedDto+" dopo")
             })
             .catch((error) => {
                 // Gestisci eventuali errori durante la richiesta
                 console.error("Errore durante l'invio del modulo:", error);
             });
+
     }
 
     const handlePaymentMethodChange = (e) => {

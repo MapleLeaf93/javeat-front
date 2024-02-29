@@ -1,5 +1,5 @@
 import { useAtom } from "jotai";
-import { cartGlobal, client } from "../../App";
+import { cartGlobal, client, dtoDelivery } from "../../App";
 import { useState, useEffect} from "react";
 import axios from "axios";
 import { Link, Navigate, useNavigate, useParams } from "react-router-dom";
@@ -15,6 +15,7 @@ export default function DeliveryCreation() {
     const navigate = useNavigate();
     const [user, setUser] = useAtom(client);
     const [cartG, setCartG] = useAtom(cartGlobal);
+    
     const { r_id, dist } = useParams();
     const [distance, setDistance] = useState(dist);
     const [expectedArrivalOptions, setExpectedArrivalOptions] = useState([]);
@@ -32,7 +33,7 @@ export default function DeliveryCreation() {
         payment_method: "",
         notes: note
     });
-
+    
     useEffect(() => {
 
         // Calcola l'orario di consegna previsto
@@ -95,8 +96,7 @@ export default function DeliveryCreation() {
                         <input type="note" className="form-control" id="inputNote" onChange={setNote} placeholder="allergies, floor, intercom and similar" />
                     </div>
 
-                    <Link type="submit" className="btn btn-primary"  to={"/deliveryconfirmed/"+dto}>Confirm order</Link>
-                    {/* <DeliveryConfirmed dto={dto} /> */}
+                    <Link type="submit" className="btn btn-primary"  to="/deliveryconfirmed">Confirm order</Link>
                 </form>
             </div>
         </>

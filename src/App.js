@@ -14,7 +14,24 @@ import DeliveryConfirmed from './components/delivery/DeliveryConfirmed';
 
 const CartInMemory = atom(localStorage.getItem('cartState')? JSON.parse(localStorage.getItem('cartState')) : null);
 const clientInMemory = atom(localStorage.getItem('clientState') ? JSON.parse(localStorage.getItem('clientState')) : null);
+const dtoDeliveryInMemory = atom(localStorage.getItem('dtoDelivery') ? JSON.parse(localStorage.getItem('dtoDelivery')): null);
 
+export const dtoDelivery = atom({
+  user_id: null,
+  restaurant_id: null,
+  idPiattoToQuantita: {},
+  expected_arrival: null,
+  payment_method: null,
+  notes: "",
+});
+
+// export const dtoDelivery = atom(
+//   (get)=>get(dtoDeliveryInMemory),
+//   (get,set,newDto) => {
+//     set(dtoDeliveryInMemory, newDto);
+//     localStorage.setItem.apply('dtoDelivery', JSON.stringify(newDto));
+//   }
+// );
 export const cartGlobal = atom(
   (get) => get(CartInMemory),
   (get,set,newCart) =>{
@@ -49,7 +66,7 @@ function App() {
         <Route path='/restaurants/:user_id/:r_id' element={<SingleRestaurant />}></Route>
         <Route path='/restaurantsdetails/:r_id' element={<RestaurantDetail/>}> </Route>
         <Route path='/deliverycreation/:r_id/:dist' element={<DeliveryCreation/>}> </Route>
-        <Route path='/deliveryconfirmed/:dto' element={<DeliveryConfirmed/>} ></Route>
+        <Route path='/deliveryconfirmed' element={<DeliveryConfirmed/>} ></Route>
       </Routes>
     </BrowserRouter>
   );
