@@ -1,5 +1,5 @@
 import { useAtom } from "jotai";
-import { cartGlobal, client, dtoDelivery } from "../../App";
+import { cartGlobal, client, restaurantGlobal } from "../../App";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { Link, Navigate, useNavigate, useParams } from "react-router-dom";
@@ -15,9 +15,9 @@ export default function DeliveryCreation() {
     const navigate = useNavigate();
     const [user, setUser] = useAtom(client);
     const [cartG, setCartG] = useAtom(cartGlobal);
-
-    const { r_id, dist } = useParams();
-    const [distance, setDistance] = useState(dist);
+    const [restaurant, setRestaurant] = useAtom(restaurantGlobal);
+    const { r_id } = useParams();
+    const [distance, setDistance] = useState(restaurant.distance);
     const [expectedArrivalOptions, setExpectedArrivalOptions] = useState([]);
     const [selectedExpectedArrival, setSelectedExpectedArrival] = useState("");
     const [showConfirm, setShowConfirm] = useState(false);
@@ -36,7 +36,6 @@ export default function DeliveryCreation() {
     });
 
     useEffect(() => {
-        // Calcola l'orario di consegna previsto
         const calculateExpectedArrival = () => {
             const baseTime = new Date();  // Orario attuale
             const deliveryTimeOptions = [];
@@ -45,15 +44,22 @@ export default function DeliveryCreation() {
                 const deliveryTime = new Date(baseTime);
                 const minutesToAdd = (i + 1) * 15 + distance * 2;  // Aggiungi 15 minuti più 2 minuti per unità di distanza
                 deliveryTime.setMinutes(baseTime.getMinutes() + minutesToAdd);
-                deliveryTimeOptions.push(deliveryTime);
+
+                const deliveryTimeHoursMinutes = deliveryTime.getHours() * 100 + deliveryTime.getMinutes();
+                const openingTimeHoursMinutes = parseInt(restaurant.openingHour.replace(':', ''));
+                const closingTimeHoursMinutes = parseInt(restaurant.closingHour.replace(':', ''));
+
+                // Verifica se l'orario di consegna è compreso tra l'orario di apertura e chiusura del ristorante
+                if (deliveryTimeHoursMinutes >= openingTimeHoursMinutes && deliveryTimeHoursMinutes < closingTimeHoursMinutes) {
+                    deliveryTimeOptions.push(deliveryTime);
+                }
             }
 
             return deliveryTimeOptions;
         };
-        // Imposta le opzioni di orario di consegna previsto nello stato
-        setExpectedArrivalOptions(calculateExpectedArrival());
 
-    }, []); // Dipendenza vuota per eseguire l'effetto solo al montaggio del componente
+        setExpectedArrivalOptions(calculateExpectedArrival());
+    }, [restaurant]); 
 
     // Funzione per gestire il cambiamento dell'orario di consegna selezionato
     // Questo esempio assume che hai già un oggetto Date valido per ogni opzione
