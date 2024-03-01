@@ -1,11 +1,12 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Link, useParams } from "react-router-dom";
 import axios from "axios";
 import { useAtom } from "jotai";
 import { cartGlobal, client, restaurantGlobal } from "../../App";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPlus, faXmark } from '@fortawesome/free-solid-svg-icons'
+import { faMinus, faPlus, faWindowMinimize, faXmark } from '@fortawesome/free-solid-svg-icons'
 import '../../styles.css';
+import { faDribbbleSquare } from "@fortawesome/free-brands-svg-icons";
 
 export default function RestaurantDetail() {
     const { r_id } = useParams();
@@ -17,6 +18,17 @@ export default function RestaurantDetail() {
 
     // const addToCart = (dish) => setCart([...cart, dish]); 
     //ritorna una lista di dishtodelivery: dish id, id delivery, quantità
+
+    // rendo la lunghezza del div cart responsive
+    const divRef = useRef(null);
+
+    useEffect(()=>{
+        if(divRef.current)
+        {
+            divRef.current.style.height = divRef.current.scrollHeight +'px';
+        }
+    },[]);
+
     const addToCart = (dish) => {
         const existingDish = cart.find(item => item.id === dish.id);
         if (existingDish) {
@@ -56,7 +68,8 @@ export default function RestaurantDetail() {
 
     const calculateTotalCost = () => {
         const dishesCost = cart.reduce((total, dish) => total + dish.price, 0);
-        return dishesCost + deliveryCost;
+        let tot = dishesCost + deliveryCost;
+        return (Math.round(tot*100)/100).toFixed(2);
     };
 
     useEffect(() => {
@@ -87,19 +100,24 @@ export default function RestaurantDetail() {
             return acc;
         }, {});
 
+
         return Object.entries(groupedDishes).map(([category, dishes]) => (
             <div key={category}>
+                <br />
                 <h4>{category}</h4>
                 {dishes.map(dish => (
                     <div key={dish.id}>
+
                         <span>{dish.name} - Price: {dish.price}€</span>
                         <button className="btn btn-sm btn-outline-success m-2" onClick={() => addToCart(dish)}><FontAwesomeIcon icon={faPlus} /></button>
                         {/* graficare ingredienti */}
                         <br />
                         <div>
+
                             {dish.ingredients.map((ingredient, index) => (
                                 <span key={index} className=" fw-lighter me-2">{ingredient} {index === dish.ingredients.length - 1 ? "" : ","}</span>
                             ))}
+
                         </div>
                     </div>
                 ))}
@@ -107,52 +125,70 @@ export default function RestaurantDetail() {
         ));
     };
 
+    const addQuantity = (dish) => {
+        const updatedCart = cart.map(dishInCart => {
+            if (dishInCart.id === dish.id) {
+                return { ...dishInCart, quantity: dishInCart.quantity + 1 }; // Incrementa la quantità di uno
+            }
+            return dishInCart;
+        });
+        setCart(updatedCart);
+    };
+
     const renderCart = () => (
-        <div>
-            <h3>Your Cart</h3>
+        <div >
+            <h3 className="mt-2  ">Your Cart</h3>
             {cart.map((dish) => (
                 <div key={dish.id}>
-                    <span>{dish.name} - Price: {dish.price}€ - Quantity: {dish.quantity}</span>
-                    <FontAwesomeIcon className="mt-auto ms-2 dark-hover" onClick={() => removeFromCart(dish)} size="lg" icon={faXmark} style={{ color: "#ff0000", }} />
+                    <FontAwesomeIcon className="dark-hover" style={{ color: "#92ce5a"}} icon={faPlus} onClick={()=>addQuantity(dish)}/>
+                    <span className="lh-sm"> {dish.quantity}x </span> <span className="fw-medium"> {dish.name}  {dish.price}€ </span>
+                    <FontAwesomeIcon className="mt-auto ms-2 dark-hover " onClick={() => removeFromCart(dish)} size="lg" icon={faMinus}  style={{ color: "#ff0000" }}  />
                 </div>
             ))}
             <hr />
             <p>Delivery Cost: {deliveryCost}€</p>
             <p>Total Cost: {calculateTotalCost()}€</p>
-            <div className="text-center">
-                <Link className="btn btn-outline-success" 
-                to={"/deliverycreation/" + r_id } 
-                onClick={()=>setCartGlob(cart)}>Proceed to Order</Link>
-            </div>
+                {/* <div className="position-absolute bottom-0 start-50 translate-middle-x ">
+                    <Link className="btn btn-outline-success"
+                        to={"/deliverycreation/" + r_id}
+                        onClick={() => setCartGlob(cart)}>Proceed to Order</Link>
+                </div> */}
         </div>
     );
 
     return (
-        <div className="container d-flex justify-content-center mt-5">
+        <div className="container d-flex justify-content-center mt-5 text-center">
             <div className="col-8 pe-4">
                 <div className="card-body">
                     {restaurant ? (
                         <>
-                            <div className="mb-auto">
+                            <div className="mb-auto ">
                                 <h2 className="card-title"><b> {restaurant.name} </b></h2>
-                                <img className="card-img-top" src={restaurant.imgUrl} alt="Restaurant" style={{ maxWidth: '100%', height: 'auto' }} />
+                                <img className="card-img-top rounded-start rounded-end m-4" src={restaurant.imgUrl} alt="Restaurant" style={{ maxWidth: '70%', height: '300px', objectFit: "cover" }} />
                                 <p>Phone number: {restaurant.phone}</p>
                                 <p>Open at: {restaurant.openingHour} - Close at: {restaurant.closingHour}</p>
                             </div>
                             <div className="mt-auto">
                                 {renderDishesByCategory(restaurant.menu)}
                             </div>
+                            <br />
                         </>
                     ) : (
                         <p>Loading restaurant...</p>
                     )}
                 </div>
             </div>
-            <div className="col-4 ps-5 sticky-top">
+            <div ref={divRef} className="col-md-4 m-3 pb-2 sticky-top form-container bg-rasta-yellow container-cart">
                 <div className="sticky-top">
                     {renderCart()}
                 </div>
-
+                <div className="text-center container-cart mt-3 sticky-top">
+                    {cart.length > 0 ? (
+                        <Link className="btn btn-outline-success" to={"/deliverycreation/" + r_id} onClick={() => setCartGlob(cart)}>Proceed to Order</Link>
+                    ) : (
+                        <button className="btn btn-outline-success" disabled>Proceed to Order</button>
+                    )}
+                </div>
             </div>
         </div>
     );

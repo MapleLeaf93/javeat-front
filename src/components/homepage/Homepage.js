@@ -17,8 +17,8 @@ export default function Homepage()
     
       return(
         <>
-            <div className="container-homepage ">
-            <h1 className=".text-homepage">Welcome in Javeat</h1>
+            <div className="mt-5 .bg-rasta-orange">
+            <h1 className="text-center">Welcome in Javeat</h1>
             </div>
             
         </>
