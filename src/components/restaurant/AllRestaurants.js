@@ -17,30 +17,18 @@ export default function AllRestaurants() {
         chinese: false,
         american: false,
         indian: false,
-
-        asianfusion: false,
-        beverages: false,
         desserts: false,
-        fishchips: false,
-        fried: false,
         glutenfree: false,
-        healthy: false,
         grill: false,
-        icecream: false,
         japanese: false,
         kebab: false,
-        kosher: false,
-        latinamerican: false,
         fish: false,
         vegan: false,
         vegetarian: false,
-        sandwich: false,
         salads: false,
-        pinsa: false,
         pizza: false,
         poke: false,
         hamburger: false,
-        sweets: false
     });
 
     useEffect(() => {
@@ -63,29 +51,20 @@ export default function AllRestaurants() {
                 (!checkboxes.mexican || restaurantFoodTypes.includes("mexican")) &&
                 (!checkboxes.chinese || restaurantFoodTypes.includes("chinese")) &&
                 (!checkboxes.indian || restaurantFoodTypes.includes("indian")) &&
-                (!checkboxes.asianfusion || restaurantFoodTypes.includes("asianfusion")) &&
                 (!checkboxes.beverages || restaurantFoodTypes.includes("beverages")) &&
                 (!checkboxes.desserts || restaurantFoodTypes.includes("desserts")) &&
-                (!checkboxes.fishchips || restaurantFoodTypes.includes("fishchips")) &&
                 (!checkboxes.fried || restaurantFoodTypes.includes("fried")) &&
                 (!checkboxes.glutenfree || restaurantFoodTypes.includes("glutenfree")) &&
-                (!checkboxes.healthy || restaurantFoodTypes.includes("healthy")) &&
                 (!checkboxes.grill || restaurantFoodTypes.includes("grill")) &&
-                (!checkboxes.icecream || restaurantFoodTypes.includes("icecream")) &&
                 (!checkboxes.japanese || restaurantFoodTypes.includes("japanese")) &&
                 (!checkboxes.kebab || restaurantFoodTypes.includes("kebab")) &&
-                (!checkboxes.kosher || restaurantFoodTypes.includes("kosher")) &&
-                (!checkboxes.latinamerican || restaurantFoodTypes.includes("latinamerican")) &&
                 (!checkboxes.fish || restaurantFoodTypes.includes("fish")) &&
                 (!checkboxes.vegan || restaurantFoodTypes.includes("vegan")) &&
                 (!checkboxes.vegetarian || restaurantFoodTypes.includes("vegetarian")) &&
-                (!checkboxes.sandwich || restaurantFoodTypes.includes("sandwich")) &&
                 (!checkboxes.salads || restaurantFoodTypes.includes("salads")) &&
-                (!checkboxes.pinsa || restaurantFoodTypes.includes("pinsa")) &&
                 (!checkboxes.pizza || restaurantFoodTypes.includes("pizza")) &&
                 (!checkboxes.poke || restaurantFoodTypes.includes("poke")) &&
-                (!checkboxes.hamburger || restaurantFoodTypes.includes("hamburger")) &&
-                (!checkboxes.sweets || restaurantFoodTypes.includes("sweets"))
+                (!checkboxes.hamburger || restaurantFoodTypes.includes("hamburger")) 
 
             );
         });
@@ -196,34 +175,6 @@ export default function AllRestaurants() {
                             <div className="text-left">
                                 <div >
                                     <label style={{ color: "white" }}>
-                                        Asianfusion
-                                        <input className="ms-2"
-                                            type="checkbox"
-                                            checked={checkboxes.asianfusion}
-                                            onChange={() => handleCheckboxChange("asianfusion")}
-                                        />
-                                    </label>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="p-2 px-4" >
-                            <div className="text-left">
-                                <div >
-                                    <label style={{ color: "white" }}>
-                                        Pinsa
-                                        <input className="ms-2"
-                                            type="checkbox"
-                                            checked={checkboxes.pinsa}
-                                            onChange={() => handleCheckboxChange("pinsa")}
-                                        />
-                                    </label>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="p-2 px-4" >
-                            <div className="text-left">
-                                <div >
-                                    <label style={{ color: "white" }}>
                                         Pizza
                                         <input className="ms-2"
                                             type="checkbox"
@@ -266,48 +217,6 @@ export default function AllRestaurants() {
                             <div className="text-left">
                                 <div >
                                     <label style={{ color: "white" }}>
-                                        Beverages
-                                        <input className="ms-2"
-                                            type="checkbox"
-                                            checked={checkboxes.beverages}
-                                            onChange={() => handleCheckboxChange("beverages")}
-                                        />
-                                    </label>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="p-2 px-4" >
-                            <div className="text-left">
-                                <div >
-                                    <label style={{ color: "white" }}>
-                                        Fishchips
-                                        <input className="ms-2"
-                                            type="checkbox"
-                                            checked={checkboxes.fishchips}
-                                            onChange={() => handleCheckboxChange("fishchips")}
-                                        />
-                                    </label>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="p-2 px-4" >
-                            <div className="text-left">
-                                <div >
-                                    <label style={{ color: "white" }}>
-                                        Fried
-                                        <input className="ms-2"
-                                            type="checkbox"
-                                            checked={checkboxes.fried}
-                                            onChange={() => handleCheckboxChange("fried")}
-                                        />
-                                    </label>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="p-2 px-4" >
-                            <div className="text-left">
-                                <div >
-                                    <label style={{ color: "white" }}>
                                         Gluten free
                                         <input className="ms-2"
                                             type="checkbox"
@@ -322,39 +231,11 @@ export default function AllRestaurants() {
                             <div className="text-left">
                                 <div >
                                     <label style={{ color: "white" }}>
-                                        Healthy
-                                        <input className="ms-2"
-                                            type="checkbox"
-                                            checked={checkboxes.healthy}
-                                            onChange={() => handleCheckboxChange("healthy")}
-                                        />
-                                    </label>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="p-2 px-4" >
-                            <div className="text-left">
-                                <div >
-                                    <label style={{ color: "white" }}>
                                         Grill
                                         <input className="ms-2"
                                             type="checkbox"
                                             checked={checkboxes.grill}
                                             onChange={() => handleCheckboxChange("grill")}
-                                        />
-                                    </label>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="p-2 px-4" >
-                            <div className="text-left">
-                                <div >
-                                    <label style={{ color: "white" }}>
-                                        Ice cream
-                                        <input className="ms-2"
-                                            type="checkbox"
-                                            checked={checkboxes.icecream}
-                                            onChange={() => handleCheckboxChange("icecream")}
                                         />
                                     </label>
                                 </div>
@@ -385,34 +266,6 @@ export default function AllRestaurants() {
                                                 type="checkbox"
                                                 checked={checkboxes.kebab}
                                                 onChange={() => handleCheckboxChange("kebab")}
-                                            />
-                                        </label>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="p-2 px-4" >
-                                <div className="text-left">
-                                    <div >
-                                        <label style={{ color: "white" }}>
-                                            Kosher
-                                            <input className="ms-2"
-                                                type="checkbox"
-                                                checked={checkboxes.kosher}
-                                                onChange={() => handleCheckboxChange("kosher")}
-                                            />
-                                        </label>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="p-2 px-4" >
-                                <div className="text-left">
-                                    <div >
-                                        <label style={{ color: "white" }}>
-                                            Latinamerican
-                                            <input className="ms-2"
-                                                type="checkbox"
-                                                checked={checkboxes.latinamerican}
-                                                onChange={() => handleCheckboxChange("latinamerican")}
                                             />
                                         </label>
                                     </div>
@@ -464,20 +317,6 @@ export default function AllRestaurants() {
                                 <div className="text-left">
                                     <div >
                                         <label style={{ color: "white" }}>
-                                            Sandwich
-                                            <input className="ms-2"
-                                                type="checkbox"
-                                                checked={checkboxes.sandwich}
-                                                onChange={() => handleCheckboxChange("sandwich")}
-                                            />
-                                        </label>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="p-2 px-4" >
-                                <div className="text-left">
-                                    <div >
-                                        <label style={{ color: "white" }}>
                                             Salads
                                             <input className="ms-2"
                                                 type="checkbox"
@@ -497,20 +336,6 @@ export default function AllRestaurants() {
                                                 type="checkbox"
                                                 checked={checkboxes.desserts}
                                                 onChange={() => handleCheckboxChange("desserts")}
-                                            />
-                                        </label>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="p-2 px-4" >
-                                <div className="text-left">
-                                    <div >
-                                        <label style={{ color: "white" }}>
-                                            Sweets
-                                            <input className="ms-2"
-                                                type="checkbox"
-                                                checked={checkboxes.sweets}
-                                                onChange={() => handleCheckboxChange("sweets")}
                                             />
                                         </label>
                                     </div>
