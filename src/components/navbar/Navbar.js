@@ -5,8 +5,7 @@ import { client } from "../../App";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowRightFromBracket } from '@fortawesome/free-solid-svg-icons'
 
-export default function Navbar()
-{
+export default function Navbar() {
     const [loggato, setLoggato] = useAtom(client);
     const navigate = useNavigate();
 
@@ -21,21 +20,21 @@ export default function Navbar()
     const handleLogout = () => {
         // Imposta lo stato di `client` su null per indicare che l'utente non è più loggato
         setLoggato(null);
-    
+
         // Rimuovi o aggiorna il valore in localStorage
         localStorage.removeItem('clientState'); // Oppure localStorage.setItem('clientState', JSON.stringify(null));
-    
+
         // Reindirizza l'utente alla homepage o alla pagina di login
         navigate('/login'); // Assicurati di avere `useNavigate` hook da `react-router-dom`
     };
 
-    return(
+    return (
         <>
-            <nav className="navbar navbar-expand-lg bg-warning ps-2 pe-5">
+            <nav className="navbar navbar-expand-lg bg-rasta-orange ps-2 pe-5">
                 <div className="container-fluid">
                     <img
                         className="p-0 rounded-4 m-1 logo-img"
-                        src="https://pngimg.com/d/burger_king_PNG11.png"
+                        src="https://cdn.discordapp.com/attachments/1211974633369116723/1213082430123278377/J_1.png?ex=65f42e0d&is=65e1b90d&hm=2a04bd4dc2956ae109c73d72ff15b3cf973e8c089bdc0c852d35e68f378ab032&"
                         alt="Logo"
                         onClick={handleLogoClick}
                     />
@@ -44,7 +43,7 @@ export default function Navbar()
                             <button className="btn btn-outline-danger me-2" onClick={handleLogout}>Logout  <FontAwesomeIcon icon={faArrowRightFromBracket} /></button>
                         ) : (
                             <>
-                                <Link className="btn btn-outline-success me-2" to="/login">Login</Link>
+                                <Link className="btn bg-rasta-yellow me-2" to="/login">Login</Link>
                                 <Link className="btn btn-outline-light" to="/register">Register</Link>
                             </>
                         )}

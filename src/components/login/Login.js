@@ -89,7 +89,7 @@ export default function Login()
 
                     {showErrorPopup && <ErrorPopup message={errorMessage} onClose={() => setShowErrorPopup(false)} />}
                     <div className="text-center">
-                        <input className="btn btn-success" type="button" onClick={sendForm} value="Login" />
+                        <input className="btn bg-rasta-orange" type="button" onClick={sendForm} value="Login" />
                     </div>
                     
                 </form>
