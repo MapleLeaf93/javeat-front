@@ -45,3 +45,35 @@ body {
     border: solid 1px rgb(0, 0, 0);
     border-radius: 15px;
 }
+
+.bg-rasta-green{
+    background-color: #92ce5a;
+}
+
+.bg-rasta-yellow{
+    background-color: #FFE17B;
+}
+
+.bg-rasta-orange{
+    background-color: #FD8D14;
+}
+
+.bg-rasta-red{
+    background-color: #C51605;
+}
+
+.text-rasta-green{
+    color: #92ce5a;
+}
+
+.text-rasta-yellow{
+    color: #FFE17B;
+}
+
+.text-rasta-orange{
+    color: #FD8D14;
+}
+
+.text-rasta-red{
+    color: #C51605;
+}
