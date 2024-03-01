@@ -2,14 +2,14 @@ import { useState, useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
 import axios from "axios";
 import { useAtom } from "jotai";
-import { cartGlobal, client } from "../../App";
+import { cartGlobal, client, restaurantGlobal } from "../../App";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus, faXmark } from '@fortawesome/free-solid-svg-icons'
 import '../../styles.css';
 
 export default function RestaurantDetail() {
     const { r_id } = useParams();
-    const [restaurant, setRestaurant] = useState("");
+    const [restaurant, setRestaurant] = useAtom(restaurantGlobal);
     const [user, setUser] = useAtom(client);
     const [cart, setCart] = useState([]);
     const [cartGlob, setCartGlob] = useAtom(cartGlobal);
@@ -71,7 +71,6 @@ export default function RestaurantDetail() {
         axios.get(`/restaurant/full/` + user.id + `/` + r_id)
             .then((resp) => {
                 setRestaurant(resp.data);
-                
 
             }).catch(error => {
                 console.error('Errore durante il recupero dei dettagli del ristorante:', error);
@@ -121,7 +120,9 @@ export default function RestaurantDetail() {
             <p>Delivery Cost: {deliveryCost}€</p>
             <p>Total Cost: {calculateTotalCost()}€</p>
             <div className="text-center">
-                <Link className="btn btn-outline-success" to={"/deliverycreation/" + r_id +`/`+ restaurant.distance} onClick={()=>setCartGlob(cart)}>Proceed to Order</Link>
+                <Link className="btn btn-outline-success" 
+                to={"/deliverycreation/" + r_id } 
+                onClick={()=>setCartGlob(cart)}>Proceed to Order</Link>
             </div>
         </div>
     );

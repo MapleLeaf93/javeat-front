@@ -13,6 +13,15 @@ import DeliveryConfirmed from './components/delivery/DeliveryConfirmed';
 
 const CartInMemory = atom(localStorage.getItem('cartState')? JSON.parse(localStorage.getItem('cartState')) : null);
 const clientInMemory = atom(localStorage.getItem('clientState') ? JSON.parse(localStorage.getItem('clientState')) : null);
+const restaurantInMemory = atom(localStorage.getItem('restaurantState') ? JSON.parse(localStorage.getItem('restaurantState')) : null);
+
+export const restaurantGlobal = atom(
+    (get) => get(restaurantInMemory),
+    (get, set, newRestaurant) => {
+      set(restaurantInMemory, newRestaurant);
+      localStorage.setItem('restaurantState', JSON.stringify(newRestaurant));
+    }
+)
 
 export const cartGlobal = atom(
   (get) => get(CartInMemory),
@@ -33,6 +42,7 @@ export const client = atom(
 );
 
 function App() {
+  const [restaurantState, setRestaurantState] = useAtom(restaurantGlobal);
   const [cartState, setCartState] = useAtom(cartGlobal);
   const [clientState, setClientState] = useAtom(client);
 
@@ -46,7 +56,7 @@ function App() {
         <Route path='/login' element={<Login />}></Route>
         <Route path='/restaurants/:user_id/:r_id' element={<SingleRestaurant />}></Route>
         <Route path='/restaurantsdetails/:r_id' element={<RestaurantDetail/>}> </Route>
-        <Route path='/deliverycreation/:r_id/:dist' element={<DeliveryCreation/>}> </Route>
+        <Route path='/deliverycreation/:r_id' element={<DeliveryCreation/>}> </Route>
         <Route path='/deliveryconfirmed' element={<DeliveryConfirmed/>} ></Route>
       </Routes>
     </BrowserRouter>
