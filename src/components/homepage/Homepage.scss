@@ -1,7 +1,6 @@
 .App {
   text-align: center;
   margin: auto;
-  width: 50rem;
 }
 
 .container {
@@ -39,10 +38,10 @@
   overflow: hidden;
   color: #000000;
   text-shadow: 
-    -1px -1px 0 #e7e0e0,  
-     1px -1px 0 #e7e0e0,
-    -1px  1px 0 #e7e0e0,
-     1px  1px 0 #e7e0e0;
+    -1px -1px 0 #ffffff,  
+     1px -1px 0 #ffffff,
+    -1px  1px 0 #ffffff,
+     1px  1px 0 #ffffff;
 }
 
 /* Assicurati che il contenuto interno non sporga */
@@ -70,6 +69,11 @@
   transform: rotateY(180deg);
 }
 
+.flip-card:hover .flip-card-inner {
+  transform: rotateY(180deg);
+}
+
+
 //Titolo ad Onda
 
 @font-face {
@@ -85,13 +89,18 @@
 }
 
 .ag-maecenas_title {
-  padding: 100px 0;
+  padding:  0;
   background-color: #FD8D14;
   text-align: center;
   font-family: Heavitas, sans-serif;
   font-weight: bold;
   font-size: 120px;
   color: #FFF;
+  text-shadow: 
+  -1px -1px 0 #000000,  
+   1px -1px 0 #000000,
+  -1px  1px 0 #000000,
+   1px  1px 0 #000000;
 
   position: relative;
 }
@@ -118,6 +127,34 @@
   -o-animation: an-wave 20s linear infinite;
   animation: an-wave 20s linear infinite;
 }
+
+.relative-container {
+  position: relative;
+  width: 300px;
+  height: 400px; /* Imposta un'altezza fissa per il contenitore */
+  margin: 0 auto;
+}
+
+.text-on-top {
+  z-index: 2;
+  position: absolute;
+  top: 50%; /* Sposta il testo al 50% della larghezza del contenitore */
+  left: 50%;
+  transform: translate(-50%, -50%); /* Centra il testo correttamente */
+}
+
+.background-image {
+  width: 100%;
+  height: 100%; /* Imposta l'altezza dell'immagine al 100% del contenitore */
+  object-fit: cover; /* Evita che l'immagine si deformi */
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1;
+  display: block;
+  margin: 0 auto;
+}
+
 
 @-webkit-keyframes an-wave {
   100% {
@@ -157,10 +194,76 @@
       font-size: 60px;
     }
   }
+}
 
-  @media only screen and (max-width: 479px) {
-    .ag-maecenas_title {
-      font-size: 40px;
-    }
+//sezione lista
+
+.ag-maecenas_box {
+  display: flex;
+  flex-direction: row; /* Elementi affiancati */
+  justify-content: center; /* Centra orizzontalmente nella pagina */
+  align-items: center; /* Centra verticalmente */
+  flex-wrap: wrap; /* Permette agli elementi di andare a capo se necessario */
+  width: 100%; /* Usa l'intera larghezza disponibile */
+  max-width: 1200px; /* Imposta una larghezza massima per il contenitore */
+  margin: 0 auto; /* Centra il contenitore nella pagina */
+}
+
+.ag-format-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column; /* Imposta la direzione dei flex items in colonna */
+}
+
+
+.ag-maecenas_item {
+  flex: 1; /* Gli elementi occupano uno spazio flessibile nel contenitore */
+  display: flex;
+  flex-direction: column; /* Organizza il contenuto in colonna per default */
+  align-items: center; /* Centra gli elementi interni */
+  justify-content: center; /* Centra il contenuto verticalmente */
+  padding: 20px; /* Aggiunge un po' di spazio intorno agli elementi */
+}
+
+@media (min-width: 768px) {
+  .ag-maecenas_item {
+    flex-direction: row; /* Cambia la disposizione in riga su schermi più grandi */
   }
+}
+
+.ag-maecenas_title-item {
+  padding: 0 0 15px;
+  font-family: Heavitas, sans-serif;
+  font-weight: bold;
+  font-size: 30px;
+}
+.ag-maecenas_tagline-item {
+  padding: 0 0 15px;
+
+  font-family: Heavitas, sans-serif;
+  font-weight: bold;
+  font-size: 20px;
+}
+
+.ag-maecenas_img-box {
+  flex-shrink: 0; /* Impedisce all'immagine di ridursi */
+  margin-left: 20px; /* Aggiunge spazio tra l'immagine e il testo */
+}
+
+/* Assicurati che l'immagine si adatti bene senza distorcere */
+.ag-maecenas_img-box img {
+  width: 100%;
+  max-width: 300px; /* Imposta una larghezza massima per l'immagine */
+  height: auto; /* Mantiene le proporzioni dell'immagine */
+}
+
+.ag-maecenas_item:nth-child(odd) {
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: reverse;
+  -webkit-flex-direction: row-reverse;
+  -moz-box-orient: horizontal;
+  -moz-box-direction: reverse;
+  -ms-flex-direction: row-reverse;
+  flex-direction: row-reverse;
 }

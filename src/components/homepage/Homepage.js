@@ -46,15 +46,7 @@ export default function Homepage() {
       backImage: '',
       frontContent: 'Passione Pizza',
       backContent: 'Le pizzerie imperdibili!',
-    },
-    {
-      id: 'card6',
-      title: 'Pizza',
-      frontImage: '/pizza.png',
-      backImage: '',
-      frontContent: 'Passione Pizza',
-      backContent: 'Le pizzerie imperdibili!',
-    },
+    }
   ];
 
   // Gestisci lo stato di flip per ogni card separatamente
@@ -88,20 +80,16 @@ export default function Homepage() {
   return (
     <>
       <div>
-        <div className="">
-          <div class="ag-maecenas_title">
-            <div class="ag-format-container">
-                javeat
-            </div>
-          </div>
-          <div>
-
+        <div class="ag-maecenas_title">
+          <div class="ag-format-container relative-container">
+            <p class="text-on-top">javeat</p>
+            <img src="https://picerijagirosjaimajka.com/wp-content/uploads/2019/10/slider_image2.png" class="background-image"></img>
           </div>
         </div>
       </div>
       <div className="App mt-4">
-        <h1>Trova la tua passione!</h1>
-        <h3>Scegli tra tante specialità</h3>
+        <h1 className="ag-maecenas_title-item">Trova la tua passione!</h1>
+        <h3 className="ag-maecenas_tagline-item">Scegli tra tante specialità</h3>
         <div className="container">
           {cardData.map((card) => (
             <div key={card.id} className={`flip-card ${isFlipped[card.id] ? 'flipped' : ''}`} onClick={() => handleFlip(card.id)}>
@@ -123,6 +111,52 @@ export default function Homepage() {
             </div>
           ))}
         </div>
+      </div>
+      <div class="ag-format-container mt-5">
+        <section class="ag-maecenas_box">
+          <article class="ag-maecenas_item">
+            <div class="ag-maecenas_descr">
+              <div class="ag-maecenas_title-item">
+                What are you waiting for?
+              </div>
+              <div class="ag-maecenas_tagline-item">
+                Subscribe now and satisfy your appetite!
+              </div>
+              <ul class="ag-requirement_list">
+                <li class="ag-requirement_item">
+                  Lorem ipsum dolor sit amet, consectetuer adipiscing elit;
+                </li>
+                <li class="ag-requirement_item">
+                  Aenean commodo ligula eget dolor;
+                </li>
+                <li class="ag-requirement_item">
+                  Aenean massa. Cum sociis natoque penatibus et magnis;
+                </li>
+                <li class="ag-requirement_item">
+                  Adis parturient montes, nascetur ridiculus mus;
+                </li>
+                <li class="ag-requirement_item">
+                  Donec quam felis, ultricies nec, pellentesque eu;
+                </li>
+                <li class="ag-requirement_item">
+                  Nulla consequat massa quis enim;
+                </li>
+                <li class="ag-requirement_item">
+                  Donec pede justo, fringilla vel, aliquet nec;
+                </li>
+                <li class="ag-requirement_item">
+                  Wulputate eget, arcu. In enim justo, rhoncus ut, imperdiet;
+                </li>
+                <li class="ag-requirement_item">
+                  Uvenenatis vitae, justo. Nullam dictum felis eu pede mollis pretium.
+                </li>
+              </ul>
+            </div>
+            <div class="ag-maecenas_img-box me-5">
+              <img src="https://cdn-icons-png.flaticon.com/512/6586/6586905.png" style={{ width: "100%" }} />
+            </div>
+          </article>
+        </section>
       </div>
     </>
   );
