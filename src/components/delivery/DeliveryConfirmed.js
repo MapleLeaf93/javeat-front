@@ -32,7 +32,7 @@ export default function DeliveryConfirmed({sendForm}) {
                 </select>
             </div >
             <div>
-            <button type="submit" className="btn btn-primary" onClick={()=>sendForm(paymentMethod)}>Confirm order</button>
+            <button type="submit" className="btn btn-outline-success" onClick={()=>sendForm(paymentMethod)}>Confirm order</button>
             </div>
         </>
     );

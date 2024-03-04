@@ -159,8 +159,8 @@ export default function RestaurantDetail() {
 
 
     return (
-        <div className="container d-flex justify-content-center mt-5 text-center">
-            <div className="col-7 pe-4">
+        <div className="container d-flex  mt-5 text-center">
+            <div className="col-7 d-flex justify-content-center ">
                 <div className="card-body form-container p-4">
                     {restaurant ? (
                         <>
@@ -185,7 +185,7 @@ export default function RestaurantDetail() {
                     )}
                 </div>
             </div>
-            <div ref={divRef} className="col-md-5 m-1 pb-2 sticky-top p-4  justify-content-center background-yellow-shape">
+            <div ref={divRef} className="col-md-5  pb-2 sticky-top p-4  justify-content-center background-yellow-shape">
                 <div className="sticky-top  ">
                     {renderCart()}
 

@@ -34,7 +34,7 @@ export default function DeliveryCreation() {
         payment_method: "",
         notes: ""
     });
-
+    
     useEffect(() => {
         const calculateExpectedArrival = () => {
             const baseTime = new Date();  // Orario attuale
@@ -54,7 +54,8 @@ export default function DeliveryCreation() {
                     deliveryTimeOptions.push(deliveryTime);
                 }
             }
-
+            
+            
             return deliveryTimeOptions;
         };
 
@@ -103,7 +104,7 @@ export default function DeliveryCreation() {
     function handleConfirmed() {
         setShowConfirm(true);
     }
-
+    
     return (
         <>
             <div className="container form-container p-5 mt-4">
@@ -128,11 +129,11 @@ export default function DeliveryCreation() {
                             {/* NOTE*/}
                             <div className="mb-3">
                                 <label htmlFor="exampleInputPassword1" className="form-label">Insert Notes</label>
-                                <input type="note" className="form-control" id="inputNote" onChange={(e) => setNote(e.target.value)} placeholder="allergies, floor or intercom" />
+                                <textarea rows="5"  type="note" className="form-control" id="inputNote" onChange={(e) => setNote(e.target.value)} placeholder="allergies, floor or intercom" />
                             </div>
-
-                            <button type="submit" className="btn btn-primary">Confirm order</button>
-
+                            <div className="text-center">
+                                <button type="submit" className="btn btn-outline-success ">Confirm order</button>
+                            </div>
                         </form>}
                     {showConfirm &&
                         <DeliveryConfirmed sendForm={sendForm} />}
