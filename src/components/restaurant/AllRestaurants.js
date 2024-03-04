@@ -10,7 +10,13 @@ export default function AllRestaurants() {
     const [restaurantToShow, setRestaurantToShow] = useState([]);
     const [loggato, setLoggato] = useAtom(client);
     const [restaurants, setRestaurants] = useState([]);
-    const [maxDistance, setMaxDistance] = useState(500);
+    const minDistance = Math.min(...restaurants.map(r => r.distance));
+    const maxDistanceFilter = Math.max(...restaurants.map(r => r.distance));
+    const [searchKeyword, setSearchKeyword] = useState("");
+    const averageDistance = restaurants.reduce((total, r) => total + r.distance, 0) / restaurants.length;
+    const [maxDistance, setMaxDistance] = useState("");
+    const [flicker,setFlicker] = useState(false);
+    const nomIn = useRef(null);
     const [checkboxes, setCheckboxes] = useState({
         italian: false,
         mexican: false,
@@ -43,6 +49,15 @@ export default function AllRestaurants() {
     }, []);
 
     useEffect(() => {
+        if (restaurants.length > 0) {
+            const totalDistance = restaurants.reduce((total, r) => total + r.distance, 0);
+            const averageDistance = (Math.round( (totalDistance / restaurants.length) * 100) / 100).toFixed(0);
+            setMaxDistance(averageDistance);
+        }
+    }, [restaurants]);
+    
+
+    useEffect(() => {
         const filtered = restaurants.filter((r) => {
             const restaurantFoodTypes = r.foodTypes.map((type) => type.toLowerCase());
             return (
@@ -64,13 +79,17 @@ export default function AllRestaurants() {
                 (!checkboxes.salads || restaurantFoodTypes.includes("salads")) &&
                 (!checkboxes.pizza || restaurantFoodTypes.includes("pizza")) &&
                 (!checkboxes.poke || restaurantFoodTypes.includes("poke")) &&
-                (!checkboxes.hamburger || restaurantFoodTypes.includes("hamburger")) 
+                (!checkboxes.hamburger || restaurantFoodTypes.includes("hamburger")) &&
+
+                r.name.toLowerCase().includes(searchKeyword.toLowerCase()) &&
+
+                r.distance <= maxDistance
 
             );
         });
 
         setRestaurantToShow(filtered);
-    }, [checkboxes, restaurants]);
+    }, [checkboxes, restaurants, searchKeyword, maxDistance]);
 
     const handleCheckboxChange = (foodTypes) => {
         setCheckboxes((prevCheckboxes) => ({
@@ -79,7 +98,9 @@ export default function AllRestaurants() {
         }));
     };
 
-    function isShowable(r, maxdistance) {
+    function isShowable(r, maxdistance, nome) {
+        if(nome && !r.name.toLowerCase().includes(nome.toLowerCase()))
+            return false;
         if (r.distance > maxdistance)
             return false;
 
@@ -92,21 +113,31 @@ export default function AllRestaurants() {
                 <div className="col-3 bg-warning text">
                     <hr />
                     <div className="px-3 text-center" >
-                        <div className="p-2 px-4" >
-                            <label htmlFor="customRange1" className="form-label" style={{ color: "white" }}><b>Distance</b> <br />{maxDistance}</label>
-                            <input type="range" min={0} max={1000} onChange={(e) => setMaxDistance(e.target.value)} value={maxDistance} className="form-range" id="customRange1" />
+                        <div className="input-group mb-3" >
+                            <label htmlFor="y" className="fw-bold form-label me-2" style={{ color: "white" }}>Insert name:</label> <br />
+                            <input id="y" className="input-group"  ref={nomIn} onChange={() => setFlicker(!flicker)} type="text" aria-label="Recipient's username" aria-describedby="button-addon2">
+                            </input>
                         </div>
+                        <div className="p-2 px-4">
+                            <label htmlFor="customRange1" className="form-label" style={{ color: "white" }}>
+                                <b>Distance</b> <br />
+                                {/* Min: {minDistance}  */}
+                                {maxDistance}
+                            </label>
+                            <input type="range" min={minDistance} max={maxDistanceFilter} onChange={(e) => setMaxDistance(e.target.value)} value={maxDistance} className="form-range" id="customRange1" />
+                        </div>
+
                         <div className="p-2 px-4"  >
                             <div className="text-left">
                                 <div >
                                     <label style={{ color: "white" }}>
-
+                                        Italian
                                         <input className="ms-2 me-2 "
                                             type="checkbox"
                                             checked={checkboxes.italian}
                                             onChange={() => handleCheckboxChange("italian")}
                                         />
-                                        Italian
+
                                     </label>
                                 </div>
                             </div>
@@ -116,13 +147,13 @@ export default function AllRestaurants() {
                             <div className="text-left">
                                 <div >
                                     <label style={{ color: "white" }}>
-
+                                        American
                                         <input className="ms-2 me-2 "
                                             type="checkbox"
                                             checked={checkboxes.american}
                                             onChange={() => handleCheckboxChange("american")}
                                         />
-                                        American
+
                                     </label>
                                 </div>
                             </div>
@@ -347,7 +378,7 @@ export default function AllRestaurants() {
 
                 <div className="col-9 px-4 pt-4">
                     <div className="row gy-4">
-                        {restaurantToShow && restaurantToShow.filter(r => isShowable(r, maxDistance)).map((r) => (
+                        {restaurantToShow && restaurantToShow.filter(r => isShowable(r, maxDistance, nomIn.current.value)).map((r) => (
                             <SingleRestaurant key={r.id} r={r} index={r.id} />
                         ))}
                     </div>
