@@ -33,7 +33,7 @@ export default function Navbar() {
 
     return (
         <>
-            <nav className="navbar navbar-expand-lg bg-rasta-orange ps-2 pe-5">
+            <nav className="navbar navbar-expand-lg bg-rasta-orange">
                 <div className="container-fluid">
                     <img
                         className="p-0 rounded-4 m-1 logo-img"
@@ -41,6 +41,14 @@ export default function Navbar() {
                         alt="Logo"
                         onClick={handleLogoClick}
                     />
+                    
+                        {loggato ? (<>
+                            <Link className="fw-semibold btn btn-rasta-navbar p-2 ps-5 pe-5 d-flex justify-content-start" to="/allrestaurants">All Restaurants</Link>
+                            <Link className="fw-semibold btn btn-rasta-navbar me-3 p-2 ps-5 pe-5 d-flex justify-content-start" to="/myorders">My Orders</Link>
+                            </>
+                            ):(
+                                <></>
+                            )}
                     <div className="">
                         {loggato ? (
                             <button className="btn btn-outline-danger me-2" onClick={handleLogout}>Logout  <FontAwesomeIcon icon={faArrowRightFromBracket} /></button>

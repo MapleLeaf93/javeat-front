@@ -53,7 +53,7 @@ body {
 }
 
 .background-yellow-shape{
-  background-image: url('/images/orange_shape.png');
+  background-image: url('/orange_shape.png');
   background-repeat: no-repeat;
 }
 .cart-item {
@@ -84,7 +84,19 @@ body {
   }
   
 }
-
+.btn-rasta-navbar{
+  @extend .btn-light;
+  background-color: #FD8D14;
+  border-color: black;
+  color: black;
+  border-radius: 28px;
+  
+  &:hover{
+    background-color:black;
+    border-color: #FD8D14;
+    color: #FD8D14;
+  }
+}
 .bg-rasta-orange{
     background-color: #FD8D14;
 }
@@ -111,13 +123,91 @@ body {
 
 
 
+// checkboxes style
+
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 30px; /* Ridotto del 50% */
+  height: 17px; /* Ridotto del 50% */
+}
+
+/* Hide default HTML checkbox */
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+/* The slider */
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color:white;
+  -webkit-transition: .4s;
+  transition: .4s;
+  border-radius: 17px; /* Adattato al 50% della dimensione originale */
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 13px; /* Ridotto del 50% */
+  width: 13px; /* Ridotto del 50% */
+  left: 2px; /* Ridotto del 50% */
+  bottom: 2px; /* Ridotto del 50% */
+  background-color: #92ce5a; /* Colore desiderato */
+  -webkit-transition: .4s;
+  transition: .4s;
+  border-radius: 50%; /* Adattato al 50% della dimensione originale */
+}
+
+input:checked + .slider {
+  background-color: #2196F3;
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px #2196F3;
+}
+
+input:checked + .slider:before {
+  -webkit-transform: translateX(13px); /* Ridotto del 50% */
+  -ms-transform: translateX(13px); /* Ridotto del 50% */
+  transform: translateX(13px); /* Ridotto del 50% */
+}
+
+
+//range
+/* Colore del cursore del range */
+.form-range::-webkit-slider-thumb {
+  background-color: #92ce5a ; /* Imposta il colore desiderato */
+}
+
+.form-range::-moz-range-thumb {
+  background-color: white; /* Imposta il colore desiderato */
+}
+
+.form-range::-ms-thumb {
+  background-color: #92ce5a; /* Imposta il colore desiderato */
+}
+
 /*Stile Footer*/
 
 .site-footer {
-    background-color: #f2f2f2; /* Sfondo grigio */
+    background-color: #92ce5a; 
     padding: 20px 0;
     color: #333;
   }
+.bg-footer-hover{
+  @extend .site-footer;
+  &:hover{
+    background-color: #6c9645;
+  }
+}
   
   .footer-container {
     display: flex;
