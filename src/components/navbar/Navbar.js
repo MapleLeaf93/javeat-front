@@ -12,9 +12,9 @@ export default function Navbar() {
 
     const handleLogoClick = () => {
         if (loggato) {
-            navigate("/allrestaurants");
-        } else {
             navigate("/");
+        } else {
+            navigate("/login");
         }
     };
 
