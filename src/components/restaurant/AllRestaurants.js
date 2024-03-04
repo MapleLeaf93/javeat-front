@@ -13,10 +13,10 @@ export default function AllRestaurants() {
     const minDistance = Math.min(...restaurants.map(r => r.distance));
     const maxDistanceFilter = Math.max(...restaurants.map(r => r.distance));
     const [searchKeyword, setSearchKeyword] = useState("");
-    const [maxDistance, setMaxDistance] = useState(500);
+    const averageDistance = restaurants.reduce((total, r) => total + r.distance, 0) / restaurants.length;
+    const [maxDistance, setMaxDistance] = useState("");
     const [flicker,setFlicker] = useState(false);
     const nomIn = useRef(null);
-
     const [checkboxes, setCheckboxes] = useState({
         italian: false,
         mexican: false,
@@ -47,6 +47,15 @@ export default function AllRestaurants() {
         )
 
     }, []);
+
+    useEffect(() => {
+        if (restaurants.length > 0) {
+            const totalDistance = restaurants.reduce((total, r) => total + r.distance, 0);
+            const averageDistance = (Math.round( (totalDistance / restaurants.length) * 100) / 100).toFixed(0);
+            setMaxDistance(averageDistance);
+        }
+    }, [restaurants]);
+    
 
     useEffect(() => {
         const filtered = restaurants.filter((r) => {
@@ -112,9 +121,10 @@ export default function AllRestaurants() {
                         <div className="p-2 px-4">
                             <label htmlFor="customRange1" className="form-label" style={{ color: "white" }}>
                                 <b>Distance</b> <br />
-                                Min: {minDistance} Max: {maxDistance}
+                                {/* Min: {minDistance}  */}
+                                {maxDistance}
                             </label>
-                            <input type="range" min={minDistance} max={maxDistance} onChange={(e) => setMaxDistance(e.target.value)} value={maxDistance} className="form-range" id="customRange1" />
+                            <input type="range" min={minDistance} max={maxDistanceFilter} onChange={(e) => setMaxDistance(e.target.value)} value={maxDistance} className="form-range" id="customRange1" />
                         </div>
 
                         <div className="p-2 px-4"  >
