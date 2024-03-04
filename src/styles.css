@@ -38,7 +38,7 @@ body {
     font-optical-sizing: auto;
     font-weight: 500;
     font-style: normal;
-    /* background-color:#FD8D14; */
+    background-color:#FFE17B;
   }
 
 .form-container{
@@ -78,14 +78,17 @@ body {
 .text-rasta-red{
     color: #C51605;
 }
-.container-cart {
-    max-height: 80vh; /* Imposta un'altezza massima appropriata per il contenitore del carrello */
-    position: relative;
+.background-yellow-shape{
+    background-image: url(/public/images/orange_shape.png);
+    background-repeat: no-repeat;
 }
+.cart-item {
+    display: flex;
+    justify-content: space-between;
+    /* Aggiungi altre regole di stile se necessario */
+  }
   
-  .container-cart > div:not(:last-child) {
-    margin-bottom: 10px; /* Aggiungi un margine inferiore a tutti gli elementi del carrello, eccetto l'ultimo */
-}
-  
+
+
   
   

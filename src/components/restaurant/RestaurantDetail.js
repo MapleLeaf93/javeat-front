@@ -22,12 +22,11 @@ export default function RestaurantDetail() {
     // rendo la lunghezza del div cart responsive
     const divRef = useRef(null);
 
-    useEffect(()=>{
-        if(divRef.current)
-        {
-            divRef.current.style.height = divRef.current.scrollHeight +'px';
+    useEffect(() => {
+        if (divRef.current) {
+            divRef.current.style.height = divRef.current.scrollHeight + 'px';
         }
-    },[]);
+    }, []);
 
     const addToCart = (dish) => {
         const existingDish = cart.find(item => item.id === dish.id);
@@ -69,7 +68,7 @@ export default function RestaurantDetail() {
     const calculateTotalCost = () => {
         const dishesCost = cart.reduce((total, dish) => total + dish.price, 0);
         let tot = dishesCost + deliveryCost;
-        return (Math.round(tot*100)/100).toFixed(2);
+        return (Math.round(tot * 100) / 100).toFixed(2);
     };
 
     useEffect(() => {
@@ -102,12 +101,11 @@ export default function RestaurantDetail() {
 
 
         return Object.entries(groupedDishes).map(([category, dishes]) => (
-            <div key={category}>
+            <div  key={category}>
                 <br />
                 <h4>{category}</h4>
                 {dishes.map(dish => (
                     <div key={dish.id}>
-
                         <span>{dish.name} - Price: {dish.price}€</span>
                         <button className="btn btn-sm btn-outline-success m-2" onClick={() => addToCart(dish)}><FontAwesomeIcon icon={faPlus} /></button>
                         {/* graficare ingredienti */}
@@ -136,40 +134,49 @@ export default function RestaurantDetail() {
     };
 
     const renderCart = () => (
-        <div >
-            <h3 className="mt-2  ">Your Cart</h3>
-            {cart.map((dish) => (
-                <div key={dish.id}>
-                    <FontAwesomeIcon className="dark-hover" style={{ color: "#92ce5a"}} icon={faPlus} onClick={()=>addQuantity(dish)}/>
-                    <span className="lh-sm"> {dish.quantity}x </span> <span className="fw-medium"> {dish.name}  {dish.price}€ </span>
-                    <FontAwesomeIcon className="mt-auto ms-2 dark-hover " onClick={() => removeFromCart(dish)} size="lg" icon={faMinus}  style={{ color: "#ff0000" }}  />
-                </div>
-            ))}
+        <div className="cart-container">
+            <h3 className="mt-2">Your Cart</h3>
+            <div className="cart-items">
+                {cart.map((dish) => (
+                    <div key={dish.id} className=" cart-item">
+                        <FontAwesomeIcon className="dark-hover" style={{ color: "#92ce5a", fontSize: "1.5rem" }} icon={faPlus} onClick={() => addQuantity(dish)} />
+                        <span className="lh-sm">{dish.quantity}x</span>
+                        <span className="fw-medium"> {dish.name} {dish.price}€</span>
+                        <FontAwesomeIcon className="mt-auto ms-2 dark-hover " onClick={() => removeFromCart(dish)} size="lg" icon={faMinus} style={{ color: "#ff0000", fontSize: "1.5rem" }} />
+                    </div>
+                ))}
+            </div>
             <hr />
             <p>Delivery Cost: {deliveryCost}€</p>
             <p>Total Cost: {calculateTotalCost()}€</p>
-                {/* <div className="position-absolute bottom-0 start-50 translate-middle-x ">
-                    <Link className="btn btn-outline-success"
-                        to={"/deliverycreation/" + r_id}
-                        onClick={() => setCartGlob(cart)}>Proceed to Order</Link>
-                </div> */}
+            {cart.length > 0 ? (
+                <Link className="btn btn-outline-success" to={"/deliverycreation/" + r_id} onClick={() => setCartGlob(cart)}>Proceed to Order</Link>
+            ) : (
+                <button className="btn btn-outline-success" disabled>Proceed to Order</button>
+            )}
         </div>
     );
 
+
     return (
         <div className="container d-flex justify-content-center mt-5 text-center">
-            <div className="col-8 pe-4">
-                <div className="card-body">
+            <div className="col-7 pe-4">
+                <div className="card-body form-container p-4">
                     {restaurant ? (
                         <>
                             <div className="mb-auto ">
-                                <h2 className="card-title"><b> {restaurant.name} </b></h2>
-                                <img className="card-img-top rounded-start rounded-end m-4" src={restaurant.imgUrl} alt="Restaurant" style={{ maxWidth: '70%', height: '300px', objectFit: "cover" }} />
-                                <p>Phone number: {restaurant.phone}</p>
-                                <p>Open at: {restaurant.openingHour} - Close at: {restaurant.closingHour}</p>
-                            </div>
-                            <div className="mt-auto">
-                                {renderDishesByCategory(restaurant.menu)}
+
+
+                                <img className="card-img-top rounded-start rounded-end m-4 justify-content-center" src={restaurant.imgUrl} alt="Restaurant" style={{ maxWidth: '70%', height: '300px', objectFit: "cover" }} />
+                                <div className="card-body">
+                                    <h5 className="card-title"><b> {restaurant.name} </b></h5>
+                                    <p className="card-text">Phone number: {restaurant.phone}</p>
+                                    <p className="card-text">Open at: {restaurant.openingHour} - Close at: {restaurant.closingHour}</p>
+                                </div>
+                                <div className="mt-auto">
+
+                                    {renderDishesByCategory(restaurant.menu)}
+                                </div>
                             </div>
                             <br />
                         </>
@@ -178,18 +185,13 @@ export default function RestaurantDetail() {
                     )}
                 </div>
             </div>
-            <div ref={divRef} className="col-md-4 m-3 pb-2 sticky-top form-container bg-rasta-yellow container-cart">
-                <div className="sticky-top">
+            <div ref={divRef} className="col-md-5 m-1 pb-2 sticky-top p-4  justify-content-center background-yellow-shape">
+                <div className="sticky-top  ">
                     {renderCart()}
-                </div>
-                <div className="text-center container-cart mt-3 sticky-top">
-                    {cart.length > 0 ? (
-                        <Link className="btn btn-outline-success" to={"/deliverycreation/" + r_id} onClick={() => setCartGlob(cart)}>Proceed to Order</Link>
-                    ) : (
-                        <button className="btn btn-outline-success" disabled>Proceed to Order</button>
-                    )}
+
                 </div>
             </div>
         </div>
+
     );
 }

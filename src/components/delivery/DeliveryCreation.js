@@ -59,7 +59,7 @@ export default function DeliveryCreation() {
         };
 
         setExpectedArrivalOptions(calculateExpectedArrival());
-    }, [restaurant]); 
+    }, [restaurant]);
 
     // Funzione per gestire il cambiamento dell'orario di consegna selezionato
     // Questo esempio assume che hai già un oggetto Date valido per ogni opzione
@@ -106,35 +106,37 @@ export default function DeliveryCreation() {
 
     return (
         <>
-            <div className="col ">
-                {!showConfirm &&
-                    <form onSubmit={handleConfirmed}>
-                        {/* Delivery TIME*/}
-                        <div className="mb-3">
-                            <label htmlFor="inputTime" className="form-label">Choose delivery time</label>
-                            <select
-                                className="form-select"
-                                aria-label="Default select example"
-                                onChange={handleExpectedArrivalChange}
-                                value={selectedExpectedArrival}
-                            >
-                                <option value="" disabled>Select One</option>
-                                {expectedArrivalOptions.map((option, index) => (
-                                    <option key={index} value={option}>{formatTime(option)}</option>
-                                ))}
-                            </select>
-                        </div>
-                        {/* NOTE*/}
-                        <div className="mb-3">
-                            <label for="exampleInputPassword1" className="form-label">Insert Notes</label>
-                            <input type="note" className="form-control" id="inputNote" onChange={(e) => setNote(e.target.value)} placeholder="allergies, floor, intercom and similar" />
-                        </div>
+            <div className="container form-container p-5 mt-4">
+                <div className=" d-flex justify-content-center">
+                    {!showConfirm &&
+                        <form className="" onSubmit={handleConfirmed}>
+                            {/* Delivery TIME*/}
+                            <div className="mb-3 ">
+                                <label htmlFor="inputTime" className="form-label">Choose delivery time</label>
+                                <select
+                                    className="form-select"
+                                    aria-label="Default select example"
+                                    onChange={handleExpectedArrivalChange}
+                                    value={selectedExpectedArrival}
+                                >
+                                    <option value="" disabled>Select arrival time</option>
+                                    {expectedArrivalOptions.map((option, index) => (
+                                        <option key={index} value={option}>{formatTime(option)}</option>
+                                    ))}
+                                </select>
+                            </div>
+                            {/* NOTE*/}
+                            <div className="mb-3">
+                                <label htmlFor="exampleInputPassword1" className="form-label">Insert Notes</label>
+                                <input type="note" className="form-control" id="inputNote" onChange={(e) => setNote(e.target.value)} placeholder="allergies, floor or intercom" />
+                            </div>
 
-                        <button type="submit" className="btn btn-primary">Confirm order</button>
+                            <button type="submit" className="btn btn-primary">Confirm order</button>
 
-                    </form>}
-                {showConfirm &&
-                    <DeliveryConfirmed sendForm={sendForm} />}
+                        </form>}
+                    {showConfirm &&
+                        <DeliveryConfirmed sendForm={sendForm} />}
+                </div>
             </div>
         </>
     );
