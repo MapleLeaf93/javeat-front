@@ -12,6 +12,7 @@ import DeliveryCreation from './components/delivery/DeliveryCreation';
 import DeliveryConfirmed from './components/delivery/DeliveryConfirmed';
 import { useEffect } from 'react';
 import Homepage from './components/homepage/Homepage';
+import Footer from './components/footer/Footer';
 
 const CartInMemory = atom(localStorage.getItem('cartState')? JSON.parse(localStorage.getItem('cartState')) : null);
 const clientInMemory = atom(localStorage.getItem('clientState') ? JSON.parse(localStorage.getItem('clientState')) : null);
@@ -62,6 +63,7 @@ function App() {
         <Route path='/deliverycreation/:r_id' element={<DeliveryCreation/>}> </Route>
         <Route path='/deliveryconfirmed' element={<DeliveryConfirmed/>} ></Route>
       </Routes>
+      <Footer/>
     </BrowserRouter>
   );
 }

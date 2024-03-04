@@ -1,0 +1,269 @@
+.App {
+  text-align: center;
+  margin: auto;
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+  margin: auto;
+  flex-wrap: wrap;
+}
+
+.flip-card {
+  perspective: 1000px;
+  width: 200px;
+  height: 200px;
+  position: relative;
+  transform-style: preserve-3d;
+  cursor: pointer;
+}
+
+.flip-card-inner {
+  width: 100%;
+  height: 100%;
+  transition: transform 0.6s;
+  transform-style: preserve-3d;
+}
+
+.flip-card-front,
+.flip-card-back {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  backface-visibility: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  color: #000000;
+  text-shadow: 
+    -1px -1px 0 #ffffff,  
+     1px -1px 0 #ffffff,
+    -1px  1px 0 #ffffff,
+     1px  1px 0 #ffffff;
+}
+
+/* Assicurati che il contenuto interno non sporga */
+.card-content {
+  width: calc(100% - 40px);
+  /* esempio se si vuole un padding */
+  height: calc(100% - 40px);
+  /* adatta in base al padding desiderato */
+  padding: 20px;
+  border-radius: 50%;
+  box-sizing: border-box;
+  /* Include padding nel calcolo della dimensione */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border: solid 1.5px black;
+}
+
+.flip-card-back {
+  transform: rotateY(180deg);
+}
+
+.flipped .flip-card-inner {
+  transform: rotateY(180deg);
+}
+
+.flip-card:hover .flip-card-inner {
+  transform: rotateY(180deg);
+}
+
+
+//Titolo ad Onda
+
+@font-face {
+  font-family: Heavitas;
+  src: url(https://raw.githack.com/SochavaAG/example-mycode/master/pens/1_fonts/Heavitas/Heavitas.eot);
+  src: url(https://raw.githack.com/SochavaAG/example-mycode/master/pens/1_fonts/Heavitas/Heavitas.woff2) format('woff2'),
+    url(https://raw.githack.com/SochavaAG/example-mycode/master/pens/1_fonts/Heavitas/Heavitas.woff) format('woff'),
+    url(https://raw.githack.com/SochavaAG/example-mycode/master/pens/1_fonts/Heavitas/Heavitas.ttf) format('truetype'),
+    url(https://raw.githack.com/SochavaAG/example-mycode/master/pens/1_fonts/Heavitas/Heavitas.svg#Heavitas) format('svg'),
+    url(https://raw.githack.com/SochavaAG/example-mycode/master/pens/1_fonts/Heavitas/Heavitas.eot?#iefix) format('embedded-opentype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+.ag-maecenas_title {
+  padding:  0;
+  background-color: #FD8D14;
+  text-align: center;
+  font-family: Heavitas, sans-serif;
+  font-weight: bold;
+  font-size: 120px;
+  color: #FFF;
+  text-shadow: 
+  -1px -1px 0 #000000,  
+   1px -1px 0 #000000,
+  -1px  1px 0 #000000,
+   1px  1px 0 #000000;
+
+  position: relative;
+}
+
+.ag-maecenas_title:before {
+  content: "";
+  height: 125px;
+  width: 100%;
+  background: url(https://raw.githack.com/SochavaAG/example-mycode/master/pens/animation-wave-shadow/images/wave.svg) repeat-x scroll 0 0;
+  -webkit-background-size: 1600px 198px;
+  -moz-background-size: 1600px 198px;
+  -o-background-size: 1600px 198px;
+  background-size: 1600px 198px;
+
+  position: absolute;
+  left: 0;
+  bottom: 0;
+
+  -webkit-filter: drop-shadow(5px -10px 3px rgba(0, 0, 0, .2));
+  filter: drop-shadow(5px -10px 3px rgba(0, 0, 0, .2));
+
+  -webkit-animation: an-wave 20s linear infinite;
+  -moz-animation: an-wave 20s linear infinite;
+  -o-animation: an-wave 20s linear infinite;
+  animation: an-wave 20s linear infinite;
+}
+
+.relative-container {
+  position: relative;
+  width: 300px;
+  height: 400px; /* Imposta un'altezza fissa per il contenitore */
+  margin: 0 auto;
+}
+
+.text-on-top {
+  z-index: 2;
+  position: absolute;
+  top: 50%; /* Sposta il testo al 50% della larghezza del contenitore */
+  left: 50%;
+  transform: translate(-50%, -50%); /* Centra il testo correttamente */
+}
+
+.background-image {
+  width: 100%;
+  height: 100%; /* Imposta l'altezza dell'immagine al 100% del contenitore */
+  object-fit: cover; /* Evita che l'immagine si deformi */
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1;
+  display: block;
+  margin: 0 auto;
+}
+
+
+@-webkit-keyframes an-wave {
+  100% {
+    background-position-x: -1600px;
+  }
+}
+
+@-moz-keyframes an-wave {
+  100% {
+    background-position-x: -1600px;
+  }
+}
+
+@-o-keyframes an-wave {
+  100% {
+    background-position-x: -1600px;
+  }
+}
+
+@keyframes an-wave {
+  100% {
+    background-position-x: -1600px;
+  }
+}
+
+@media screen and (max-width: 979px) {
+  .ag-maecenas_title {
+    font-size: 90px;
+  }
+
+  .ag-maecenas_descr {
+    padding: 0;
+  }
+
+  @media only screen and (max-width: 639px) {
+    .ag-maecenas_title {
+      font-size: 60px;
+    }
+  }
+}
+
+//sezione lista
+
+.ag-maecenas_box {
+  display: flex;
+  flex-direction: row; /* Elementi affiancati */
+  justify-content: center; /* Centra orizzontalmente nella pagina */
+  align-items: center; /* Centra verticalmente */
+  flex-wrap: wrap; /* Permette agli elementi di andare a capo se necessario */
+  width: 100%; /* Usa l'intera larghezza disponibile */
+  max-width: 1200px; /* Imposta una larghezza massima per il contenitore */
+  margin: 0 auto; /* Centra il contenitore nella pagina */
+}
+
+.ag-format-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column; /* Imposta la direzione dei flex items in colonna */
+}
+
+
+.ag-maecenas_item {
+  flex: 1; /* Gli elementi occupano uno spazio flessibile nel contenitore */
+  display: flex;
+  flex-direction: column; /* Organizza il contenuto in colonna per default */
+  align-items: center; /* Centra gli elementi interni */
+  justify-content: center; /* Centra il contenuto verticalmente */
+  padding: 20px; /* Aggiunge un po' di spazio intorno agli elementi */
+}
+
+@media (min-width: 768px) {
+  .ag-maecenas_item {
+    flex-direction: row; /* Cambia la disposizione in riga su schermi più grandi */
+  }
+}
+
+.ag-maecenas_title-item {
+  padding: 0 0 15px;
+  font-family: Heavitas, sans-serif;
+  font-weight: bold;
+  font-size: 30px;
+}
+.ag-maecenas_tagline-item {
+  padding: 0 0 15px;
+
+  font-family: Heavitas, sans-serif;
+  font-weight: bold;
+  font-size: 20px;
+}
+
+.ag-maecenas_img-box {
+  flex-shrink: 0; /* Impedisce all'immagine di ridursi */
+  margin-left: 20px; /* Aggiunge spazio tra l'immagine e il testo */
+}
+
+/* Assicurati che l'immagine si adatti bene senza distorcere */
+.ag-maecenas_img-box img {
+  width: 100%;
+  max-width: 300px; /* Imposta una larghezza massima per l'immagine */
+  height: auto; /* Mantiene le proporzioni dell'immagine */
+}
+
+.ag-maecenas_item:nth-child(odd) {
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: reverse;
+  -webkit-flex-direction: row-reverse;
+  -moz-box-orient: horizontal;
+  -moz-box-direction: reverse;
+  -ms-flex-direction: row-reverse;
+  flex-direction: row-reverse;
+}
