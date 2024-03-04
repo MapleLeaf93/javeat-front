@@ -1,7 +1,7 @@
 import { useAtom } from "jotai";
 import { Link } from "react-router-dom";
 import { client } from "../../App";
-import '../../styles.css';
+import '../../styles.scss';
 
 
 export default function SingleRestaurant(props) {

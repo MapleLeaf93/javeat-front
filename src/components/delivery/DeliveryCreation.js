@@ -42,7 +42,7 @@ export default function DeliveryCreation() {
             // Calcolo del tempo di consegna previsto per opzioni specifiche (ogni 15 minuti)
             for (let i = 0; i < 6; i++) {
                 const deliveryTime = new Date(baseTime);
-                const minutesToAdd = (i + 1) * 15 + distance * 2;  // Aggiungi 15 minuti più 2 minuti per unità di distanza
+                const minutesToAdd = (i + 1) * 15 + distance * 0.2;  // Aggiungi 15 minuti più 2 minuti per unità di distanza
                 deliveryTime.setMinutes(baseTime.getMinutes() + minutesToAdd);
 
                 const deliveryTimeHoursMinutes = deliveryTime.getHours() * 100 + deliveryTime.getMinutes();

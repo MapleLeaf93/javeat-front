@@ -1,6 +1,6 @@
 import axios from 'axios';
 import React, { useState } from 'react';
-import '../../styles.css';
+import '../../styles.scss';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faXmark } from '@fortawesome/free-solid-svg-icons'
 import { useNavigate } from 'react-router-dom';
@@ -9,6 +9,7 @@ export default function Register() {
 
     const [registrationData, setRegistrationData] = useState({
         mail: '',
+        name: '',
         password: '',
         passRep: '',
         phone: '',
@@ -79,13 +80,18 @@ export default function Register() {
         <>
             <div className="container  form-container mt-4">
                 <form className="p-4">
+                <div className="mb-3">
+                        <label className="form-label">Insert Name</label>
+                        <input name="name" type="text" className="form-control" onChange={synchronize} />
+                    </div>
                     <div className="mb-3">
-                        <label className="form-label">Insert e-mail</label>
+                        <label className="form-label">Insert Email</label>
+                        <p className='small-descr'>At least 8 characters,min 1 MAIUSC, 1 minusc, 1 number, 1 special char</p>
                         <input name="mail" type="email" className="form-control" aria-describedby="emailHelp" onChange={synchronize} />
                     </div>
 
                     <div className="mb-3">
-                        <label className="form-label">Insert Password</label>
+                        <label className="form-label">Insert New Password</label>
                         <input name="password" type="password" className="form-control" onChange={synchronize} />
                     </div>
 

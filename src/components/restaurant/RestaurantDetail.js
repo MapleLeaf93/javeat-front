@@ -5,7 +5,7 @@ import { useAtom } from "jotai";
 import { cartGlobal, client, restaurantGlobal } from "../../App";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMinus, faPlus, faWindowMinimize, faXmark } from '@fortawesome/free-solid-svg-icons'
-import '../../styles.css';
+import '../../styles.scss';
 import { faDribbbleSquare } from "@fortawesome/free-brands-svg-icons";
 
 export default function RestaurantDetail() {
@@ -185,8 +185,8 @@ export default function RestaurantDetail() {
                     )}
                 </div>
             </div>
-            <div ref={divRef} className="col-md-5  pb-2 sticky-top p-4  justify-content-center background-yellow-shape">
-                <div className="sticky-top  ">
+            <div ref={divRef} className="col-md-5  pb-2 sticky-top p-4  justify-content-center ">
+                <div className="sticky-top background-yellow-shape ">
                     {renderCart()}
 
                 </div>

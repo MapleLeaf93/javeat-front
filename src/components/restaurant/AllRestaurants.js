@@ -3,7 +3,7 @@ import { useAtom } from "jotai";
 import { client } from "../../App";
 import { useEffect, useRef, useState } from "react";
 import SingleRestaurant from "./SingleRestaurant";
-import '../../styles.css';
+import '../../styles.scss';
 
 export default function AllRestaurants() {
     //filtro in base a tipologia di cibo e DISTANZA
