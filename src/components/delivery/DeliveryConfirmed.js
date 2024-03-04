@@ -17,7 +17,7 @@ export default function DeliveryConfirmed({sendForm}) {
     return (
       
         <>
-            < div >
+            <div>
                 <label htmlFor="inputTime" className="form-label">Choose Payment Method</label>
                 <select
                     className="form-select"

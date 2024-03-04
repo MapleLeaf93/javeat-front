@@ -26,10 +26,10 @@ export default function Navbar() {
         localStorage.removeItem('clientState'); // Oppure localStorage.setItem('clientState', JSON.stringify(null));
 
         // Reindirizza l'utente alla homepage o alla pagina di login
-        navigate('/login'); // Assicurati di avere `useNavigate` hook da `react-router-dom`
+        navigate('/'); // Assicurati di avere `useNavigate` hook da `react-router-dom`
     };
 
-    
+
 
     return (
         <>
@@ -41,16 +41,28 @@ export default function Navbar() {
                         alt="Logo"
                         onClick={handleLogoClick}
                     />
-                    <div className="">
-                        {loggato ? (
-                            <button className="btn btn-outline-danger me-2" onClick={handleLogout}>Logout  <FontAwesomeIcon icon={faArrowRightFromBracket} /></button>
-                        ) : (
-                            <>
-                                <Link className="btn bg-rasta-yellow me-2" to="/login">Login</Link>
-                                <Link className="btn btn-outline-light" to="/register">Register</Link>
-                            </>
-                        )}
-                    </div>
+                    {loggato && (
+                        <div className="d-flex justify-content-start align-items-center flex-grow-1">
+                            <Link className="mx-3 my-auto btn bg-rasta-yellow" to="/myorders">My Orders</Link>
+                        </div>
+                    )}
+                    {loggato ? (
+                        <div className="d-flex justify-content-end">
+                            <p className="me-3 my-auto">{loggato.mail.split('@')[0]}</p>
+                            <button className="btn btn-outline-danger me-2" onClick={handleLogout}>
+                                Logout <FontAwesomeIcon icon={faArrowRightFromBracket} />
+                            </button>
+                        </div>
+                    ) : (
+                        <div className="ms-auto">
+                            <Link className="btn btn-rasta-yellow me-2" to="/login">
+                                Login
+                            </Link>
+                            <Link className="btn btn-outline-light" to="/register">
+                                Register
+                            </Link>
+                        </div>
+                    )}
                 </div>
             </nav>
         </>

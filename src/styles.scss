@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap');
+@import "../node_modules/bootstrap/scss/bootstrap";
 
 *{
     margin: 0;
@@ -38,7 +39,6 @@ body {
     font-optical-sizing: auto;
     font-weight: 500;
     font-style: normal;
-    background-color:#FFE17B;
   }
 
 .form-container{
@@ -47,12 +47,42 @@ body {
     border-radius: 15px;
 }
 
+.small-descr{
+  font-size: 12px;
+  color: rgb(169, 169, 169);
+}
+
+.background-yellow-shape{
+  background-image: url('/images/orange_shape.png');
+  background-repeat: no-repeat;
+}
+.cart-item {
+  display: flex;
+  justify-content: space-between;
+}
+
+/* Color Palette*/
+
 .bg-rasta-green{
     background-color: #92ce5a;
 }
 
+
 .bg-rasta-yellow{
     background-color: #FFE17B;
+}
+
+.btn-rasta-yellow{
+  @extend .btn-light;
+  background-color: #FFE17B;
+  border-color: black;
+
+  &:hover
+  {
+    background-color: #cbb263;
+    border-color: rgb(32, 32, 32);
+  }
+  
 }
 
 .bg-rasta-orange{
@@ -78,16 +108,7 @@ body {
 .text-rasta-red{
     color: #C51605;
 }
-.background-yellow-shape{
-    background-image: url(/public/images/orange_shape.png);
-    background-repeat: no-repeat;
-}
-.cart-item {
-    display: flex;
-    justify-content: space-between;
-    /* Aggiungi altre regole di stile se necessario */
-  }
-  
+
 
 
 /*Stile Footer*/
