@@ -10,6 +10,9 @@ import SingleRestaurant from './components/restaurant/SingleRestaurant';
 import RestaurantDetail from './components/restaurant/RestaurantDetail';
 import DeliveryCreation from './components/delivery/DeliveryCreation';
 import DeliveryConfirmed from './components/delivery/DeliveryConfirmed';
+import { useEffect } from 'react';
+import Homepage from './components/homepage/Homepage';
+import Footer from './components/footer/Footer';
 
 const CartInMemory = atom(localStorage.getItem('cartState')? JSON.parse(localStorage.getItem('cartState')) : null);
 const clientInMemory = atom(localStorage.getItem('clientState') ? JSON.parse(localStorage.getItem('clientState')) : null);
@@ -46,11 +49,12 @@ function App() {
   const [cartState, setCartState] = useAtom(cartGlobal);
   const [clientState, setClientState] = useAtom(client);
 
+  
    return (
     <BrowserRouter>
       <Navbar />
       <Routes>
-        <Route index element={<Login />}></Route>
+        <Route index element={<Homepage />}></Route>
         <Route path='/allrestaurants' element={<AllRestaurants />}></Route>
         <Route path='/register' element={<Register />}></Route>
         <Route path='/login' element={<Login />}></Route>
@@ -59,6 +63,7 @@ function App() {
         <Route path='/deliverycreation/:r_id' element={<DeliveryCreation/>}> </Route>
         <Route path='/deliveryconfirmed' element={<DeliveryConfirmed/>} ></Route>
       </Routes>
+      <Footer/>
     </BrowserRouter>
   );
 }

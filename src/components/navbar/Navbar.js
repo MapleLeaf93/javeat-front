@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { client } from "../../App";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowRightFromBracket } from '@fortawesome/free-solid-svg-icons'
+import { useEffect } from "react";
 
 export default function Navbar() {
     const [loggato, setLoggato] = useAtom(client);
@@ -27,6 +28,8 @@ export default function Navbar() {
         // Reindirizza l'utente alla homepage o alla pagina di login
         navigate('/login'); // Assicurati di avere `useNavigate` hook da `react-router-dom`
     };
+
+    
 
     return (
         <>
