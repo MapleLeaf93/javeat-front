@@ -26,14 +26,14 @@ export default function Navbar() {
         localStorage.removeItem('clientState'); // Oppure localStorage.setItem('clientState', JSON.stringify(null));
 
         // Reindirizza l'utente alla homepage o alla pagina di login
-        navigate('/'); // Assicurati di avere `useNavigate` hook da `react-router-dom`
+        navigate('/login'); // Assicurati di avere `useNavigate` hook da `react-router-dom`
     };
 
-
+    
 
     return (
         <>
-            <nav className="navbar navbar-expand-lg bg-rasta-orange ps-2 pe-5">
+            <nav className="navbar navbar-expand-lg bg-rasta-orange">
                 <div className="container-fluid">
                     <img
                         className="p-0 rounded-4 m-1 logo-img"
@@ -41,28 +41,24 @@ export default function Navbar() {
                         alt="Logo"
                         onClick={handleLogoClick}
                     />
-                    {loggato && (
-                        <div className="d-flex justify-content-start align-items-center flex-grow-1">
-                            <Link className="mx-3 my-auto btn bg-rasta-yellow" to="/myorders">My Orders</Link>
-                        </div>
-                    )}
-                    {loggato ? (
-                        <div className="d-flex justify-content-end">
-                            <p className="me-3 my-auto">{loggato.mail.split('@')[0]}</p>
-                            <button className="btn btn-outline-danger me-2" onClick={handleLogout}>
-                                Logout <FontAwesomeIcon icon={faArrowRightFromBracket} />
-                            </button>
-                        </div>
-                    ) : (
-                        <div className="ms-auto">
-                            <Link className="btn btn-rasta-yellow me-2" to="/login">
-                                Login
-                            </Link>
-                            <Link className="btn btn-outline-light" to="/register">
-                                Register
-                            </Link>
-                        </div>
-                    )}
+                    
+                        {loggato ? (<>
+                            <Link className="fw-semibold btn btn-rasta-navbar p-2 ps-5 pe-5 d-flex justify-content-start" to="/allrestaurants">All Restaurants</Link>
+                            <Link className="fw-semibold btn btn-rasta-navbar me-3 p-2 ps-5 pe-5 d-flex justify-content-start" to="/myorders">My Orders</Link>
+                            </>
+                            ):(
+                                <></>
+                            )}
+                    <div className="">
+                        {loggato ? (
+                            <button className="btn btn-outline-danger me-2" onClick={handleLogout}>Logout  <FontAwesomeIcon icon={faArrowRightFromBracket} /></button>
+                        ) : (
+                            <>
+                                <Link className="btn bg-rasta-yellow me-2" to="/login">Login</Link>
+                                <Link className="btn btn-outline-light" to="/register">Register</Link>
+                            </>
+                        )}
+                    </div>
                 </div>
             </nav>
         </>
