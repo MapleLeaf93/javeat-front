@@ -4,9 +4,8 @@ import axios from "axios";
 import { useAtom } from "jotai";
 import { cartGlobal, client, restaurantGlobal } from "../../App";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faMinus, faPlus } from '@fortawesome/free-solid-svg-icons'
+import { faMinus, faPen, faPlus, faXmark } from '@fortawesome/free-solid-svg-icons'
 import '../../styles.scss';
-import { faDribbbleSquare } from "@fortawesome/free-brands-svg-icons";
 
 export default function RestaurantDetail() {
     const { r_id } = useParams();
@@ -15,6 +14,9 @@ export default function RestaurantDetail() {
     const [cart, setCart] = useState([]);
     const [cartGlob, setCartGlob] = useAtom(cartGlobal);
     const [quantity, setQuantity] = useState({});
+    const [showIngredients, setShowIngredients] = useState({});
+    const [ingredients, setIngredients] = useState({});
+
 
     // const addToCart = (dish) => setCart([...cart, dish]); 
     //ritorna una lista di dishtodelivery: dish id, id delivery, quantità
@@ -29,17 +31,27 @@ export default function RestaurantDetail() {
     }, []);
 
     const addToCart = (dish) => {
+        let addedIngredients = "";
+        for (let i in ingredients[dish.id]) {
+            if (ingredients[dish.id][i])
+                addedIngredients += i + ",";
+        }
+        if (addedIngredients.length != 0)
+            addedIngredients = addedIngredients.substring(0, addedIngredients.length - 1);
+
+        let tempDish = { ...dish, added_ingredients: addedIngredients };
+
         const existingDish = cart.find(item => item.id === dish.id);
         if (existingDish) {
             const updatedCart = cart.map(dishInCart => {
                 if (dishInCart.id === dish.id) {
-                    return { ...dishInCart, quantity: dishInCart.quantity + 1 };
+                    return { ...tempDish, quantity: dishInCart.quantity + 1 };
                 }
                 return dishInCart;
             });
             setCart(updatedCart);
         } else {
-            setCart([...cart, { ...dish, quantity: 1 }]);
+            setCart([...cart, { ...tempDish, quantity: 1 }]);
         }
     };
 
@@ -83,9 +95,24 @@ export default function RestaurantDetail() {
         axios.get(`/restaurant/full/` + user.id + `/` + r_id)
             .then((resp) => {
                 setRestaurant(resp.data);
-
+                let tempShow = {};
+                let menu = resp.data.menu;
+                let temp = {};
+                for (let dish of menu) {
+                    temp[dish.id] = {
+                        mayonese: false,
+                        ketchup: false,
+                        mustard: false,
+                        yogurt_sauce: false,
+                        garlic: false,
+                        onion: false,
+                    }
+                    tempShow[dish.id] = false;
+                }
+                setIngredients(temp);
+                setShowIngredients(tempShow);
             }).catch(error => {
-                console.error('Errore durante il recupero dei dettagli del ristorante:', error);
+                console.error('Error loading details:', error);
 
             });
     }, [user.id, r_id]);
@@ -112,19 +139,57 @@ export default function RestaurantDetail() {
                             onClick={() => addToCart(dish)}><FontAwesomeIcon icon={faPlus} /></button>
                         <br />
                         <div>
-                            {dish.customizable &&
-                                <button className="btn btn-sm btn-outline-success m-2"
-                                    onClick={() => addIngredients(dish)}>add ingredients</button>}
-
                             {dish.ingredients.map((ingredient, index) => (
                                 <span key={index} className=" fw-lighter me-2">{ingredient} {index === dish.ingredients.length - 1 ? "" : ","}</span>
                             ))}
+                            {/* {dish.customizable && */}
+                            <button className="btn btn-sm btn-outline-success m-2"
+                                onClick={() => handleClick(dish.id)}> {showIngredients[dish.id] ? <FontAwesomeIcon icon={faXmark} /> : <FontAwesomeIcon icon={faPen} />}</button>
+                            {/* } */}
+                            <div>
+                                {showIngredients[dish.id] && (
+                                    <div className="btn-group" role="group" aria-label="Basic checkbox toggle button group">
+                                        <input type="checkbox" className="btn-check" onChange={() => handleCheckboxChange("mayonese", dish.id)} checked={ingredients[dish.id].mayonese}
+                                            id="btncheck1" autocomplete="off" />
+                                        <label className="btn btn-outline-primary" for="btncheck1">Mayonese</label>
+
+                                        <input type="checkbox" className="btn-check" onChange={() => handleCheckboxChange("ketchup", dish.id)} checked={ingredients[dish.id].ketchup} id="btncheck2" autocomplete="off" />
+                                        <label className="btn btn-outline-primary" for="btncheck2">Ketchup</label>
+
+                                        <input type="checkbox" className="btn-check" onChange={() => handleCheckboxChange("mustard", dish.id)} checked={ingredients[dish.id].mustard} id="btncheck3" autocomplete="off" />
+                                        <label className="btn btn-outline-primary" for="btncheck3">Mustard</label>
+
+                                        <input type="checkbox" className="btn-check" onChange={() => handleCheckboxChange("yogurt_sauce", dish.id)} checked={ingredients[dish.id].yogurt_sauce} id="btncheck4" autocomplete="off" />
+                                        <label className="btn btn-outline-primary" for="btncheck4">Yogurt sauce</label>
+
+                                        <input type="checkbox" className="btn-check" onChange={() => handleCheckboxChange("garlic", dish.id)} checked={ingredients[dish.id].garlic} id="btncheck5" autocomplete="off" />
+                                        <label className="btn btn-outline-primary" for="btncheck5">Garlic</label>
+
+                                        <input type="checkbox" className="btn-check" onChange={() => handleCheckboxChange("onion", dish.id)} checked={ingredients[dish.id].onion}
+                                            id="btncheck6" autocomplete="off" />
+                                        <label className="btn btn-outline-primary" for="btncheck6">Onion</label>
+                                    </div>)
+                                }
+                            </div>
+
 
                         </div>
                     </div>
                 ))}
             </div>
         ));
+    };
+
+    const handleCheckboxChange = (name, dish_id) => {
+        let temp = { ...ingredients };
+        temp[dish_id][name] = !temp[dish_id][name];
+        setIngredients(temp);
+    };
+
+    const handleClick = (dish_id) => {
+        let temp = { ...showIngredients };
+        temp[dish_id] = !temp[dish_id];
+        setShowIngredients(temp);
     };
 
     const addQuantity = (dish) => {
@@ -137,36 +202,12 @@ export default function RestaurantDetail() {
         setCart(updatedCart);
     };
 
-    const addIngredients = (dish) => {
-        return (
+    // const handleConfirm = () => {
 
-            <div class="btn-group" role="group" aria-label="Basic checkbox toggle button group">
-                <input type="checkbox" class="btn-check" id="btncheck1" autocomplete="off" />
-                <label class="btn btn-outline-primary" for="btncheck1">Mayonese</label>
+    //     let stringOfIngredients=ingredients.join(",");
 
-                <input type="checkbox" class="btn-check" id="btncheck2" autocomplete="off" />
-                <label class="btn btn-outline-primary" for="btncheck2">Ketchup</label>
+    // };
 
-                <input type="checkbox" class="btn-check" id="btncheck3" autocomplete="off" />
-                <label class="btn btn-outline-primary" for="btncheck3">Mustard</label>
-
-                <input type="checkbox" class="btn-check" id="btncheck3" autocomplete="off" />
-                <label class="btn btn-outline-primary" for="btncheck3">Yogurt sauce</label>
-
-                <input type="checkbox" class="btn-check" id="btncheck3" autocomplete="off" />
-                <label class="btn btn-outline-primary" for="btncheck3">Garlic</label>
-
-                <input type="checkbox" class="btn-check" id="btncheck3" autocomplete="off" />
-                <label class="btn btn-outline-primary" for="btncheck3">Onion</label>
-
-
-                <div>
-                    <button type="submit" className="btn btn-outline-success" >Confirm</button>
-                </div>
-            </div>
-
-        );
-    }
 
     const renderCart = () => (
         <div className="cart-container">
@@ -178,7 +219,9 @@ export default function RestaurantDetail() {
                         <span className="lh-sm">{dish.quantity}x</span>
                         <span className="fw-medium"> {dish.name} {dish.price}€</span>
                         <FontAwesomeIcon className="mt-auto ms-2 dark-hover " onClick={() => removeFromCart(dish)} size="lg" icon={faMinus} style={{ color: "#ff0000", fontSize: "1.5rem" }} />
+
                     </div>
+
                 ))}
             </div>
             <hr />
@@ -208,8 +251,7 @@ export default function RestaurantDetail() {
                                     <p className="card-text">Phone number: {restaurant.phone}</p>
                                     <p className="card-text">Open at: {restaurant.openingHour} - Close at: {restaurant.closingHour}</p>
                                 </div>
-                                <div className="mx-4">
-
+                                <div className="mt-auto">
                                     {renderDishesByCategory(restaurant.menu)}
                                 </div>
                             </div>
