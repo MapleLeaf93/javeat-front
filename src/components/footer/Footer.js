@@ -38,9 +38,9 @@ const Footer = () => {
         {/* Quarta colonna per la newsletter */}
         <div className="footer-column bg-footer-hover">
           <h3>Subscribe to Newsletter</h3>
-          <div className="subscribe-form">
-            <input type="email" placeholder="Enter your email" />
-            <button className="btn btn-dark">Subscribe</button>
+          <div class="input-group input-group-sm mt-3 px-4">
+            <input type="text" class="form-control" placeholder="Enter your email" aria-label="Subscribe newsletter" aria-describedby="button-addon2" />
+            <button class="btn btn-outline-rasta-yellow" type="button" id="button-addon2">Subscribe</button>
           </div>
         </div>
       </div>
