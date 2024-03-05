@@ -22,18 +22,37 @@ export default function DeliveryCreation() {
     const [selectedExpectedArrival, setSelectedExpectedArrival] = useState("");
     const [showConfirm, setShowConfirm] = useState(false);
     const [note, setNote] = useState("");
-
+    
+    // const [dishDescription, setDishDescription] = useState({
+    //     quantita:cartG.quantity,
+    //     added_ingredients:cartG.added_ingredients,
+    //     removed_ingredients:""
+    // });
     const [dto, setDto] = useState({
         user_id: user.id,
         restaurant_id: r_id,
         idPiattoToQuantita: cartG.reduce((accumulator, dishtodelivery) => {
             accumulator[dishtodelivery.id] = dishtodelivery.quantity;
+                                            //dishtodelivery.quantity;
             return accumulator;
         }, {}),
         expected_arrival: "",
         payment_method: "",
         notes: ""
     });
+    
+    
+    // const [dto, setDto] = useState({
+    //     user_id: user.id,
+    //     restaurant_id: r_id,
+    //     idPiattoToQuantita: cartG.reduce((accumulator, dishtodelivery) => {
+    //         accumulator[dishtodelivery.id] = dishtodelivery.dishDescription;
+    //         return accumulator;
+    //     }, {}),
+    //     expected_arrival: "",
+    //     payment_method: "",
+    //     notes: ""
+    // });
     
     useEffect(() => {
         const calculateExpectedArrival = () => {
@@ -75,13 +94,18 @@ export default function DeliveryCreation() {
 
     function sendForm(paymentMethod) {
 
-        const updatedDto = {
+        let updatedDto = {
             ...dto,
             payment_method: paymentMethod,
             notes: note,
             expected_arrival: selectedExpectedArrival
         };
-
+        let mappa = {};
+        for(let d of cartG)
+        {
+            mappa[d.id]={quantita:d.quantity,added_ingredients:d.added_ingredients}
+        }
+        updatedDto["idPiattoToQuantita"]=mappa;
         axios.post("/delivery", updatedDto)
             .then((response) => {
                 alert("Evviva tra poco potrai gustare le nostre prelibatezze!!! GNAAAM")
