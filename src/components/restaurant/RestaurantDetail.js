@@ -4,7 +4,7 @@ import axios from "axios";
 import { useAtom } from "jotai";
 import { cartGlobal, client, restaurantGlobal } from "../../App";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faMinus, faPlus, faWindowMinimize, faXmark } from '@fortawesome/free-solid-svg-icons'
+import { faMinus, faPlus } from '@fortawesome/free-solid-svg-icons'
 import '../../styles.scss';
 import { faDribbbleSquare } from "@fortawesome/free-brands-svg-icons";
 
@@ -101,16 +101,20 @@ export default function RestaurantDetail() {
 
 
         return Object.entries(groupedDishes).map(([category, dishes]) => (
-            <div  key={category}>
+            <div key={category}>
                 <br />
                 <h4>{category}</h4>
                 {dishes.map(dish => (
                     <div key={dish.id}>
                         <span>{dish.name} - Price: {dish.price}€</span>
-                        <button className="btn btn-sm btn-outline-success m-2" onClick={() => addToCart(dish)}><FontAwesomeIcon icon={faPlus} /></button>
-                        {/* graficare ingredienti */}
+
+                        <button className="btn btn-sm btn-outline-success m-2"
+                            onClick={() => addToCart(dish)}><FontAwesomeIcon icon={faPlus} /></button>
                         <br />
                         <div>
+                            {dish.customizable &&
+                                <button className="btn btn-sm btn-outline-success m-2"
+                                    onClick={() => addIngredients(dish)}>add ingredients</button>}
 
                             {dish.ingredients.map((ingredient, index) => (
                                 <span key={index} className=" fw-lighter me-2">{ingredient} {index === dish.ingredients.length - 1 ? "" : ","}</span>
@@ -132,6 +136,37 @@ export default function RestaurantDetail() {
         });
         setCart(updatedCart);
     };
+
+    const addIngredients = (dish) => {
+        return (
+
+            <div class="btn-group" role="group" aria-label="Basic checkbox toggle button group">
+                <input type="checkbox" class="btn-check" id="btncheck1" autocomplete="off" />
+                <label class="btn btn-outline-primary" for="btncheck1">Mayonese</label>
+
+                <input type="checkbox" class="btn-check" id="btncheck2" autocomplete="off" />
+                <label class="btn btn-outline-primary" for="btncheck2">Ketchup</label>
+
+                <input type="checkbox" class="btn-check" id="btncheck3" autocomplete="off" />
+                <label class="btn btn-outline-primary" for="btncheck3">Mustard</label>
+
+                <input type="checkbox" class="btn-check" id="btncheck3" autocomplete="off" />
+                <label class="btn btn-outline-primary" for="btncheck3">Yogurt sauce</label>
+
+                <input type="checkbox" class="btn-check" id="btncheck3" autocomplete="off" />
+                <label class="btn btn-outline-primary" for="btncheck3">Garlic</label>
+
+                <input type="checkbox" class="btn-check" id="btncheck3" autocomplete="off" />
+                <label class="btn btn-outline-primary" for="btncheck3">Onion</label>
+
+           
+                <div>
+                    <button type="submit" className="btn btn-outline-success" >Confirm</button>
+                </div>
+            </div>
+
+        );
+    }
 
     const renderCart = () => (
         <div className="cart-container">
