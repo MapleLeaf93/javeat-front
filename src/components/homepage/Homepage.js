@@ -10,7 +10,7 @@ export default function Homepage() {
     {
       id: 'card1',
       title: 'Burgers',
-      frontImage: '/burger.png',
+      frontImage: '/images/burger.png',
       backImage: '',
       frontContent: 'Ami i Burgers?',
       backContent: 'Scopri i migliori burger joints in città!',
@@ -18,7 +18,7 @@ export default function Homepage() {
     {
       id: 'card2',
       title: 'Sushi',
-      frontImage: '/sushi.png',
+      frontImage: '/images/sushi.png',
       backImage: '',
       frontContent: 'Fascino del Sushi',
       backContent: 'Esplora i migliori sushi bar!',
@@ -26,7 +26,7 @@ export default function Homepage() {
     {
       id: 'card3',
       title: 'Pizza',
-      frontImage: '/pizza.png',
+      frontImage: '/images/pizza.png',
       backImage: '',
       frontContent: 'Passione Pizza',
       backContent: 'Le pizzerie imperdibili!',
@@ -34,7 +34,7 @@ export default function Homepage() {
     {
       id: 'card4',
       title: 'Pizza',
-      frontImage: '/pizza.png',
+      frontImage: '/images/pizza.png',
       backImage: '',
       frontContent: 'Passione Pizza',
       backContent: 'Le pizzerie imperdibili!',
@@ -42,7 +42,7 @@ export default function Homepage() {
     {
       id: 'card5',
       title: 'Pizza',
-      frontImage: '/pizza.png',
+      frontImage: '/images/pizza.png',
       backImage: '',
       frontContent: 'Passione Pizza',
       backContent: 'Le pizzerie imperdibili!',

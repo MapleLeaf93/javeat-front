@@ -17,11 +17,11 @@ export default function SingleRestaurant(props) {
                     <h4 className="card-title">{props.r.open ? "open" : "closed"}</h4>
                     <div>
                         {props.r.foodTypes.map((foodType, index) => (
-                            <span key={index} className="badge bg-primary me-2">{foodType}</span>
+                            <span key={index} className="badge me-2 bg-rasta-green">{foodType}</span>
                         ))}
                     </div>
                     <p className="card-text">distance: {props.r.distance}</p>
-                    <Link className="btn btn-primary" to={"/restaurantsdetails/" + props.r.id}>Detail</Link>
+                    <Link className="btn  bg-rasta-green" to={"/restaurantsdetails/" + props.r.id}>Detail</Link>
                 </div>
             </div>
         </div>
