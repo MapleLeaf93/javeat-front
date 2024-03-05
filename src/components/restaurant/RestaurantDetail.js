@@ -158,8 +158,6 @@ export default function RestaurantDetail() {
 
                 <input type="checkbox" class="btn-check" id="btncheck3" autocomplete="off" />
                 <label class="btn btn-outline-primary" for="btncheck3">Onion</label>
-
-
                 <div>
                     <button type="submit" className="btn btn-outline-success" >Confirm</button>
                 </div>
