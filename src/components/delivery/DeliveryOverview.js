@@ -1,50 +1,76 @@
+import React, { useEffect, useState } from "react";
+import axios from "axios";
 import { useAtom } from "jotai";
 import { client } from "../../App";
-import { useEffect, useState } from "react";
-import axios from "axios";
-
+import OrderDetail from "./OrderDetail";
 
 export default function DeliveryOverview() {
-    const [loggato, setLoggato] = useAtom(client);
-    const [deliveries, setDeliveries] = useState([]);
+  const [loggato, setLoggato] = useAtom(client);
+  const [deliveries, setDeliveries] = useState([]);
+  const [selectedOrder, setSelectedOrder] = useState(null);
 
-    useEffect(() => {
-        // id utente loggato nel contesto globale
-        axios.get("/delivery/" + loggato.id).then(
-            response => {
-                if (response.status === 200) {
-                    // Se la risposta ha successo, aggiorna lo stato con i dati
-                    setDeliveries(response.data);
-                } else {
-                    // Se la risposta non ha successo, gestisci l'errore
-                    console.error("Errore durante il recupero degli ordini:", response.statusText);
-                }
-            }
-        ).catch(error => {
-            // Gestisci eventuali errori durante la richiesta
-            console.error("Errore durante la richiesta:", error);
-        });
-    }, []);
+  useEffect(() => {
+    axios.get("/delivery/" + loggato.id).then(response => {
+      if (response.status === 200) {
+        setDeliveries(response.data);
+      } else {
+        console.error("Errore durante il recupero degli ordini:", response.statusText);
+      }
+    }).catch(error => {
+      console.error("Errore durante la richiesta:", error);
+    });
+  }, [loggato.id]); // Aggiunta di loggato.id come dipendenza per rifare la chiamata se cambia l'id
 
+  const formatTime = (isoDateString) => {
+    const date = new Date(isoDateString);
+    const day = date.getDate().toString().padStart(2, "0");
+    const month = (date.getMonth() + 1).toString().padStart(2, "0");
+    const year = date.getFullYear();
+    const hours = date.getHours().toString().padStart(2, "0");
+    const minutes = date.getMinutes().toString().padStart(2, "0");
 
-    return (
-        <>
-            <div className="container my-5">
-                <h2 className="mb-4">Your Order History</h2>
-                {deliveries.length > 0 ? (
-                    <ul>
-                        {deliveries.map((delivery) => (
-                            <li key={delivery.id}>
-                                <strong>Order ID:</strong> {delivery.id} - <strong>Delivery Time:</strong>{" "}
-                                {delivery.expected_arrival} - <strong>Payment Method:</strong>{" "}
-                                {delivery.payment_method} - <strong>Notes:</strong> {delivery.notes}
-                            </li>
-                        ))}
-                    </ul>
-                ) : (
-                    <p>No orders found.</p>
-                )}
+    return `${day}/${month}/${year} at ${hours}:${minutes}`;
+  };
+
+  const toggleDetails = (order) => {
+    if (selectedOrder && selectedOrder.id === order.id) {
+      setSelectedOrder(null); // Chiudi i dettagli se lo stesso ordine viene cliccato di nuovo
+    } else {
+      setSelectedOrder(order); // Mostra i dettagli dell'ordine selezionato
+    }
+  };
+
+  return (
+    <>
+      <div className="container my-5">
+        <h2 className="text-center mb-4">Your Order History</h2>
+        {deliveries.length > 0 ? (
+          deliveries.map((delivery) => (
+            <div key={delivery.id}>
+              <div className="row justify-content-between align-items-center mb-2">
+                <div className="col">
+                  <p>Order ID: {delivery.id} - Delivery Time: {formatTime(delivery.expected_arrival)} - Payment Method: {delivery.payment_method} - Total: {delivery.total_price}€</p>
+                </div>
+                <div className="col-auto">
+                  <button className="btn btn-sm btn-outline-dark" onClick={() => toggleDetails(delivery)}>
+                    {selectedOrder && selectedOrder.id === delivery.id ? "Hide Details" : "Order Details"}
+                  </button>
+                </div>
+              </div>
+              {selectedOrder && selectedOrder.id === delivery.id && (
+                <div className="row text-center">
+                  <div className="col">
+                    <OrderDetail order={delivery} />
+                  </div>
+                </div>
+              )}
             </div>
-        </>
-    );
+          ))
+        ) : (
+          <p>No orders found.</p>
+        )}
+      </div>
+    </>
+  );
+  
 }

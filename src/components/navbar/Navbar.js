@@ -51,7 +51,10 @@ export default function Navbar() {
                             )}
                     <div className="">
                         {loggato ? (
+                            <div>
+                            <p>{loggato.name}</p>
                             <button className="btn btn-outline-danger me-2" onClick={handleLogout}>Logout  <FontAwesomeIcon icon={faArrowRightFromBracket} /></button>
+                            </div>
                         ) : (
                             <>
                                 <Link className="btn bg-rasta-yellow me-2" to="/login">Login</Link>

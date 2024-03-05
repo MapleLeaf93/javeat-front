@@ -10,7 +10,6 @@ import SingleRestaurant from './components/restaurant/SingleRestaurant';
 import RestaurantDetail from './components/restaurant/RestaurantDetail';
 import DeliveryCreation from './components/delivery/DeliveryCreation';
 import DeliveryConfirmed from './components/delivery/DeliveryConfirmed';
-import { useEffect } from 'react';
 import Homepage from './components/homepage/Homepage';
 import Footer from './components/footer/Footer';
 import DeliveryOverview from './components/delivery/DeliveryOverview';
