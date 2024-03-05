@@ -3,7 +3,7 @@ import '../../styles.scss';
 
 const Footer = () => {
   return (
-    <footer className="site-footer mt-5 ">
+    <footer className="site-footer">
       <div className="footer-container ">
         {/* Prima colonna */}
         <div className="footer-column bg-footer-hover">
@@ -40,7 +40,7 @@ const Footer = () => {
           <h3>Subscribe to Newsletter</h3>
           <div className="subscribe-form">
             <input type="email" placeholder="Enter your email" />
-            <button >Subscribe</button>
+            <button className="btn btn-dark">Subscribe</button>
           </div>
         </div>
       </div>

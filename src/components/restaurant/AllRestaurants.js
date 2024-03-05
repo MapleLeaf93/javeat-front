@@ -41,17 +41,6 @@ export default function AllRestaurants() {
     });
 
 
-
-
-useEffect(() => {
-    // Logica di filtraggio basata sulla distanza...
-    const filteredByDistance = filteredRestaurants.filter((r) => {
-        return r.distance <= maxDistance;
-    });
-
-    setRestaurantToShow(filteredByDistance);
-}, [maxDistance, filteredRestaurants]);
-
     useEffect(() => {
         //id utente loggato nel contesto globale
         axios.get("/restaurants/" + loggato.id).then(
@@ -81,10 +70,9 @@ useEffect(() => {
             res &= r.distance <= maxDistance;
             let oneOrMoreSelected = false;
             let found = false;
-            for(let type in checkboxes)
-            {
+            for (let type in checkboxes) {
                 oneOrMoreSelected |= checkboxes[type]; // se le checkboxes sono false, oneOrMoreSelected resterà false
-                if(checkboxes[type] && restaurantFoodTypes.includes(type))
+                if (checkboxes[type] && restaurantFoodTypes.includes(type))
                     found = true;
             }
 
@@ -92,7 +80,7 @@ useEffect(() => {
         });
 
         setRestaurantToShow(filtered);
-    }, [checkboxes, restaurants, searchKeyword]);
+    }, [checkboxes, restaurants, searchKeyword, maxDistance]);
 
     const handleCheckboxChange = (foodTypes, isChecked) => {
         setCheckboxes((prevCheckboxes) => ({
@@ -106,22 +94,12 @@ useEffect(() => {
         }));
     };
 
-    function isShowable(r, maxdistance, nome) {
-        if (nome && !r.name.toLowerCase().includes(nome.toLowerCase()))
-            return false;
-        if (r.distance > maxdistance)
-            return false;
-
-        return true;
-    }
-
     return (
         <div className="">
             <div className="row">
-                <div className="col-3 bg-warning text">
-                    <hr />
-                    <div className="px-3 text-center" >
-                        <div className="input-group mb-3" >
+                <div className="col-3 bg-dark">
+                    <div className="px-3 text-center mt-4 border-top-1" >
+                        <div className="input-group mb-3 justify-content-center" >
                             <label htmlFor="y" className="fw-bold form-label me-2" style={{ color: "white" }}>Insert name:</label> <br />
                             <input id="y" className="input-group-text" ref={nomIn} onChange={() => setFlicker(!flicker)} type="text" aria-label="Recipient's username" aria-describedby="button-addon2">
                             </input>
@@ -129,12 +107,10 @@ useEffect(() => {
                         <div className="p-2 px-4 ">
                             <label htmlFor="customRange1" className="form-label" style={{ color: "white" }}>
                                 <b>Distance</b> <br />
-                                {/* Min: {minDistance}  */}
                                 {maxDistance}
                             </label>
                             <input type="range" min={minDistance} max={maxDistanceFilter} onChange={(e) => setMaxDistance(e.target.value)} value={maxDistance} className="form-range " id="customRange1" />
                         </div>
-
 
                         {Object.keys(checkboxes).map((foodType) => (
                             <div className="p-2 px-4 row" key={foodType}>
@@ -159,7 +135,7 @@ useEffect(() => {
 
                 <div className="col-9 px-4 pt-4">
                     <div className="row gy-4">
-                        {restaurantToShow && restaurantToShow.filter(r => isShowable(r, maxDistance, nomIn.current.value)).map((r) => (
+                        {restaurantToShow && restaurantToShow.map((r) => (
                             <SingleRestaurant key={r.id} r={r} index={r.id} />
                         ))}
 
