@@ -106,8 +106,8 @@ export default function RestaurantDetail() {
                 <h4>{category}</h4>
                 {dishes.map(dish => (
                     <div key={dish.id}>
-                        <span>{dish.name} - Price: {dish.price}€</span>
-
+                        <span className="fw-bold">{dish.name}</span>
+                        <span> - {dish.price}€</span>
                         <button className="btn btn-sm btn-outline-success m-2"
                             onClick={() => addToCart(dish)}><FontAwesomeIcon icon={faPlus} /></button>
                         <br />
@@ -159,7 +159,7 @@ export default function RestaurantDetail() {
                 <input type="checkbox" class="btn-check" id="btncheck3" autocomplete="off" />
                 <label class="btn btn-outline-primary" for="btncheck3">Onion</label>
 
-           
+
                 <div>
                     <button type="submit" className="btn btn-outline-success" >Confirm</button>
                 </div>
@@ -194,21 +194,21 @@ export default function RestaurantDetail() {
 
 
     return (
-        <div className="container d-flex  mt-5 text-center">
+        <div className="container d-flex  mt-5 mb-5 text-center">
             <div className="col-7 d-flex justify-content-center ">
-                <div className="card-body form-container p-4">
+                <div className="card-body form-container">
                     {restaurant ? (
                         <>
                             <div className="mb-auto ">
 
 
-                                <img className="card-img-top rounded-start rounded-end m-4 justify-content-center" src={restaurant.imgUrl} alt="Restaurant" style={{ maxWidth: '70%', height: '300px', objectFit: "cover" }} />
+                                <img className="card-img-top rounded-top justify-content-center mb-3" src={restaurant.imgUrl} alt="Restaurant" style={{ maxWidth: '100%', height: '300px', objectFit: "cover" }} />
                                 <div className="card-body">
-                                    <h5 className="card-title"><b> {restaurant.name} </b></h5>
+                                    <h3 className="card-title"><b> {restaurant.name} </b></h3><br />
                                     <p className="card-text">Phone number: {restaurant.phone}</p>
                                     <p className="card-text">Open at: {restaurant.openingHour} - Close at: {restaurant.closingHour}</p>
                                 </div>
-                                <div className="mt-auto">
+                                <div className="mx-4">
 
                                     {renderDishesByCategory(restaurant.menu)}
                                 </div>
