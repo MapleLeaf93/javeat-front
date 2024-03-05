@@ -133,8 +133,8 @@ export default function AllRestaurants() {
                     </div>
                 </div>
 
-                <div className="col-9 px-4 pt-4">
-                    <div className="row gy-4">
+                <div className="col-9 px-5 pt-4 pb-4">
+                    <div className="row gy-4 pt-4 px-3">
                         {restaurantToShow && restaurantToShow.map((r) => (
                             <SingleRestaurant key={r.id} r={r} index={r.id} />
                         ))}
