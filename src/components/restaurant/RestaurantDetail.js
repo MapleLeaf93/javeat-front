@@ -15,7 +15,8 @@ export default function RestaurantDetail() {
     const [cart, setCart] = useState([]);
     const [cartGlob, setCartGlob] = useAtom(cartGlobal);
     const [quantity, setQuantity] = useState({});
-
+    const [showIngredients, setShowIngredients] = useState(false);
+    const [selectedIngredients, setSelectedIngredients] = useState([]);
     // const addToCart = (dish) => setCart([...cart, dish]); 
     //ritorna una lista di dishtodelivery: dish id, id delivery, quantità
 
@@ -112,19 +113,48 @@ export default function RestaurantDetail() {
                             onClick={() => addToCart(dish)}><FontAwesomeIcon icon={faPlus} /></button>
                         <br />
                         <div>
-                            {dish.customizable &&
-                                <button className="btn btn-sm btn-outline-success m-2"
-                                    onClick={() => addIngredients(dish)}>add ingredients</button>}
-
                             {dish.ingredients.map((ingredient, index) => (
                                 <span key={index} className=" fw-lighter me-2">{ingredient} {index === dish.ingredients.length - 1 ? "" : ","}</span>
                             ))}
+                            {/* {dish.customizable && */}
+                            <button className="btn btn-sm btn-outline-success m-2"
+                                onClick={() => handleClick()}>{showIngredients ? "close" : "add ingredients"}</button>
+                            {/* } */}
+                            {showIngredients && (
+                                <div className="btn-group" role="group" aria-label="Basic checkbox toggle button group">
+                                    <input type="checkbox" className="btn-check" id="btncheck1" autocomplete="off" />
+                                    <label className="btn btn-outline-primary" for="btncheck1">Mayonese</label>
+
+                                    <input type="checkbox" className="btn-check" id="btncheck2" autocomplete="off" />
+                                    <label className="btn btn-outline-primary" for="btncheck2">Ketchup</label>
+
+                                    <input type="checkbox" className="btn-check" id="btncheck3" autocomplete="off" />
+                                    <label className="btn btn-outline-primary" for="btncheck3">Mustard</label>
+
+                                    <input type="checkbox" className="btn-check" id="btncheck3" autocomplete="off" />
+                                    <label className="btn btn-outline-primary" for="btncheck3">Yogurt sauce</label>
+
+                                    <input type="checkbox" className="btn-check" id="btncheck3" autocomplete="off" />
+                                    <label className="btn btn-outline-primary" for="btncheck3">Garlic</label>
+
+                                    <input type="checkbox" className="btn-check" ref={onion} id="btncheck3" autocomplete="off" />
+                                    <label className="btn btn-outline-primary" for="btncheck3">Onion</label>
+                                    <div>
+                                        <button type="submit" className="btn btn-outline-success" onClick={handleConfirm}>Confirm</button>
+                                    </div>
+                                </div>)
+                            }
+
 
                         </div>
                     </div>
                 ))}
             </div>
         ));
+    };
+
+    const handleClick = () => {
+        setShowIngredients(!showIngredients);
     };
 
     const addQuantity = (dish) => {
@@ -137,37 +167,24 @@ export default function RestaurantDetail() {
         setCart(updatedCart);
     };
 
-    const addIngredients = (dish) => {
-        return (
 
-            <div class="btn-group" role="group" aria-label="Basic checkbox toggle button group">
-                <input type="checkbox" class="btn-check" id="btncheck1" autocomplete="off" />
-                <label class="btn btn-outline-primary" for="btncheck1">Mayonese</label>
+    const handleConfirm = () => {
+        // const addedIngredientsString = "";
+        // if(onion.current.value!= "")
+        //     addedIngredientsString+="onion,"
 
-                <input type="checkbox" class="btn-check" id="btncheck2" autocomplete="off" />
-                <label class="btn btn-outline-primary" for="btncheck2">Ketchup</label>
 
-                <input type="checkbox" class="btn-check" id="btncheck3" autocomplete="off" />
-                <label class="btn btn-outline-primary" for="btncheck3">Mustard</label>
+        // added_ingredients 
 
-                <input type="checkbox" class="btn-check" id="btncheck3" autocomplete="off" />
-                <label class="btn btn-outline-primary" for="btncheck3">Yogurt sauce</label>
+    };
 
-                <input type="checkbox" class="btn-check" id="btncheck3" autocomplete="off" />
-                <label class="btn btn-outline-primary" for="btncheck3">Garlic</label>
-
-                <input type="checkbox" class="btn-check" id="btncheck3" autocomplete="off" />
-                <label class="btn btn-outline-primary" for="btncheck3">Onion</label>
-
-           
-                <div>
-                    <button type="submit" className="btn btn-outline-success" >Confirm</button>
-                </div>
-            </div>
-
-        );
-    }
-
+    const handleIngredientToggle = (ingredient) => {
+        if (selectedIngredients.includes(ingredient)) {
+            setSelectedIngredients(selectedIngredients.filter(item => item !== ingredient));
+        } else {
+            setSelectedIngredients([...selectedIngredients, ingredient]);
+        }
+    };
     const renderCart = () => (
         <div className="cart-container">
             <h3 className="mt-2">Your Cart</h3>
@@ -209,7 +226,6 @@ export default function RestaurantDetail() {
                                     <p className="card-text">Open at: {restaurant.openingHour} - Close at: {restaurant.closingHour}</p>
                                 </div>
                                 <div className="mt-auto">
-
                                     {renderDishesByCategory(restaurant.menu)}
                                 </div>
                             </div>
