@@ -29,7 +29,7 @@ export default function Navbar() {
         navigate('/login'); // Assicurati di avere `useNavigate` hook da `react-router-dom`
     };
 
-    
+
 
     return (
         <>
@@ -41,19 +41,19 @@ export default function Navbar() {
                         alt="Logo"
                         onClick={handleLogoClick}
                     />
-                    
-                        {loggato ? (<>
-                            <Link className="fw-semibold btn btn-rasta-navbar p-2 ps-5 pe-5 d-flex justify-content-start" to="/allrestaurants">All Restaurants</Link>
-                            <Link className="fw-semibold btn btn-rasta-navbar me-3 p-2 ps-5 pe-5 d-flex justify-content-start" to="/myorders">My Orders</Link>
-                            </>
-                            ):(
-                                <></>
-                            )}
+
+                    {loggato ? (<>
+                        <Link className="fw-semibold btn btn-rasta-navbar p-2 ps-5 pe-5 d-flex justify-content-start" to="/allrestaurants">All Restaurants</Link>
+                        <Link className="fw-semibold btn btn-rasta-navbar me-3 p-2 ps-5 pe-5 d-flex justify-content-start" to="/myorders">My Orders</Link>
+                    </>
+                    ) : (
+                        <></>
+                    )}
                     <div className="">
                         {loggato ? (
                             <div>
-                            <p>{loggato.name}</p>
-                            <button className="btn btn-outline-danger me-2" onClick={handleLogout}>Logout  <FontAwesomeIcon icon={faArrowRightFromBracket} /></button>
+                                <p>Welcome Back {loggato.name}</p>
+                                <button className="btn btn-outline-danger me-2" onClick={handleLogout}>Logout  <FontAwesomeIcon icon={faArrowRightFromBracket} /></button>
                             </div>
                         ) : (
                             <>
