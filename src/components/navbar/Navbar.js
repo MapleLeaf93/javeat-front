@@ -44,6 +44,7 @@ export default function Navbar() {
 
                     {loggato ? (<>
                         <Link className="fw-semibold btn btn-rasta-navbar p-2 ps-5 pe-5 d-flex justify-content-start" to="/allrestaurants">All Restaurants</Link>
+                        <h6>Hi {loggato.name}!</h6>
                         <Link className="fw-semibold btn btn-rasta-navbar me-3 p-2 ps-5 pe-5 d-flex justify-content-start" to="/myorders">My Orders</Link>
                     </>
                     ) : (
@@ -52,9 +53,10 @@ export default function Navbar() {
                     <div className="">
                         {loggato ? (
                             <div>
-                                <p>Welcome Back {loggato.name}</p>
+
                                 <button className="btn btn-outline-danger me-2" onClick={handleLogout}>Logout  <FontAwesomeIcon icon={faArrowRightFromBracket} /></button>
                             </div>
+
                         ) : (
                             <>
                                 <Link className="btn bg-rasta-yellow me-2" to="/login">Login</Link>

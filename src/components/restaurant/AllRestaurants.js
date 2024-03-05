@@ -99,9 +99,9 @@ export default function AllRestaurants() {
             <div className="row">
                 <div className="col-3 bg-dark">
                     <div className="px-3 text-center mt-5 border-top-1" >
-                        <div className="input-group mb-3 justify-content-center" >
-                            <label htmlFor="y" className="fw-bold form-label me-2" style={{ color: "white" }}>Search by name:</label> <br />
-                            <input id="y" className="input-group-text" ref={nomIn} onChange={() => setFlicker(!flicker)} type="text" aria-label="Recipient's username" aria-describedby="button-addon2">
+                        <div className="input-group mb-3 justify-content-center row" >
+                            {/* <label htmlFor="y" className="fw-bold form-label me-2 mb-3" style={{ color: "white" }}>Insert name</label> */}
+                            <input id="y" className="input-group-text" placeholder="Search by name..." ref={nomIn} onChange={() => setFlicker(!flicker)} type="text" aria-label="Recipient's username" aria-describedby="button-addon2">
                             </input>
                         </div>
                         <div className="p-2 px-4 ">

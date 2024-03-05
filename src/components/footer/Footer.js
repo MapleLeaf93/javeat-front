@@ -3,7 +3,7 @@ import '../../styles.scss';
 
 const Footer = () => {
   return (
-    <footer className="site-footer">
+    <footer className="site-footer ">
       <div className="footer-container ">
         {/* Prima colonna */}
         <div className="footer-column bg-footer-hover">
