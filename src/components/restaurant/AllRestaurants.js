@@ -123,7 +123,7 @@ useEffect(() => {
                     <div className="px-3 text-center" >
                         <div className="input-group mb-3" >
                             <label htmlFor="y" className="fw-bold form-label me-2" style={{ color: "white" }}>Insert name:</label> <br />
-                            <input id="y" className="input-group" ref={nomIn} onChange={() => setFlicker(!flicker)} type="text" aria-label="Recipient's username" aria-describedby="button-addon2">
+                            <input id="y" className="input-group-text" ref={nomIn} onChange={() => setFlicker(!flicker)} type="text" aria-label="Recipient's username" aria-describedby="button-addon2">
                             </input>
                         </div>
                         <div className="p-2 px-4 ">
