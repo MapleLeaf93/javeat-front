@@ -105,12 +105,25 @@ useEffect(() => {
         setRestaurantToShow(filtered);
     }, [checkboxes, restaurants, searchKeyword]);
 
-    const handleCheckboxChange = (foodType) => {
-        setBoldText(prevState => ({
-            ...prevState,
-            [foodType]: !prevState[foodType]
+    const handleCheckboxChange = (foodTypes) => {
+        setCheckboxes((prevCheckboxes) => ({
+            ...prevCheckboxes,
+            [foodTypes]: !prevCheckboxes[foodTypes],
+        }));
+        setBoldText(prevBoldText => ({
+            ...prevBoldText,
+            [foodTypes]: !prevBoldText[foodTypes]
         }));
     };
+
+
+    // const handleCheckboxChange = (foodType) => {
+    //     setBoldText(prevState => ({
+    //         ...prevState,
+    //         [foodType]: !prevState[foodType]
+    //     }));
+        
+    // };
 
 
     function isShowable(r, maxdistance, nome) {
