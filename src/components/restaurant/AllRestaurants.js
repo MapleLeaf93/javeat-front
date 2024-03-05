@@ -4,6 +4,7 @@ import { client } from "../../App";
 import { useEffect, useRef, useState } from "react";
 import SingleRestaurant from "./SingleRestaurant";
 import '../../styles.scss';
+import { faL } from "@fortawesome/free-solid-svg-icons";
 
 export default function AllRestaurants() {
     //filtro in base a tipologia di cibo e DISTANZA
@@ -74,40 +75,29 @@ useEffect(() => {
     useEffect(() => {
         const filtered = restaurants.filter((r) => {
             const restaurantFoodTypes = r.foodTypes.map((type) => type.toLowerCase());
-            return (
-                (!checkboxes.american || restaurantFoodTypes.includes("american")) &&
-                (!checkboxes.italian || restaurantFoodTypes.includes("italian")) &&
-                (!checkboxes.mexican || restaurantFoodTypes.includes("mexican")) &&
-                (!checkboxes.chinese || restaurantFoodTypes.includes("chinese")) &&
-                (!checkboxes.indian || restaurantFoodTypes.includes("indian")) &&
-                (!checkboxes.beverages || restaurantFoodTypes.includes("beverages")) &&
-                (!checkboxes.desserts || restaurantFoodTypes.includes("desserts")) &&
-                (!checkboxes.fried || restaurantFoodTypes.includes("fried")) &&
-                (!checkboxes.glutenfree || restaurantFoodTypes.includes("glutenfree")) &&
-                (!checkboxes.grill || restaurantFoodTypes.includes("grill")) &&
-                (!checkboxes.japanese || restaurantFoodTypes.includes("japanese")) &&
-                (!checkboxes.kebab || restaurantFoodTypes.includes("kebab")) &&
-                (!checkboxes.fish || restaurantFoodTypes.includes("fish")) &&
-                (!checkboxes.vegan || restaurantFoodTypes.includes("vegan")) &&
-                (!checkboxes.vegetarian || restaurantFoodTypes.includes("vegetarian")) &&
-                (!checkboxes.salads || restaurantFoodTypes.includes("salads")) &&
-                (!checkboxes.pizza || restaurantFoodTypes.includes("pizza")) &&
-                (!checkboxes.poke || restaurantFoodTypes.includes("poke")) &&
-                (!checkboxes.hamburger || restaurantFoodTypes.includes("hamburger")) &&
 
-                r.name.toLowerCase().includes(searchKeyword.toLowerCase()) &&
+            let res = true;
+            res &= r.name.toLowerCase().includes(searchKeyword.toLowerCase());
+            res &= r.distance <= maxDistance;
+            let oneOrMoreSelected = false;
+            let found = false;
+            for(let type in checkboxes)
+            {
+                oneOrMoreSelected |= checkboxes[type]; // se le checkboxes sono false, oneOrMoreSelected resterà false
+                if(checkboxes[type] && restaurantFoodTypes.includes(type))
+                    found = true;
+            }
 
-                r.distance <= maxDistance
-
-            );
+            return res && (found || !oneOrMoreSelected);
         });
 
         setRestaurantToShow(filtered);
     }, [checkboxes, restaurants, searchKeyword]);
 
-    const handleCheckboxChange = (foodTypes) => {
+    const handleCheckboxChange = (foodTypes, isChecked) => {
         setCheckboxes((prevCheckboxes) => ({
             ...prevCheckboxes,
+            // [foodTypes]: isChecked,
             [foodTypes]: !prevCheckboxes[foodTypes],
         }));
         setBoldText(prevBoldText => ({
@@ -115,16 +105,6 @@ useEffect(() => {
             [foodTypes]: !prevBoldText[foodTypes]
         }));
     };
-
-
-    // const handleCheckboxChange = (foodType) => {
-    //     setBoldText(prevState => ({
-    //         ...prevState,
-    //         [foodType]: !prevState[foodType]
-    //     }));
-        
-    // };
-
 
     function isShowable(r, maxdistance, nome) {
         if (nome && !r.name.toLowerCase().includes(nome.toLowerCase()))
@@ -158,7 +138,7 @@ useEffect(() => {
 
                         {Object.keys(checkboxes).map((foodType) => (
                             <div className="p-2 px-4 row" key={foodType}>
-                                <div className="col-6 d-flex justify-content-end" style={{ color: "white" }}>
+                                <div className="col-6 d-flex justify-content-end " style={{ color: "white" }}>
                                     <span style={{ fontWeight: boldText[foodType] ? 'bold' : 'normal' }}>{foodType.charAt(0).toUpperCase() + foodType.slice(1)}</span>
                                 </div>
                                 <div className="col-6">
