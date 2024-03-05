@@ -4,10 +4,10 @@ import { useState } from "react";
 import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
 import { dtoDelivery } from "../../App";
 
-export default function DeliveryConfirmed({sendForm}) {
+export default function DeliveryConfirmed({ sendForm }) {
     const navigate = useNavigate();
     const [paymentMethod, setPaymentMethod] = useState("");
-    
+
 
     const handlePaymentMethodChange = (e) => {
         const value = e.target.value;
@@ -15,9 +15,9 @@ export default function DeliveryConfirmed({sendForm}) {
     };
 
     return (
-      
-        <>
-            <div>
+
+        <div className="row d-flex flex-column">
+            <div className="mb-5">
                 <label htmlFor="inputTime" className="form-label">Choose Payment Method</label>
                 <select
                     className="form-select"
@@ -32,9 +32,9 @@ export default function DeliveryConfirmed({sendForm}) {
                 </select>
             </div >
             <div>
-            <button type="submit" className="btn btn-outline-success" onClick={()=>sendForm(paymentMethod)}>Confirm order</button>
+                <button type="submit" className="btn btn-outline-success fw-bold" onClick={() => sendForm(paymentMethod)}>Confirm order</button>
             </div>
-        </>
+        </div>
     );
 
 }
