@@ -55,7 +55,7 @@ export default function DeliveryOverview() {
                 </div>
                 <div className="col-3 text-center">
                   <h6>Total Price</h6>
-                  <h6 className="fw-semibold">{delivery.total_price}€</h6>
+                  <h6 className="fw-semibold">{delivery.total_price.toFixed(2)}€</h6>
                 </div>
                 <div className="col-auto">
                   <button className="btn btn-sm btn-success" onClick={() => toggleDetails(delivery)}>
