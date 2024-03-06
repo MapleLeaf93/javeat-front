@@ -88,8 +88,8 @@ export default function Homepage() {
         </div>
       </div>
       <div className="App mt-4">
-        <h1 className="ag-maecenas_title-item">Trova la tua passione!</h1>
-        <h3 className="ag-maecenas_tagline-item">Scegli tra tante specialità</h3>
+        <h1 className="ag-maecenas_title-item">Finf your passion!</h1>
+        <h3 className="ag-maecenas_tagline-item">Choose among many specialties</h3>
         <div className="container">
           {cardData.map((card) => (
             <div key={card.id} className={`flip-card ${isFlipped[card.id] ? 'flipped' : ''}`} onClick={() => handleFlip(card.id)}>
