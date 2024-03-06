@@ -9,10 +9,12 @@ export default function SingleRestaurant(props) {
     //vedere tutti i ristoranti (solo nome, immagine, se APERTO, foodTypes e DISTANZA)
 
     return (
-        <div className='col col-4'>
-            <div className="card  d-flex flex-column h-100">
-                <img src={props.r.imgUrl} className="card-img-top" alt="Restaurant image" style={{ Width: '100%', height: '200px', objectFit: 'cover' }} />
-                <div className="card-body mt-auto p-4">
+        <div className='col col-4' style={{minWidth:"220px"}}>
+            <div className="card d-flex flex-column h-100 ">
+                <div>
+                    <img src={props.r.imgUrl} className="card-img-top" alt="Restaurant image" style={{ Width: '100%', height: '200px', objectFit: 'cover' }} />
+                </div>
+                <div className="card-body d-flex row p-4">
                     <h3 className="card-title fw-bold">{props.r.name}</h3>
                     <h4 className="card-title">{props.r.open ? "open" : "closed"}</h4>
                     <div>
@@ -20,7 +22,7 @@ export default function SingleRestaurant(props) {
                             <span key={index} className="badge me-2 bg-rasta-green">{foodType}</span>
                         ))}
                     </div>
-                    <div className="row align-items-center cart-item" style={{ marginTop: 'auto' }}>
+                    <div className="row align-items-center cart-item " style={{ marginTop: 'auto' }}>
                         <div className=" col ">
                             <p className="card-text">distance: {props.r.distance}</p>
                         </div>

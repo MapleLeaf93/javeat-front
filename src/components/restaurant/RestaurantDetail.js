@@ -162,7 +162,7 @@ export default function RestaurantDetail() {
         return Object.entries(groupedDishes).map(([category, dishes]) => (
             <div key={category}>
                 <br />
-                <h4>{category}</h4>
+                <h4>{category}<hr/></h4>
                 {dishes.map(dish => (
                     <div key={dish.id}>
                         <span className="fw-bold">{dish.name}</span>
@@ -172,7 +172,7 @@ export default function RestaurantDetail() {
                         <br />
                         <div>
                             {dish.ingredients.map((ingredient, index) => (
-                                <span key={index} className=" fw-lighter me-2">{ingredient} {index === dish.ingredients.length - 1 ? "" : ","}</span>
+                                <span key={index} className="text-start fw-lighter me-2">{ingredient} {index === dish.ingredients.length - 1 ? "" : ","}</span>
                             ))}
                             {dish.customizable &&
                                 <button className="btn btn-sm btn-outline-success m-2"
@@ -281,15 +281,13 @@ export default function RestaurantDetail() {
                             {restaurant ? (
                                 <>
                                     <div className="mb-auto ">
-
-
                                         <img className="card-img-top rounded-top justify-content-center mb-3" src={restaurant.imgUrl} alt="Restaurant" style={{ maxWidth: '100%', height: '300px', objectFit: "cover" }} />
                                         <div className="card-body">
                                             <h3 className="card-title"><b> {restaurant.name} </b></h3><br />
                                             <p className="card-text">Phone number: {restaurant.phone}</p>
                                             <p className="card-text">Open at: {restaurant.openingHour} - Close at: {restaurant.closingHour}</p>
                                         </div>
-                                        <div className="mt-auto">
+                                        <div className="mt-auto mx-4 text-start">
                                             {renderDishesByCategory(restaurant.menu)}
                                         </div>
                                     </div>
