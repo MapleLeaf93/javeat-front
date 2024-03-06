@@ -25,7 +25,7 @@ export default function SingleRestaurant(props) {
                             <p className="card-text">distance: {props.r.distance}</p>
                         </div>
                         <div className="col-auto">
-                            <Link className="btn bg-rasta-green " to={"/restaurantsdetails/" + props.r.id}>Detail</Link>
+                            <Link className="btn btn-rasta-green " to={"/restaurantsdetails/" + props.r.id}>Detail</Link>
                         </div>
                     </div>
                 </div>

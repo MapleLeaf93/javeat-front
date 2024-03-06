@@ -62,6 +62,13 @@ body {
     background-color: #92ce5a !important;
 }
 
+.btn-rasta-green{
+  @extend .btn-success;
+  background-color: #92ce5a !important;
+  &:hover{
+    background-color: #709f44 !important;
+  }
+}
 
 .bg-rasta-yellow{
     background-color: #FFE17B!important;
