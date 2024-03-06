@@ -42,17 +42,23 @@ export default function DeliveryOverview() {
 
   return (
     <>
-      <div className="container my-5">
+      <div className="container my-5 col-5">
         <h2 className="text-center mb-4">Your Order History</h2>
         {deliveries.length > 0 ? (
           deliveries.map((delivery) => (
-            <div key={delivery.id}>
-              <div className="row justify-content-between align-items-center mb-2">
+            <div key={delivery.id} className="row">
+              <div className="row container form-container justify-content-between align-items-center mb-4 p-2">
                 <div className="col">
-                  <p>Order ID: {delivery.id} - Delivery Time: {formatTime(delivery.expected_arrival)} - Payment Method: {delivery.payment_method} - Total: {delivery.total_price}€</p>
+                  <h6 className="fw-semibold">Order ID: {delivery.id}</h6>
+                  <h6>Payment Method: {delivery.payment_method}</h6>
+                  <h6>Delivery Time: {formatTime(delivery.expected_arrival)}</h6>
+                </div>
+                <div className="col-3 text-center">
+                  <h6>Total Price</h6>
+                  <h6 className="fw-semibold">{delivery.total_price}€</h6>
                 </div>
                 <div className="col-auto">
-                  <button className="btn btn-sm btn-outline-dark" onClick={() => toggleDetails(delivery)}>
+                  <button className="btn btn-sm btn-success" onClick={() => toggleDetails(delivery)}>
                     {selectedOrder && selectedOrder.id === delivery.id ? "Hide Details" : "Order Details"}
                   </button>
                 </div>
@@ -72,5 +78,5 @@ export default function DeliveryOverview() {
       </div>
     </>
   );
-  
+
 }

@@ -8,16 +8,15 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faXmark } from '@fortawesome/free-solid-svg-icons'
 
 
-export default function Login()
-{
+export default function Login() {
     const [data, setData] = useAtom(client);
     const navigate = useNavigate();
     const [errorMessage, setErrorMessage] = useState("");
     const [showErrorPopup, setShowErrorPopup] = useState(false);
-    const [login, setLogin]= useState(
+    const [login, setLogin] = useState(
         {
-            mail:"",
-            password:""
+            mail: "",
+            password: ""
         }
     );
 
@@ -26,16 +25,14 @@ export default function Login()
         clone[e.target.name] = e.target.value;
         setLogin(clone);
     }
-    
-    function sendForm()
-    {  
+
+    function sendForm() {
         axios.post("/login", login)
-        .then((response)=>
-            {
-                
+            .then((response) => {
+
                 setData(response.data);
                 navigate("/allrestaurants");
-                    
+
             }
             )
             .catch((error) => {
@@ -61,7 +58,7 @@ export default function Login()
                     <div className="modal-content">
                         <div className="modal-header d-flex justify-content-between">
                             <h5 className="modal-title">Error</h5>
-                            <FontAwesomeIcon className="btn btn-outline-secondary" icon={faXmark} onClick={onClose}/>
+                            <FontAwesomeIcon className="btn btn-outline-secondary" icon={faXmark} onClick={onClose} />
                         </div>
                         <div className="modal-body">
                             {message}
@@ -75,7 +72,7 @@ export default function Login()
 
     return (
         <>
-            <div className="container form-container p-4 mt-4">
+            <div className="container form-container p-4 my-5 col-5">
                 <form>
                     <div className="mb-3">
                         <label className="form-label">Email</label>
@@ -91,7 +88,7 @@ export default function Login()
                     <div className="text-center">
                         <input className="btn bg-rasta-orange" type="button" onClick={sendForm} value="Login" />
                     </div>
-                    
+
                 </form>
             </div>
 

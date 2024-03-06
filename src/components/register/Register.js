@@ -65,7 +65,7 @@ export default function Register() {
                     <div className="modal-content">
                         <div className="modal-header d-flex justify-content-between">
                             <h5 className="modal-title">Error</h5>
-                            <FontAwesomeIcon className="btn btn-outline-secondary" icon={faXmark} onClick={onClose}/>
+                            <FontAwesomeIcon className="btn btn-outline-secondary" icon={faXmark} onClick={onClose} />
                         </div>
                         <div className="modal-body">
                             {message}
@@ -78,9 +78,9 @@ export default function Register() {
 
     return (
         <>
-            <div className="container  form-container mt-4">
+            <div className="container  form-container col-6 my-4 ">
                 <form className="p-4">
-                <div className="mb-3">
+                    <div className="mb-3">
                         <label className="form-label">Insert Name</label>
                         <input name="name" type="text" className="form-control" onChange={synchronize} />
                     </div>
