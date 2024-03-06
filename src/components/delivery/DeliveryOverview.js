@@ -14,10 +14,10 @@ export default function DeliveryOverview() {
       if (response.status === 200) {
         setDeliveries(response.data);
       } else {
-        console.error("Errore durante il recupero degli ordini:", response.statusText);
+        console.error("Error while retrieving orders:", response.statusText);
       }
     }).catch(error => {
-      console.error("Errore durante la richiesta:", error);
+      console.error("Error during the request:", error);
     });
   }, [loggato.id]); // Aggiunta di loggato.id come dipendenza per rifare la chiamata se cambia l'id
 

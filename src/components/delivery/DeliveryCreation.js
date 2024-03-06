@@ -108,13 +108,13 @@ export default function DeliveryCreation() {
         updatedDto["idPiattoToQuantita"]=mappa;
         axios.post("/delivery", updatedDto)
             .then((response) => {
-                alert("Evviva tra poco potrai gustare le nostre prelibatezze!!! GNAAAM")
+                alert("Hooray, soon you will be able to taste our delicacies!!! YUM")
                 // Effettua la navigazione o altre azioni necessarie dopo il completamento della richiesta
                 navigate("/allrestaurants");
             })
             .catch((error) => {
                 // Gestisci eventuali errori durante la richiesta
-                console.error("Errore durante l'invio del modulo:", error);
+                console.error("Error while submitting the form:", error);
             });
 
     }
