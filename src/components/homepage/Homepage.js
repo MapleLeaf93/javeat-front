@@ -12,33 +12,33 @@ export default function Homepage() {
       id: 'card1',
       title: 'Burgers',
       frontImage: 'https://cdn.discordapp.com/attachments/1211974633369116723/1213083947194523648/pxfuel5.jpg?ex=65f42f77&is=65e1ba77&hm=44cb12411414efe5b5ade4a795d150fa486c30def7431b40bfb3b898aa4e83fb&',
-      backImage: '/images/burger.png',
-      frontContent: 'Ami i Burgers?',
-      backContent: 'Scopri i migliori burger joints in città!',
+      backImage: 'https://img.freepik.com/free-vector/abstract-low-poly-colorful-shapes-background_1035-23256.jpg',
+      frontContent: 'Burgers Loverz ?',
+      backContent: 'Discover the best burger joints in town!',
     },
     {
       id: 'card2',
       title: 'Sushi',
       frontImage: 'https://cdn.discordapp.com/attachments/1211974633369116723/1213085737365413980/pxfuel9.jpg?ex=65f43121&is=65e1bc21&hm=fe6bdebda0a707a7643d04ecb5fd6da69cb79a03077bd22a5986145cb1500a45&',
-      backImage: '/images/sushi.png',
-      frontContent: 'Fascino del Sushi',
-      backContent: 'Esplora i migliori sushi bar!',
+      backImage: 'https://img.freepik.com/free-vector/abstract-low-poly-colorful-shapes-background_1035-23256.jpg',
+      frontContent: 'Charm of Sushi',
+      backContent: 'Explore the best sushi bars!',
     },
     {
       id: 'card3',
       title: 'Pizza',
       frontImage: 'https://cdn.discordapp.com/attachments/1211974633369116723/1213082438016696400/pxfuel4.jpg?ex=65f42e0f&is=65e1b90f&hm=ac7a377b43deb74b4f51f0b0590d948670e9f9091bb6fe5809a7f16ee50fc3d5&',
-      backImage: '/images/pizza.png',
-      frontContent: 'Passione Pizza',
-      backContent: 'Le pizzerie imperdibili!',
+      backImage: 'https://img.freepik.com/free-vector/abstract-low-poly-colorful-shapes-background_1035-23256.jpg',
+      frontContent: 'Pizza Passion!',
+      backContent: 'The unmissable pizzerias!',
     },
     {
       id: 'card4',
       title: 'Kebab',
       frontImage: 'https://cdn.discordapp.com/attachments/1211974633369116723/1213093071487508641/pxfuel15.jpg?ex=65f437f6&is=65e1c2f6&hm=748992fcef824165239687a1126c361ae8c96c2017b98b01b48fdc621468366e&',
-      backImage: '',
-      frontContent: 'Kebab passion!',
-      backContent: 'Viaggia in Egitto comodamente da casa',
+      backImage: 'https://img.freepik.com/free-vector/abstract-low-poly-colorful-shapes-background_1035-23256.jpg',
+      frontContent: 'Kebab trip',
+      backContent: 'Travel to Egypt from the comfort of your home',
     },
   ];
 
@@ -92,7 +92,7 @@ export default function Homepage() {
                   </div>
                 </div>
                 <div className={`flip-card-back ${flippedStates[card.id] ? 'flipped' : ''}`}>
-                  <div className="card-content" style={{ backgroundImage: `url(${card.backImage})`, backgroundSize: "cover", background: "linear-gradient(to top, #92ce5a, #FFE17B, #C51605" }}>
+                  <div className="card-content" style={{ backgroundImage: `url(${card.backImage})`, backgroundSize: "contain"}}>
                     <p className="mt-4"><b>{card.frontContent}</b></p>
                     <p>{card.backContent}</p>
                   </div>
