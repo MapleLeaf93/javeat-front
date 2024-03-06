@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import '../homepage/Homepage.scss';
+import { Link } from "react-router-dom";
 
 export default function Homepage() {
   const cardFront = "Welcome to GFG.";
@@ -10,43 +11,35 @@ export default function Homepage() {
     {
       id: 'card1',
       title: 'Burgers',
-      frontImage: '/images/burger.png',
-      backImage: '',
+      frontImage: 'https://cdn.discordapp.com/attachments/1211974633369116723/1213083947194523648/pxfuel5.jpg?ex=65f42f77&is=65e1ba77&hm=44cb12411414efe5b5ade4a795d150fa486c30def7431b40bfb3b898aa4e83fb&',
+      backImage: '/images/burger.png',
       frontContent: 'Ami i Burgers?',
       backContent: 'Scopri i migliori burger joints in città!',
     },
     {
       id: 'card2',
       title: 'Sushi',
-      frontImage: '/images/sushi.png',
-      backImage: '',
+      frontImage: 'https://cdn.discordapp.com/attachments/1211974633369116723/1213085737365413980/pxfuel9.jpg?ex=65f43121&is=65e1bc21&hm=fe6bdebda0a707a7643d04ecb5fd6da69cb79a03077bd22a5986145cb1500a45&',
+      backImage: '/images/sushi.png',
       frontContent: 'Fascino del Sushi',
       backContent: 'Esplora i migliori sushi bar!',
     },
     {
       id: 'card3',
       title: 'Pizza',
-      frontImage: '/images/pizza.png',
-      backImage: '',
+      frontImage: 'https://cdn.discordapp.com/attachments/1211974633369116723/1213082438016696400/pxfuel4.jpg?ex=65f42e0f&is=65e1b90f&hm=ac7a377b43deb74b4f51f0b0590d948670e9f9091bb6fe5809a7f16ee50fc3d5&',
+      backImage: '/images/pizza.png',
       frontContent: 'Passione Pizza',
       backContent: 'Le pizzerie imperdibili!',
     },
     {
       id: 'card4',
-      title: 'Pizza',
-      frontImage: '/images/pizza.png',
+      title: 'Kebab',
+      frontImage: 'https://cdn.discordapp.com/attachments/1211974633369116723/1213093071487508641/pxfuel15.jpg?ex=65f437f6&is=65e1c2f6&hm=748992fcef824165239687a1126c361ae8c96c2017b98b01b48fdc621468366e&',
       backImage: '',
-      frontContent: 'Passione Pizza',
-      backContent: 'Le pizzerie imperdibili!',
+      frontContent: 'Kebab passion!',
+      backContent: 'Viaggia in Egitto comodamente da casa',
     },
-    {
-      id: 'card5',
-      title: 'Pizza',
-      frontImage: '/images/pizza.png',
-      backImage: '',
-      frontContent: 'Passione Pizza',
-      backContent: 'Le pizzerie imperdibili!',
-    }
   ];
 
   // Gestisci lo stato di flip per ogni card separatamente
@@ -88,26 +81,24 @@ export default function Homepage() {
         </div>
       </div>
       <div className="App mt-4">
-        <h1 className="ag-maecenas_title-item">Finf your passion!</h1>
-        <h3 className="ag-maecenas_tagline-item">Choose among many specialties</h3>
+        <h1 className="ag-maecenas_title-item">Find your Passion!</h1>
+        <h3 className="ag-maecenas_tagline-item">Choose between many speciality</h3>
         <div className="container">
           {cardData.map((card) => (
-            <div key={card.id} className={`flip-card ${isFlipped[card.id] ? 'flipped' : ''}`} onClick={() => handleFlip(card.id)}>
+            <div key={card.id} className={`mb-3 flip-card ${isFlipped[card.id] ? 'flipped' : ''}`} onClick={() => handleFlip(card.id)}>
               <div className="flip-card-inner">
                 <div className={`flip-card-front ${flippedStates[card.id] ? 'flipped' : ''}`}>
-                  <div className="overlay"></div>
                   <div className="card-content" style={{ backgroundImage: `url(${card.frontImage})`, backgroundSize: "cover" }}>
-                    <h3><b>{card.title}</b></h3>
-                    <p><b>{card.frontContent}</b></p>
                   </div>
                 </div>
                 <div className={`flip-card-back ${flippedStates[card.id] ? 'flipped' : ''}`}>
-                  <div className="overlay"></div>
-                  <div className="card-content" style={{ backgroundImage: `url(${card.frontImage})`, backgroundSize: "cover" }}>
+                  <div className="card-content" style={{ backgroundImage: `url(${card.backImage})`, backgroundSize: "cover", background: "linear-gradient(to top, #92ce5a, #FFE17B, #C51605" }}>
+                    <p className="mt-4"><b>{card.frontContent}</b></p>
                     <p>{card.backContent}</p>
                   </div>
                 </div>
               </div>
+              <h3><b>{card.title}</b></h3>
             </div>
           ))}
         </div>
@@ -117,40 +108,45 @@ export default function Homepage() {
           <article class="ag-maecenas_item">
             <div class="ag-maecenas_descr">
               <div class="ag-maecenas_title-item">
-                What are you waiting for?
+                Why Join Us?
               </div>
               <div class="ag-maecenas_tagline-item">
-                Subscribe now and satisfy your appetite!
+                Register now and enjoy these exclusive benefits!
               </div>
               <ul class="ag-requirement_list">
                 <li class="ag-requirement_item">
-                  Lorem ipsum dolor sit amet, consectetuer adipiscing elit;
+                  Explore a diverse range of restaurants and cuisines;
                 </li>
                 <li class="ag-requirement_item">
-                  Aenean commodo ligula eget dolor;
+                  Access exclusive discounts and promotions;
                 </li>
                 <li class="ag-requirement_item">
-                  Aenean massa. Cum sociis natoque penatibus et magnis;
+                  Personalized recommendations based on your preferences;
                 </li>
                 <li class="ag-requirement_item">
-                  Adis parturient montes, nascetur ridiculus mus;
+                  Quick and easy online ordering;
                 </li>
                 <li class="ag-requirement_item">
-                  Donec quam felis, ultricies nec, pellentesque eu;
+                  Track your delivery in real-time;
                 </li>
                 <li class="ag-requirement_item">
-                  Nulla consequat massa quis enim;
+                  Save your favorite dishes for easy reordering;
                 </li>
                 <li class="ag-requirement_item">
-                  Donec pede justo, fringilla vel, aliquet nec;
+                  Join a vibrant community of food enthusiasts;
                 </li>
                 <li class="ag-requirement_item">
-                  Wulputate eget, arcu. In enim justo, rhoncus ut, imperdiet;
+                  Receive updates on new restaurants and menu additions;
                 </li>
                 <li class="ag-requirement_item">
-                  Uvenenatis vitae, justo. Nullam dictum felis eu pede mollis pretium.
+                  Convenient payment options for a seamless experience.
                 </li>
               </ul>
+              <div className="text-center">
+                <Link className="btn btn-outline-rasta-yellow" to={"/register"}>Register Now!</Link>
+                <p className="small-descr mt-1">Already Registered? <Link className="link" to={"/login"}> Login Here</Link></p>
+              </div>
+
             </div>
             <div class="ag-maecenas_img-box me-5">
               <img src="https://cdn-icons-png.flaticon.com/512/6586/6586905.png" style={{ width: "100%" }} />

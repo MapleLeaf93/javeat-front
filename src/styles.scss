@@ -84,6 +84,19 @@ body {
   }
   
 }
+
+.btn-outline-rasta-yellow{
+  @extend .btn-outline-light;
+  color: #000000;
+  border-color: #000000;
+  &:hover
+  {
+    background-color: #FFE17B;
+    border-color: rgb(32, 32, 32);
+  }
+  
+}
+
 .btn-rasta-navbar{
   @extend .btn-light;
   background-color: #FD8D14;
@@ -99,6 +112,19 @@ body {
 }
 .bg-rasta-orange{
     background-color: #FD8D14;
+}
+
+.btn-outline-rasta-orange{
+  @extend .btn-outline-light;
+  color: #FD8D14;
+  border-color: #FD8D14;
+
+  &:hover
+  {
+    background-color: #FD8D14;
+    border-color: rgb(32, 32, 32);
+  }
+  
 }
 
 .bg-rasta-red{
@@ -120,8 +146,6 @@ body {
 .text-rasta-red{
     color: #C51605;
 }
-
-
 
 // checkboxes style
 
@@ -231,6 +255,8 @@ input:checked + .slider:before {
   
       li {
         margin-bottom: 8px;
+        color: rgb(77, 77, 77);
+        font-size: 12px;
         cursor: pointer;
   
         &:hover {
