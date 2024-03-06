@@ -11,7 +11,6 @@ import DeliveryCreation from "../delivery/DeliveryCreation";
 export default function RestaurantDetail() {
     const { r_id } = useParams();
     const [restaurant, setRestaurant] = useAtom(restaurantGlobal);
-    const [distance, setDistance] = useState(restaurant.distance);
     const [user, setUser] = useAtom(client);
     const [cart, setCart] = useState([]);
     const [cartGlob, setCartGlob] = useAtom(cartGlobal);
@@ -43,7 +42,7 @@ export default function RestaurantDetail() {
             // Calcolo del tempo di consegna previsto per opzioni specifiche (ogni 15 minuti)
             for (let i = 0; i < 6; i++) {
                 const deliveryTime = new Date(baseTime);
-                const minutesToAdd = (i + 1) * 15 + distance * 0.2;  // Aggiungi 15 minuti più 2 minuti per unità di distanza
+                const minutesToAdd = (i + 1) * 15 + restaurant.distance * 0.2;  // Aggiungi 15 minuti più 2 minuti per unità di distanza
                 deliveryTime.setMinutes(baseTime.getMinutes() + minutesToAdd);
 
                 const deliveryTimeHoursMinutes = deliveryTime.getHours() * 100 + deliveryTime.getMinutes();
@@ -59,8 +58,8 @@ export default function RestaurantDetail() {
 
             return deliveryTimeOptions;
         };
-
-        setExpectedArrivalOptions(calculateExpectedArrival());
+        if(restaurant)
+            setExpectedArrivalOptions(calculateExpectedArrival());
     }, [restaurant]);
 
     const addToCart = (dish) => {

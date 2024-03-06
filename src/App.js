@@ -1,4 +1,5 @@
 import './App.css';
+import './styles.scss';
 import "bootstrap/dist/css/bootstrap.css";
 import { atom, useAtom } from 'jotai';
 import { BrowserRouter, Route, Routes, json } from 'react-router-dom';
