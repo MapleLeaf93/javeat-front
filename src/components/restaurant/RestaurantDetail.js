@@ -6,16 +6,19 @@ import { cartGlobal, client, restaurantGlobal } from "../../App";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMinus, faPen, faPlus, faXmark } from '@fortawesome/free-solid-svg-icons'
 import '../../styles.scss';
+import DeliveryCreation from "../delivery/DeliveryCreation";
 
 export default function RestaurantDetail() {
     const { r_id } = useParams();
     const [restaurant, setRestaurant] = useAtom(restaurantGlobal);
+    const [distance, setDistance] = useState(restaurant.distance);
     const [user, setUser] = useAtom(client);
     const [cart, setCart] = useState([]);
     const [cartGlob, setCartGlob] = useAtom(cartGlobal);
     const [quantity, setQuantity] = useState({});
     const [showIngredients, setShowIngredients] = useState({});
     const [ingredients, setIngredients] = useState({});
+    const [expectedArrivalOptions, setExpectedArrivalOptions] = useState([]);
 
 
     // const addToCart = (dish) => setCart([...cart, dish]); 
@@ -29,6 +32,33 @@ export default function RestaurantDetail() {
             divRef.current.style.height = divRef.current.scrollHeight + 'px';
         }
     }, []);
+
+    useEffect(() => {
+        const calculateExpectedArrival = () => {
+            const baseTime = new Date();  // Orario attuale
+            const deliveryTimeOptions = [];
+            // Calcolo del tempo di consegna previsto per opzioni specifiche (ogni 15 minuti)
+            for (let i = 0; i < 6; i++) {
+                const deliveryTime = new Date(baseTime);
+                const minutesToAdd = (i + 1) * 15 + distance * 0.2;  // Aggiungi 15 minuti più 2 minuti per unità di distanza
+                deliveryTime.setMinutes(baseTime.getMinutes() + minutesToAdd);
+
+                const deliveryTimeHoursMinutes = deliveryTime.getHours() * 100 + deliveryTime.getMinutes();
+                const openingTimeHoursMinutes = parseInt(restaurant.openingHour.replace(':', ''));
+                const closingTimeHoursMinutes = parseInt(restaurant.closingHour.replace(':', ''));
+
+                // Verifica se l'orario di consegna è compreso tra l'orario di apertura e chiusura del ristorante
+                if (deliveryTimeHoursMinutes >= openingTimeHoursMinutes && deliveryTimeHoursMinutes < closingTimeHoursMinutes) {
+                    deliveryTimeOptions.push(deliveryTime);
+                }
+            }
+            
+            
+            return deliveryTimeOptions;
+        };
+
+        setExpectedArrivalOptions(calculateExpectedArrival());
+    }, [restaurant]);
 
     const addToCart = (dish) => {
         let addedIngredients = "";
@@ -142,10 +172,10 @@ export default function RestaurantDetail() {
                             {dish.ingredients.map((ingredient, index) => (
                                 <span key={index} className=" fw-lighter me-2">{ingredient} {index === dish.ingredients.length - 1 ? "" : ","}</span>
                             ))}
-                            {/* {dish.customizable && */}
+                            {dish.customizable &&
                             <button className="btn btn-sm btn-outline-success m-2"
                                 onClick={() => handleClick(dish.id)}> {showIngredients[dish.id] ? <FontAwesomeIcon icon={faXmark} /> : <FontAwesomeIcon icon={faPen} />}</button>
-                            {/* } */}
+                            }
                             <div>
                                 {showIngredients[dish.id] && (
                                     <div className="btn-group" role="group" aria-label="Basic checkbox toggle button group">
@@ -227,11 +257,12 @@ export default function RestaurantDetail() {
             <hr />
             <p>Delivery Cost: {deliveryCost}€</p>
             <p>Total Cost: {calculateTotalCost()}€</p>
-            {cart.length > 0 ? (
+            {cart.length > 0 && expectedArrivalOptions>0 ? (
                 <Link className="btn btn-outline-success" to={"/deliverycreation/" + r_id} onClick={() => setCartGlob(cart)}>Proceed to Order</Link>
             ) : (
                 <button className="btn btn-outline-success" disabled>Proceed to Order</button>
             )}
+            <DeliveryCreation expectedArrivalOptions={expectedArrivalOptions}/>
         </div>
     );
 

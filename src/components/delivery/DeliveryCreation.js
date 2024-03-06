@@ -5,7 +5,7 @@ import axios from "axios";
 import { Link, Navigate, useNavigate, useParams } from "react-router-dom";
 import DeliveryConfirmed from "./DeliveryConfirmed";
 
-export default function DeliveryCreation() {
+export default function DeliveryCreation({expectedArrivalOptions}) {
     //scegliere l'orario di consegna (solo in giornata) a scatti di 15 minuti 
     //(a partire da ora attuale + 2 min per unità di distanza) e si devono poter inserire 
     //delle note (allergie, scala, citofono e simili)
@@ -18,7 +18,7 @@ export default function DeliveryCreation() {
     const [restaurant, setRestaurant] = useAtom(restaurantGlobal);
     const { r_id } = useParams();
     const [distance, setDistance] = useState(restaurant.distance);
-    const [expectedArrivalOptions, setExpectedArrivalOptions] = useState([]);
+    
     const [selectedExpectedArrival, setSelectedExpectedArrival] = useState("");
     const [showConfirm, setShowConfirm] = useState(false);
     const [note, setNote] = useState("");
@@ -54,32 +54,32 @@ export default function DeliveryCreation() {
     //     notes: ""
     // });
     
-    useEffect(() => {
-        const calculateExpectedArrival = () => {
-            const baseTime = new Date();  // Orario attuale
-            const deliveryTimeOptions = [];
-            // Calcolo del tempo di consegna previsto per opzioni specifiche (ogni 15 minuti)
-            for (let i = 0; i < 6; i++) {
-                const deliveryTime = new Date(baseTime);
-                const minutesToAdd = (i + 1) * 15 + distance * 0.2;  // Aggiungi 15 minuti più 2 minuti per unità di distanza
-                deliveryTime.setMinutes(baseTime.getMinutes() + minutesToAdd);
+    // useEffect(() => {
+    //     const calculateExpectedArrival = () => {
+    //         const baseTime = new Date();  // Orario attuale
+    //         const deliveryTimeOptions = [];
+    //         // Calcolo del tempo di consegna previsto per opzioni specifiche (ogni 15 minuti)
+    //         for (let i = 0; i < 6; i++) {
+    //             const deliveryTime = new Date(baseTime);
+    //             const minutesToAdd = (i + 1) * 15 + distance * 0.2;  // Aggiungi 15 minuti più 2 minuti per unità di distanza
+    //             deliveryTime.setMinutes(baseTime.getMinutes() + minutesToAdd);
 
-                const deliveryTimeHoursMinutes = deliveryTime.getHours() * 100 + deliveryTime.getMinutes();
-                const openingTimeHoursMinutes = parseInt(restaurant.openingHour.replace(':', ''));
-                const closingTimeHoursMinutes = parseInt(restaurant.closingHour.replace(':', ''));
+    //             const deliveryTimeHoursMinutes = deliveryTime.getHours() * 100 + deliveryTime.getMinutes();
+    //             const openingTimeHoursMinutes = parseInt(restaurant.openingHour.replace(':', ''));
+    //             const closingTimeHoursMinutes = parseInt(restaurant.closingHour.replace(':', ''));
 
-                // Verifica se l'orario di consegna è compreso tra l'orario di apertura e chiusura del ristorante
-                if (deliveryTimeHoursMinutes >= openingTimeHoursMinutes && deliveryTimeHoursMinutes < closingTimeHoursMinutes) {
-                    deliveryTimeOptions.push(deliveryTime);
-                }
-            }
+    //             // Verifica se l'orario di consegna è compreso tra l'orario di apertura e chiusura del ristorante
+    //             if (deliveryTimeHoursMinutes >= openingTimeHoursMinutes && deliveryTimeHoursMinutes < closingTimeHoursMinutes) {
+    //                 deliveryTimeOptions.push(deliveryTime);
+    //             }
+    //         }
             
             
-            return deliveryTimeOptions;
-        };
+    //         return deliveryTimeOptions;
+    //     };
 
-        setExpectedArrivalOptions(calculateExpectedArrival());
-    }, [restaurant]);
+    //     setExpectedArrivalOptions(calculateExpectedArrival());
+    // }, [restaurant]);
 
     // Funzione per gestire il cambiamento dell'orario di consegna selezionato
     // Questo esempio assume che hai già un oggetto Date valido per ogni opzione
