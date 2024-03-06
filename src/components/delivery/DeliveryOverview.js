@@ -42,7 +42,7 @@ export default function DeliveryOverview() {
 
   return (
     <>
-      <div className="container my-5 col-5">
+      <div className="container my-5 col-5 " style={{minHeight:"60vh"}}>
         <h2 className="text-center mb-4">Your Order History</h2>
         {deliveries.length > 0 ? (
           deliveries.map((delivery) => (
