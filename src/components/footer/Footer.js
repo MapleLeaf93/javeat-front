@@ -11,7 +11,7 @@ const Footer = () => {
           <ul>
             <li>About Us</li>
             <li>Terms and Conditions</li>
-            <li>Privacy Policy</li>
+            <li><a href="http://localhost:8080/swagger-ui/index.html">Documentation</a></li>
           </ul>
         </div>
 

@@ -15,31 +15,31 @@ import Homepage from './components/homepage/Homepage';
 import Footer from './components/footer/Footer';
 import DeliveryOverview from './components/delivery/DeliveryOverview';
 
-const CartInMemory = atom(localStorage.getItem('cartState')? JSON.parse(localStorage.getItem('cartState')) : null);
+const CartInMemory = atom(localStorage.getItem('cartState') ? JSON.parse(localStorage.getItem('cartState')) : null);
 const clientInMemory = atom(localStorage.getItem('clientState') ? JSON.parse(localStorage.getItem('clientState')) : null);
 const restaurantInMemory = atom(localStorage.getItem('restaurantState') ? JSON.parse(localStorage.getItem('restaurantState')) : null);
 
 export const restaurantGlobal = atom(
-    (get) => get(restaurantInMemory),
-    (get, set, newRestaurant) => {
-      set(restaurantInMemory, newRestaurant);
-      localStorage.setItem('restaurantState', JSON.stringify(newRestaurant));
-    }
+  (get) => get(restaurantInMemory),
+  (get, set, newRestaurant) => {
+    set(restaurantInMemory, newRestaurant);
+    localStorage.setItem('restaurantState', JSON.stringify(newRestaurant));
+  }
 )
 
 export const cartGlobal = atom(
   (get) => get(CartInMemory),
-  (get,set,newCart) =>{
-    set(CartInMemory,newCart);
+  (get, set, newCart) => {
+    set(CartInMemory, newCart);
     localStorage.setItem('cartState', JSON.stringify(newCart));
   }
 );
 
 export const client = atom(
   (get) => get(clientInMemory),
-  (get,set,newClient) =>{
-    set(clientInMemory,newClient);
-    localStorage.setItem('clientState',JSON.stringify(newClient));
+  (get, set, newClient) => {
+    set(clientInMemory, newClient);
+    localStorage.setItem('clientState', JSON.stringify(newClient));
   }
 
 
@@ -50,8 +50,8 @@ function App() {
   const [cartState, setCartState] = useAtom(cartGlobal);
   const [clientState, setClientState] = useAtom(client);
 
-  
-   return (
+
+  return (
     <BrowserRouter>
       <Navbar />
       <Routes>
@@ -60,12 +60,12 @@ function App() {
         <Route path='/register' element={<Register />}></Route>
         <Route path='/login' element={<Login />}></Route>
         <Route path='/restaurants/:user_id/:r_id' element={<SingleRestaurant />}></Route>
-        <Route path='/restaurantsdetails/:r_id' element={<RestaurantDetail/>}> </Route>
-        <Route path='/deliverycreation/:r_id' element={<DeliveryCreation/>}> </Route>
-        <Route path='/deliveryconfirmed' element={<DeliveryConfirmed/>} ></Route>
-        <Route path='/myorders' element={<DeliveryOverview/>}/>
+        <Route path='/restaurantsdetails/:r_id' element={<RestaurantDetail />}> </Route>
+        <Route path='/deliverycreation/:r_id' element={<DeliveryCreation />}> </Route>
+        <Route path='/deliveryconfirmed' element={<DeliveryConfirmed />} ></Route>
+        <Route path='/myorders' element={<DeliveryOverview />} />
       </Routes>
-      <Footer/>
+      <Footer />
     </BrowserRouter>
   );
 }
