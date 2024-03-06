@@ -19,6 +19,7 @@ export default function RestaurantDetail() {
     const [showIngredients, setShowIngredients] = useState({});
     const [ingredients, setIngredients] = useState({});
     const [expectedArrivalOptions, setExpectedArrivalOptions] = useState([]);
+    const [showDelivery, setShowDelivery] = useState(false);
 
 
     // const addToCart = (dish) => setCart([...cart, dish]); 
@@ -33,6 +34,8 @@ export default function RestaurantDetail() {
         }
     }, []);
 
+
+    //SISTEMARE MOLTIPLICATORE PER UNITA DI DISTANZA (IMPOSTATO A 0.2 -> 2)
     useEffect(() => {
         const calculateExpectedArrival = () => {
             const baseTime = new Date();  // Orario attuale
@@ -52,8 +55,8 @@ export default function RestaurantDetail() {
                     deliveryTimeOptions.push(deliveryTime);
                 }
             }
-            
-            
+
+
             return deliveryTimeOptions;
         };
 
@@ -117,7 +120,7 @@ export default function RestaurantDetail() {
         if (restaurant && restaurant.distance) {
             const costPerKilometer = restaurant.deliveryPricePerUnit;
             const calculatedDeliveryCost = restaurant.distance * costPerKilometer;
-            setDeliveryCost(calculatedDeliveryCost);
+            setDeliveryCost(parseFloat(calculatedDeliveryCost.toFixed(2)));
         }
     }, [r_id, restaurant]);
 
@@ -173,8 +176,8 @@ export default function RestaurantDetail() {
                                 <span key={index} className=" fw-lighter me-2">{ingredient} {index === dish.ingredients.length - 1 ? "" : ","}</span>
                             ))}
                             {dish.customizable &&
-                            <button className="btn btn-sm btn-outline-success m-2"
-                                onClick={() => handleClick(dish.id)}> {showIngredients[dish.id] ? <FontAwesomeIcon icon={faXmark} /> : <FontAwesomeIcon icon={faPen} />}</button>
+                                <button className="btn btn-sm btn-outline-success m-2"
+                                    onClick={() => handleClick(dish.id)}> {showIngredients[dish.id] ? <FontAwesomeIcon icon={faXmark} /> : <FontAwesomeIcon icon={faPen} />}</button>
                             }
                             <div>
                                 {showIngredients[dish.id] && (
@@ -257,48 +260,58 @@ export default function RestaurantDetail() {
             <hr />
             <p>Delivery Cost: {deliveryCost}€</p>
             <p>Total Cost: {calculateTotalCost()}€</p>
-            {cart.length > 0 && expectedArrivalOptions>0 ? (
-                <Link className="btn btn-outline-success" to={"/deliverycreation/" + r_id} onClick={() => setCartGlob(cart)}>Proceed to Order</Link>
+            {cart.length > 0 && expectedArrivalOptions ? (
+                <button className="btn btn-outline-success" onClick={() => { setCartGlob(cart); showDeliveryCreation() }}>Proceed to Order</button>
             ) : (
                 <button className="btn btn-outline-success" disabled>Proceed to Order</button>
             )}
-            <DeliveryCreation expectedArrivalOptions={expectedArrivalOptions}/>
+            {!expectedArrivalOptions ? (<p className="small-msg mt-2">Delivery options are too late!</p>):("")}
         </div>
     );
 
+    function showDeliveryCreation() {
+        setShowDelivery(true);
+    }
 
     return (
         <div className="container d-flex  mt-5 mb-5 text-center">
-            <div className="col-7 d-flex justify-content-center ">
-                <div className="card-body form-container">
-                    {restaurant ? (
-                        <>
-                            <div className="mb-auto ">
+            { !showDelivery &&
+                <>
+                    <div className="col-7 d-flex justify-content-center ">
+                        <div className="card-body form-container">
+                            {restaurant ? (
+                                <>
+                                    <div className="mb-auto ">
 
 
-                                <img className="card-img-top rounded-top justify-content-center mb-3" src={restaurant.imgUrl} alt="Restaurant" style={{ maxWidth: '100%', height: '300px', objectFit: "cover" }} />
-                                <div className="card-body">
-                                    <h3 className="card-title"><b> {restaurant.name} </b></h3><br />
-                                    <p className="card-text">Phone number: {restaurant.phone}</p>
-                                    <p className="card-text">Open at: {restaurant.openingHour} - Close at: {restaurant.closingHour}</p>
-                                </div>
-                                <div className="mt-auto">
-                                    {renderDishesByCategory(restaurant.menu)}
-                                </div>
-                            </div>
-                            <br />
-                        </>
-                    ) : (
-                        <p>Loading restaurant...</p>
-                    )}
-                </div>
-            </div>
-            <div ref={divRef} className="col-md-5  pb-2 sticky-top p-4  justify-content-center ">
-                <div className="sticky-top background-yellow-shape ">
-                    {renderCart()}
+                                        <img className="card-img-top rounded-top justify-content-center mb-3" src={restaurant.imgUrl} alt="Restaurant" style={{ maxWidth: '100%', height: '300px', objectFit: "cover" }} />
+                                        <div className="card-body">
+                                            <h3 className="card-title"><b> {restaurant.name} </b></h3><br />
+                                            <p className="card-text">Phone number: {restaurant.phone}</p>
+                                            <p className="card-text">Open at: {restaurant.openingHour} - Close at: {restaurant.closingHour}</p>
+                                        </div>
+                                        <div className="mt-auto">
+                                            {renderDishesByCategory(restaurant.menu)}
+                                        </div>
+                                    </div>
+                                    <br />
+                                </>
+                            ) : (
+                                <p>Loading restaurant...</p>
+                            )}
+                        </div>
+                    </div>
+                    <div ref={divRef} className="col-md-5  pb-2 sticky-top p-4  justify-content-center ">
+                        <div className="sticky-top background-yellow-shape ">
+                            {renderCart()}
 
-                </div>
-            </div>
+                        </div>
+                    </div>
+                </>
+            }
+
+            {showDelivery && <DeliveryCreation expectedArrivalOptions={expectedArrivalOptions} r_id={r_id}/>}
+
         </div>
 
     );

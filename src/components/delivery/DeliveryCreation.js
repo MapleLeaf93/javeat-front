@@ -5,7 +5,7 @@ import axios from "axios";
 import { Link, Navigate, useNavigate, useParams } from "react-router-dom";
 import DeliveryConfirmed from "./DeliveryConfirmed";
 
-export default function DeliveryCreation({expectedArrivalOptions}) {
+export default function DeliveryCreation({expectedArrivalOptions, r_id}) {
     //scegliere l'orario di consegna (solo in giornata) a scatti di 15 minuti 
     //(a partire da ora attuale + 2 min per unità di distanza) e si devono poter inserire 
     //delle note (allergie, scala, citofono e simili)
@@ -16,7 +16,6 @@ export default function DeliveryCreation({expectedArrivalOptions}) {
     const [user, setUser] = useAtom(client);
     const [cartG, setCartG] = useAtom(cartGlobal);
     const [restaurant, setRestaurant] = useAtom(restaurantGlobal);
-    const { r_id } = useParams();
     const [distance, setDistance] = useState(restaurant.distance);
     
     const [selectedExpectedArrival, setSelectedExpectedArrival] = useState("");
