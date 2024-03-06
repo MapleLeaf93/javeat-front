@@ -94,6 +94,13 @@ export default function AllRestaurants() {
         }));
     };
 
+    function filteredRestaurantsByName(e)
+    {
+        let key = e.target.value;
+        setSearchKeyword(key);
+
+    }
+
     return (
         <div className="">
             <div className="row">
@@ -101,7 +108,7 @@ export default function AllRestaurants() {
                     <div className="px-3 text-center mt-5 border-top-1" >
                         <div className="input-group mb-3 justify-content-center row" >
                             {/* <label htmlFor="y" className="fw-bold form-label me-2 mb-3" style={{ color: "white" }}>Insert name</label> */}
-                            <input id="y" className="input-group-text ms-4" placeholder="Search by name..." value={searchKeyword} ref={nomIn} onChange={() => setFlicker(!flicker)} type="text" aria-label="Recipient's username" aria-describedby="button-addon2">
+                            <input id="y" className="input-group-text ms-4" placeholder="Search by name..." value={searchKeyword}  onChange={filteredRestaurantsByName} type="text" aria-label="Recipient's username" aria-describedby="button-addon2">
                             </input>
                         </div>
                         <div className="p-2 px-4 ">
