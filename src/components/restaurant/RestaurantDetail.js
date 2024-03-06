@@ -172,7 +172,7 @@ export default function RestaurantDetail() {
                         <br />
                         <div>
                             {dish.ingredients.map((ingredient, index) => (
-                                <span key={index} className=" fw-lighter me-2">{ingredient} {index === dish.ingredients.length - 1 ? "" : ","}</span>
+                                <span key={index} className=" fw-lighter me-2">{ingredient} {index === dish.ingredients.length - 1 ? "." : ","}</span>
                             ))}
                             {dish.customizable &&
                                 <button className="btn btn-sm btn-outline-success m-2"
