@@ -196,12 +196,13 @@ body {
 }
 
 input:checked + .slider {
-  background-color: #2196F3;
+  background-color: #587c37;;
 }
 
 input:focus + .slider {
-  box-shadow: 0 0 1px #2196F3;
+  box-shadow: 0 0 1px #92ce5a;;
 }
+
 
 input:checked + .slider:before {
   -webkit-transform: translateX(13px); /* Ridotto del 50% */
@@ -223,6 +224,7 @@ input:checked + .slider:before {
 .form-range::-ms-thumb {
   background-color: #92ce5a; /* Imposta il colore desiderato */
 }
+
 
 /*Stile Footer*/
 
