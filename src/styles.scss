@@ -41,7 +41,11 @@ body {
     border: solid 1px rgb(0, 0, 0)!important;
     border-radius: 15px!important;
 }
-
+.form-container-menu{
+  max-width: 750px!important;
+  border: solid 1px rgb(0, 0, 0)!important;
+  border-radius: 15px!important;
+}
 .small-descr{
   font-size: 12px!important;
   color: rgb(169, 169, 169)!important;
@@ -124,7 +128,8 @@ body {
   &:hover
   {
     background-color: #FD8D14!important;
-    border-color: rgb(32, 32, 32)!important;
+    border-color: white!important;
+    color: white!important;
   }
   
 }
@@ -148,6 +153,21 @@ body {
 .text-rasta-red{
     color: #C51605!important;
 }
+
+//aggiungi ingredienti
+.btn-group {
+  display: inline-block!important;
+}
+
+.btn-group button {
+  width: 100px!important; /* Larghezza fissa per i bottoni */
+  height: 30px!important; /* Altezza dei bottoni */
+  border: none!important;
+  background-color: #FD8D14!important; /* Colore di sfondo nero */
+  color: #fff!important;
+  font-size: 14px!important; /* Dimensione del carattere ridotta */
+}
+
 
 // checkboxes style
 
