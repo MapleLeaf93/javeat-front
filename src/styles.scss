@@ -92,7 +92,7 @@ body {
 }
 
 .btn-outline-rasta-yellow{
-  @extend .btn-outline-light;
+  @extend .btn-outline-primary;
   color: #000000!important;
   border-color: #000000!important;
   &:hover

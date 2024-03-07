@@ -183,7 +183,7 @@ export default function RestaurantDetail() {
                                     <div className="btn-group" role="group" aria-label="Basic checkbox toggle button group">
                                         <input type="checkbox" className="btn-check" onChange={() => handleCheckboxChange("mayonese", dish.id)} checked={ingredients[dish.id].mayonese}
                                             id={dish.id+"btncheck1"} autocomplete="off" />
-                                        <label className="btn btn-outline-rasta-orange" for={dish.id+"btncheck1"}>Mayonese</label>
+                                        <label className="btn btn-outline-dark" for={dish.id+"btncheck1"}>Mayonese</label>
 
                                         <input type="checkbox" className="btn-check" onChange={() => handleCheckboxChange("ketchup", dish.id)} checked={ingredients[dish.id].ketchup} id={dish.id+"btncheck2"}autocomplete="off" />
                                         <label className="btn btn-outline-rasta-orange" for={dish.id+"btncheck2"}>Ketchup</label>
