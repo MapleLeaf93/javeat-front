@@ -255,10 +255,10 @@ export default function RestaurantDetail() {
             <div className="cart-items">
                 {cart.map((dish) => (
                     <div key={dish.id} className=" cart-item">
-                        <FontAwesomeIcon className="dark-hover" style={{ color: "#92ce5a", fontSize: "1.5rem" }} icon={faPlus} onClick={() => addQuantity(dish)} />
+                        <FontAwesomeIcon className="dark-hover mx-5" style={{ color: "#92ce5a", fontSize: "1.5rem" }} icon={faPlus} onClick={() => addQuantity(dish)} />
                         <span className="lh-sm">{dish.quantity}x</span>
                         <span className="fw-medium"> {dish.name} {dish.price}€</span>
-                        <FontAwesomeIcon className="mt-auto ms-2 dark-hover " onClick={() => removeFromCart(dish)} size="lg" icon={faMinus} style={{ color: "#ff0000", fontSize: "1.5rem" }} />
+                        <FontAwesomeIcon className="mt-auto mx-5 dark-hover " onClick={() => removeFromCart(dish)} size="lg" icon={faMinus} style={{ color: "#ff0000", fontSize: "1.5rem" }} />
 
                     </div>
 
