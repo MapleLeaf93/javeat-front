@@ -9,8 +9,9 @@ export default function SingleRestaurant(props) {
     //vedere tutti i ristoranti (solo nome, immagine, se APERTO, foodTypes e DISTANZA)
 
     return (
-        <div className='col col-4' style={{minWidth:"220px"}}>
-            <div className="card d-flex flex-column h-100 ">
+        <div className='col-md-4' style={{minWidth:"310px"}}>
+            {/* <div className='col-md-4' style={{minWidth:"220px"}}></div> */}
+            <div className="card d-flex flex-column">
                 <div>
                     <img src={props.r.imgUrl} className="card-img-top" alt="Restaurant image" style={{ Width: '100%', height: '200px', objectFit: 'cover' }} />
                 </div>
