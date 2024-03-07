@@ -60,12 +60,14 @@ export default function Navbar() {
                         ) : (
                             <>
                                 <Link className="btn bg-rasta-yellow me-2" to="/login">Login</Link>
-                                <Link className="btn btn-outline-light" to="/register">Register</Link>
+                                <Link className="btn btn-outline-light" to="/register" onClick={() => 
+                                    alert("Subscribed! Enjoy our great offers :)")
+                                }>Register</Link>
                             </>
                         )}
                     </div>
                 </div>
-            </nav>
+            </nav >
         </>
     );
 }

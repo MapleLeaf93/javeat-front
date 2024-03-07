@@ -40,7 +40,9 @@ const Footer = () => {
           <h3>Subscribe to Newsletter</h3>
           <div class="input-group input-group-sm mt-3 px-4">
             <input type="text" class="form-control" placeholder="Enter your email" aria-label="Subscribe newsletter" aria-describedby="button-addon2" />
-            <button class="btn btn-outline-rasta-yellow" type="button" id="button-addon2">Subscribe</button>
+            <button class="btn btn-outline-rasta-yellow" type="button" id="button-addon2 "onClick={() => 
+                                    alert("Congratulation you are now subscribed! Enjoy our great offers :)")
+                                }>Subscribe</button>
           </div>
         </div>
       </div>
