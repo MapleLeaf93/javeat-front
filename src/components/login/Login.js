@@ -72,26 +72,29 @@ export default function Login() {
 
     return (
         <>
-            <div className="container form-container p-4 my-5 col-5">
-                <form>
-                    <div className="mb-3">
-                        <label className="form-label">Email</label>
-                        <input name="mail" type="email" className="form-control" value={login.mail} id="date" aria-describedby="emailHelp" onChange={synchronize} />
-                    </div>
+        <div className="row mt-5">
+            <div className="justify-content-center  " style={{minHeight:"60vh"}}>
+                <div className="container form-container p-4 my-5 col-5">
+                    <form>
+                        <div className="mb-3">
+                            <label className="form-label">Email</label>
+                            <input name="mail" type="email" className="form-control" value={login.mail} id="date" aria-describedby="emailHelp" onChange={synchronize} />
+                        </div>
 
-                    <div className="mb-3">
-                        <label className="form-label">Password</label>
-                        <input name="password" type="password" className="form-control" value={login.password} id="exampleInputPassword1" aria-describedby="emailHelp" onChange={synchronize} />
-                    </div>
+                        <div className="mb-3">
+                            <label className="form-label">Password</label>
+                            <input name="password" type="password" className="form-control" value={login.password} id="exampleInputPassword1" aria-describedby="emailHelp" onChange={synchronize} />
+                        </div>
 
-                    {showErrorPopup && <ErrorPopup message={errorMessage} onClose={() => setShowErrorPopup(false)} />}
-                    <div className="text-center">
-                        <input className="btn bg-rasta-orange" type="button" onClick={sendForm} value="Login" />
-                    </div>
+                        {showErrorPopup && <ErrorPopup message={errorMessage} onClose={() => setShowErrorPopup(false)} />}
+                        <div className="text-center">
+                            <input className="btn bg-rasta-orange" type="button" onClick={sendForm} value="Login" />
+                        </div>
 
-                </form>
+                    </form>
+                </div>
             </div>
-
+            </div>
         </>
     );
 }
