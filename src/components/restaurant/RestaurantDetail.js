@@ -182,8 +182,9 @@ export default function RestaurantDetail() {
                                 {showIngredients[dish.id] && (
                                     <>
                                         <p className="small-descr" style={{textAlign:"justify"}}>
-                                            To correctly add the ingredients, select them from the following buttons and then add the dish to your order with the + icon next to the dish name.
-                                            <br />NOTE: The ingredients will be added to the whole quantity of this dish in the order!
+                                            To correctly add the ingredients, select them from the following buttons and then add the dish to 
+                                            your order with the + icon next to the dish name. You can't add the ingredients if the dish is already in the order.
+                                            <br /><br />NOTE: The ingredients will be added to the whole quantity of this dish in the order!
                                         </p>
                                         <div className="btn-group mb-2" role="group" aria-label="Basic checkbox toggle button group">
                                             <input type="checkbox" className="btn-check" onChange={() => handleCheckboxChange("mayonese", dish.id)} checked={ingredients[dish.id].mayonese}
