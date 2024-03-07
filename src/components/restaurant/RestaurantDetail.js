@@ -58,7 +58,7 @@ export default function RestaurantDetail() {
 
             return deliveryTimeOptions;
         };
-        if(restaurant)
+        if (restaurant)
             setExpectedArrivalOptions(calculateExpectedArrival());
     }, [restaurant]);
 
@@ -162,9 +162,9 @@ export default function RestaurantDetail() {
         return Object.entries(groupedDishes).map(([category, dishes]) => (
             <div key={category}>
                 <br />
-                <h4>{category}<hr/></h4>
+                <h4>{category}<hr /></h4>
                 {dishes.map(dish => (
-                    <div  key={dish.id}>
+                    <div key={dish.id}>
                         <span className="fw-bold ">{dish.name}</span>
                         <span> - {dish.price.toFixed(2)}€</span>
                         <button className="btn btn-sm btn-outline-success m-2"
@@ -180,27 +180,34 @@ export default function RestaurantDetail() {
                             }
                             <div>
                                 {showIngredients[dish.id] && (
-                                    <div className="btn-group" role="group" aria-label="Basic checkbox toggle button group">
-                                        <input type="checkbox" className="btn-check" onChange={() => handleCheckboxChange("mayonese", dish.id)} checked={ingredients[dish.id].mayonese}
-                                            id={dish.id+"btncheck1"} autocomplete="off" />
-                                        <label className="btn btn-outline-dark" for={dish.id+"btncheck1"}>Mayonese</label>
+                                    <>
+                                        <p className="small-descr" style={{textAlign:"justify"}}>
+                                            To correctly add the ingredients, select them from the following buttons and then add the dish to your order with the + icon next to the dish name.
+                                            <br />NOTE: The ingredients will be added to the whole quantity of this dish in the order!
+                                        </p>
+                                        <div className="btn-group mb-2" role="group" aria-label="Basic checkbox toggle button group">
+                                            <input type="checkbox" className="btn-check" onChange={() => handleCheckboxChange("mayonese", dish.id)} checked={ingredients[dish.id].mayonese}
+                                                id={dish.id + "btncheck1"} autocomplete="off" />
+                                            <label className="btn btn-outline-dark" for={dish.id + "btncheck1"}>Mayonese</label>
 
-                                        <input type="checkbox" className="btn-check" onChange={() => handleCheckboxChange("ketchup", dish.id)} checked={ingredients[dish.id].ketchup} id={dish.id+"btncheck2"}autocomplete="off" />
-                                        <label className="btn btn-outline-dark" for={dish.id+"btncheck2"}>Ketchup</label>
+                                            <input type="checkbox" className="btn-check" onChange={() => handleCheckboxChange("ketchup", dish.id)} checked={ingredients[dish.id].ketchup} id={dish.id + "btncheck2"} autocomplete="off" />
+                                            <label className="btn btn-outline-dark" for={dish.id + "btncheck2"}>Ketchup</label>
 
-                                        <input type="checkbox" className="btn-check" onChange={() => handleCheckboxChange("mustard", dish.id)} checked={ingredients[dish.id].mustard} id={dish.id+"btncheck3"} autocomplete="off" />
-                                        <label className="btn btn-outline-dark" for={dish.id+"btncheck3"}>Mustard</label>
+                                            <input type="checkbox" className="btn-check" onChange={() => handleCheckboxChange("mustard", dish.id)} checked={ingredients[dish.id].mustard} id={dish.id + "btncheck3"} autocomplete="off" />
+                                            <label className="btn btn-outline-dark" for={dish.id + "btncheck3"}>Mustard</label>
 
-                                        <input type="checkbox" className="btn-check" onChange={() => handleCheckboxChange("yogurt_sauce", dish.id)} checked={ingredients[dish.id].yogurt_sauce} id={dish.id+"btncheck4"} autocomplete="off" />
-                                        <label className="btn btn-outline-dark" for={dish.id+"btncheck4"}>Yogurt sauce</label>
+                                            <input type="checkbox" className="btn-check" onChange={() => handleCheckboxChange("yogurt_sauce", dish.id)} checked={ingredients[dish.id].yogurt_sauce} id={dish.id + "btncheck4"} autocomplete="off" />
+                                            <label className="btn btn-outline-dark" for={dish.id + "btncheck4"}>Yogurt sauce</label>
 
-                                        <input type="checkbox" className="btn-check" onChange={() => handleCheckboxChange("garlic", dish.id)} checked={ingredients[dish.id].garlic} id={dish.id+"btncheck5"} autocomplete="off" />
-                                        <label className="btn btn-outline-dark" for={dish.id+"btncheck5"}>Garlic</label>
+                                            <input type="checkbox" className="btn-check" onChange={() => handleCheckboxChange("garlic", dish.id)} checked={ingredients[dish.id].garlic} id={dish.id + "btncheck5"} autocomplete="off" />
+                                            <label className="btn btn-outline-dark" for={dish.id + "btncheck5"}>Garlic</label>
 
-                                        <input type="checkbox" className="btn-check" onChange={() => handleCheckboxChange("onion", dish.id)} checked={ingredients[dish.id].onion}
-                                            id={dish.id+"btncheck6"} autocomplete="off" />
-                                        <label className="btn btn-outline-dark" for={dish.id+"btncheck6"}>Onion</label>
-                                    </div>)
+                                            <input type="checkbox" className="btn-check" onChange={() => handleCheckboxChange("onion", dish.id)} checked={ingredients[dish.id].onion}
+                                                id={dish.id + "btncheck6"} autocomplete="off" />
+                                            <label className="btn btn-outline-dark" for={dish.id + "btncheck6"}>Onion</label>
+                                        </div>
+                                    </>
+                                )
                                 }
                             </div>
 
@@ -264,7 +271,7 @@ export default function RestaurantDetail() {
             ) : (
                 <button className="btn btn-outline-success" disabled>Proceed to Order</button>
             )}
-            {!expectedArrivalOptions ? (<p className="small-msg mt-2">Delivery options are too late!</p>):("")}
+            {!expectedArrivalOptions ? (<p className="small-msg mt-2">Delivery options are too late!</p>) : ("")}
         </div>
     );
 
@@ -274,7 +281,7 @@ export default function RestaurantDetail() {
 
     return (
         <div className="container d-flex  mt-5 mb-5 text-center">
-            { !showDelivery &&
+            {!showDelivery &&
                 <>
                     <div className="col-7 d-flex justify-content-center ">
                         <div className="card-body form-container-menu p-4">
@@ -307,7 +314,7 @@ export default function RestaurantDetail() {
                 </>
             }
 
-            {showDelivery && <DeliveryCreation expectedArrivalOptions={expectedArrivalOptions} r_id={r_id}/>}
+            {showDelivery && <DeliveryCreation expectedArrivalOptions={expectedArrivalOptions} r_id={r_id} />}
 
         </div>
 
