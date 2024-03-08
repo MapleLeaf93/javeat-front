@@ -42,32 +42,31 @@ export default function DeliveryOverview() {
 
   return (
     <>
-      <div className="container my-5 col-5 " style={{ minHeight: "60vh" }}>
-        <h2 className="text-center mb-4">Your Order History</h2>
+    <h2 className="text-center mt-5">Your Order History</h2>
+      <div className="container mb-5 col-5 d-flex" style={{ minHeight: "60vh" }}>
         {deliveries.length > 0 ? (
           deliveries.map((delivery) => (
             <div key={delivery.id} className="row">
-
-              <div className="row container form-container justify-content-between align-items-center mb-4 p-2">
+              <div className="row container form-container justify-content-between align-items-center p-2">
                 <div className="d-flex justify-content-between">
                   <h6 className="fw-semibold">Order ID: {delivery.id}</h6>
                   <h6 className="me-5">{delivery.restaurant_name}</h6>
                 </div>
-                <hr/>
-                  <div className="col">
-                    <h6>Payment Method: {delivery.payment_method}</h6>
-                    <h6>Delivery Time: {formatTime(delivery.expected_arrival)}</h6>
-                  </div>
-                  <div className="col-3 text-center">
-                    <h6>Total Price</h6>
-                    <h6 className="fw-semibold">{delivery.total_price.toFixed(2)}€</h6>
-                  </div>
-                  <div className="col-auto">
-                    <button className="btn btn-sm btn-success" onClick={() => toggleDetails(delivery)}>
-                      {selectedOrder && selectedOrder.id === delivery.id ? "Hide Details" : "Order Details"}
-                    </button>
-                  </div>
-                
+                <hr />
+                <div className="col">
+                  <h6>Payment Method: {delivery.payment_method}</h6>
+                  <h6>Delivery Time: {formatTime(delivery.expected_arrival)}</h6>
+                </div>
+                <div className="col-3 text-center">
+                  <h6>Total Price</h6>
+                  <h6 className="fw-semibold">{delivery.total_price.toFixed(2)}€</h6>
+                </div>
+                <div className="col-auto">
+                  <button className="btn btn-sm btn-success" onClick={() => toggleDetails(delivery)}>
+                    {selectedOrder && selectedOrder.id === delivery.id ? "Hide Details" : "Order Details"}
+                  </button>
+                </div>
+
               </div>
               {selectedOrder && selectedOrder.id === delivery.id && (
                 <div className="row text-center">
@@ -79,7 +78,9 @@ export default function DeliveryOverview() {
             </div>
           ))
         ) : (
-          <p>No orders found.</p>
+          <div className="d-flex">
+            <p>No orders found.</p>
+          </div>
         )}
       </div>
     </>

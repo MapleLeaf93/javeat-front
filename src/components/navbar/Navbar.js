@@ -11,11 +11,7 @@ export default function Navbar() {
     const navigate = useNavigate();
 
     const handleLogoClick = () => {
-        if (loggato) {
             navigate("/");
-        } else {
-            navigate("/login");
-        }
     };
 
     const handleLogout = () => {
@@ -60,9 +56,7 @@ export default function Navbar() {
                         ) : (
                             <>
                                 <Link className="btn bg-rasta-yellow me-2" to="/login">Login</Link>
-                                <Link className="btn btn-outline-light" to="/register" onClick={() => 
-                                    alert("Subscribed! Enjoy our great offers :)")
-                                }>Register</Link>
+                                <Link className="btn btn-outline-light" to="/register">Register</Link>
                             </>
                         )}
                     </div>

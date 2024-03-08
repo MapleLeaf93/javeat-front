@@ -110,7 +110,7 @@ export default function RestaurantDetail() {
     const [deliveryCost, setDeliveryCost] = useState(0);
 
     const calculateTotalCost = () => {
-        const dishesCost = cart.reduce((total, dish) => total + dish.price, 0);
+        const dishesCost = cart.reduce((total, dish) => total + (dish.price*dish.quantity), 0);
         let tot = dishesCost + deliveryCost;
         return (Math.round(tot * 100) / 100).toFixed(2);
     };
@@ -181,8 +181,8 @@ export default function RestaurantDetail() {
                             <div>
                                 {showIngredients[dish.id] && (
                                     <>
-                                        <p className="small-descr" style={{textAlign:"justify"}}>
-                                            To correctly add the ingredients, select them from the following buttons and then add the dish to 
+                                        <p className="small-descr" style={{ textAlign: "justify" }}>
+                                            To correctly add the ingredients, select them from the following buttons and then add the dish to
                                             your order with the + icon next to the dish name. You can't add the ingredients if the dish is already in the order.
                                             <br /><br />NOTE: The ingredients will be added to the whole quantity of this dish in the order!
                                         </p>
@@ -242,23 +242,19 @@ export default function RestaurantDetail() {
         setCart(updatedCart);
     };
 
-    // const handleConfirm = () => {
-
-    //     let stringOfIngredients=ingredients.join(",");
-
-    // };
-
-
     const renderCart = () => (
         <div className="cart-container">
             <h3 className="mt-2">Your Cart</h3>
             <div className="cart-items">
                 {cart.map((dish) => (
-                    <div key={dish.id} className=" cart-item">
-                        <FontAwesomeIcon className="dark-hover mx-5" style={{ color: "#92ce5a", fontSize: "1.5rem" }} icon={faPlus} onClick={() => addQuantity(dish)} />
+                    <div key={dish.id} className=" cart-item mx-5">
+                        <div>
+                        <FontAwesomeIcon className="dark-hover me-1" style={{ color: "#92ce5a", fontSize: "1rem" }} icon={faPlus} onClick={() => addQuantity(dish)} />
                         <span className="lh-sm">{dish.quantity}x</span>
-                        <span className="fw-medium"> {dish.name} {dish.price}€</span>
-                        <FontAwesomeIcon className="mt-auto mx-5 dark-hover " onClick={() => removeFromCart(dish)} size="lg" icon={faMinus} style={{ color: "#ff0000", fontSize: "1.5rem" }} />
+                        <FontAwesomeIcon className="mt-auto ms-1 dark-hover " onClick={() => removeFromCart(dish)} size="lg" icon={faMinus} style={{ color: "#ff0000", fontSize: "1rem" }} />
+                        </div>
+                        <span className="fw-medium"> {dish.name}</span>
+                        <span className="fw-medium">{dish.price}€</span>                      
 
                     </div>
 
@@ -272,7 +268,7 @@ export default function RestaurantDetail() {
             ) : (
                 <button className="btn btn-outline-success" disabled>Proceed to Order</button>
             )}
-            {!expectedArrivalOptions ? (<p className="small-msg mt-2">Delivery options are too late!</p>) : ("")}
+            {!expectedArrivalOptions ? (<p className="small-msg mt-2">Delivery options are too late!<br/> The restaurant can't process your order</p>) : ("")}
         </div>
     );
 

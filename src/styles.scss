@@ -6,8 +6,8 @@
 }
 
 .dark-hover:hover {
-  filter: blur(90%) !important;
-  transition: 0.4s !important;
+  filter: brightness(50%) !important;
+  transition: 0.2s !important;
 }
 
 .logo-img {
@@ -52,6 +52,11 @@ body {
 .small-descr {
   font-size: 12px !important;
   color: rgb(169, 169, 169) !important;
+}
+
+.small-msg{
+  font-size: 12px !important;
+  color: rgba(255, 0, 0, 0.874) !important;
 }
 
 .background-yellow-shape {

@@ -130,7 +130,7 @@ export default function DeliveryCreation({expectedArrivalOptions, r_id}) {
     
     return (
         <>
-            <div className="container form-container p-5 mt-4">
+            <div className="container form-container p-5 mt-2 mb-5">
                 <div className=" d-flex justify-content-center">
                     {!showConfirm &&
                         <form className="" onSubmit={handleConfirmed}>
