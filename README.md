@@ -28,9 +28,7 @@ https://github.com/MapleLeaf93/javeat
 ```
 
 2. Populate the the MySql db if you didn't, you can find a complete database here:
-```bash
-https://github.com/MapleLeaf93/javeat/blob/main/Complete_db_javeat.sql
-```
+[Complete_db_javeat]([https://github.com/MapleLeaf93](https://github.com/MapleLeaf93/javeat/blob/main/Complete_db_javeat.sql))
 
 3. Clone this repository
 ```bash
