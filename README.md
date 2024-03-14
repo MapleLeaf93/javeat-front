@@ -84,7 +84,7 @@ This project was developed by a dedicated team of developers:
 Special thanks to each team member for their hard work, commitment, and collaboration throughout this project.
 
 ## License
-This project is licensed under the MIT License - see the LICENSE.md file for details.
+This project is licensed under the MIT License.
 
 ## Acknowledgments
 A special thanks to the Javeat team and mentors at Generation Italy for their guidance and support throughout this project.
