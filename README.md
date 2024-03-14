@@ -28,9 +28,7 @@ https://github.com/MapleLeaf93/javeat
 ```
 
 2. Populate the the MySql db if you didn't, you can find a complete database here:
-```bash
-https://github.com/MapleLeaf93/javeat/blob/main/Complete_db_javeat.sql
-```
+[Complete mock-db javeat](https://github.com/MapleLeaf93/javeat/blob/main/Complete_db_javeat.sql)
 
 3. Clone this repository
 ```bash
@@ -79,14 +77,14 @@ We welcome contributions to Javeat! If you have suggestions for improvements or 
 
 This project was developed by a dedicated team of developers:
 
-- **Luca Del Gatto** - [Mapleleaf](https://github.com/Mapleleaf)
+- **Luca Del Gatto** - [MapleLeaf93](https://github.com/MapleLeaf93)
 - **Chiara Belfiore** - [LaFantoma](https://github.com/LaFantoma)
 - **Cristina Conigli** - [CristinaConigli](https://github.com/CristinaConigli)
 
 Special thanks to each team member for their hard work, commitment, and collaboration throughout this project.
 
 ## License
-This project is licensed under the MIT License - see the LICENSE.md file for details.
+This project is licensed under the MIT License.
 
 ## Acknowledgments
 A special thanks to the Javeat team and mentors at Generation Italy for their guidance and support throughout this project.
