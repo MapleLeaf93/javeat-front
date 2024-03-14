@@ -79,7 +79,7 @@ We welcome contributions to Javeat! If you have suggestions for improvements or 
 
 This project was developed by a dedicated team of developers:
 
-- **Luca Del Gatto** - [Mapleleaf](https://github.com/Mapleleaf)
+- **Luca Del Gatto** - [MapleLeaf93](https://github.com/MapleLeaf93)
 - **Chiara Belfiore** - [LaFantoma](https://github.com/LaFantoma)
 - **Cristina Conigli** - [CristinaConigli](https://github.com/CristinaConigli)
 
