@@ -1,70 +1,95 @@
-# Getting Started with Create React App
+# Javeat - Frontend
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Welcome to the frontend repository of **Javeat**, a modern food delivery platform designed to bring your favorite dishes straight to your door with ease and efficiency. Developed with React, this part of the project focuses on providing a seamless and intuitive user experience.
 
-## Available Scripts
+## Getting Started
 
-In the project directory, you can run:
+These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.
 
-### `npm start`
+### Prerequisites
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+Before you begin, ensure you have the following tools installed on your system:
+- Node.js (version 12.x or later)
+- npm (version 6.x or later)
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+You can check your current versions with the following commands:
+```bash
+node -v
+npm -v
+```
 
-### `npm test`
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Installation
+To get the frontend running locally:
 
-### `npm run build`
+1. Be sure to have the javeat back-end running, you can find it here:
+```bash
+https://github.com/MapleLeaf93/javeat
+```
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+2. Populate the the MySql db if you didn't, you can find a complete database here:
+```bash
+https://github.com/MapleLeaf93/javeat/blob/main/Complete_db_javeat.sql
+```
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+3. Clone this repository
+```bash
+git clone https://github.com/MapleLeaf93/javeat-front
+```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+4. Navigate to the project directory
+```bash
+cd javeat-frontend
+```
 
-### `npm run eject`
+5. Navigate to the project directory
+```bash
+cd javeat-frontend
+```
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+6. Install dependencies
+```bash
+npm install
+```
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+7. Add proxy to comunicate with the back-end, add this line in package.json right after line 4.
+```bash
+  "proxy": "http://localhost:8080/",
+  ```
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+8. Start the development server
+```bash
+npm start
+```
+The app should now be running on http://localhost:8080.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+## Features
+Customizable Orders: Add dishes and ingredients to your cart, tailored exactly how you like them.
+Dynamic Delivery System: Choose your delivery time based on distance calculations, ensuring your food arrives when you want it.
+User Profiles: Manage your orders and view your order history for quick reordering.
+Payment Integration: Securely pay for your orders with your preferred payment method.
+Technologies
+React: For building a dynamic and interactive user interface.
+SASS CSS & Bootstrap: For styling and responsive design.
+React Router: For navigation within the application.
+Contributing
+We welcome contributions to Javeat! If you have suggestions for improvements or bug fixes, please feel free to make a pull request or open an issue.
 
-## Learn More
+## Credits
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+This project was developed by a dedicated team of developers:
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+- **Luca Del Gatto** - [Mapleleaf](https://github.com/Mapleleaf)
+- **Chiara Belfiore** - [LaFantoma](https://github.com/LaFantoma)
+- **Cristina Conigli** - [CristinaConigli](https://github.com/CristinaConigli)
 
-### Code Splitting
+Special thanks to each team member for their hard work, commitment, and collaboration throughout this project.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+## License
+This project is licensed under the MIT License - see the LICENSE.md file for details.
 
-### Analyzing the Bundle Size
+## Acknowledgments
+A special thanks to the Javeat team and mentors at Generation Italy for their guidance and support throughout this project.
+To all the open-source projects and libraries that made this application possible.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Happy ordering with **Javeat**!
